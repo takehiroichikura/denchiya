@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Amazonベンダー MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f4f5f4;
+    --card: #ffffff;
+    --ink: #21242a;
+    --sub: #666d76;
+    --line: #dde1e6;
+    --accent: #2b5a87;
+    --accent-soft: #e7eef5;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --danger-bg: #f9e9e9;
+    --danger-ink: #8c1f24;
+    --info-bg: #eef2f5;
+    --info-ink: #3d5468;
+    --chip-bg: #e9ecef;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a;
+      --card: #1d2126;
+      --ink: #e6e9ec;
+      --sub: #99a2ab;
+      --line: #333a42;
+      --accent: #7aa8d0;
+      --accent-soft: #22303e;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --danger-bg: #382325;
+      --danger-ink: #eb9a9e;
+      --info-bg: #212a32;
+      --info-ink: #9db8cd;
+      --chip-bg: #272d34;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  .info {
+    background: var(--info-bg); color: var(--info-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
+    <h1>Amazonベンダー MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、Amazonベンダーセントラル（Amazonへの卸取引）のデータ——発注書(PO)・出荷売上・閲覧数・Amazon側の在庫——を調べられる社内コネクタです。電池屋・電池屋 BISS/M・誠和商工 HPC/R の3アカウントに対応しています。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li><b>これは正規のAmazonコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>卸取引のデータ（発注・原価・売上）を扱います。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
+    <li><b>アカウントが3つあります</b>（電池屋／電池屋 BISS/M／誠和商工 HPC/R）。AIがどのアカウントの数字かを必ず添えて答えますが、読むときも「どの会社の話か」を確認してください</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-Amazonベンダー MCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のMCPコネクタと同じコード</b>です</li>
+    <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください。</p>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">発注（PO）</td>
+        <td class="ex"><q>電池屋あてのAmazonの発注書、今週の分を見せて</q>／<q>PO番号◯◯の明細は？</q>／<q>未確認の発注はある？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">小売分析</td>
+        <td class="ex"><q>先週のAmazonでの出荷売上の推移は？</q>／<q>昨日のAmazon側の販売可能在庫は？</q>（在庫は1日指定で）／<q>ブランド別の売れ行きを見せて</q>／<q>ASIN別の閲覧数と売上は？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">カタログ</td>
+        <td class="ex"><q>JAN◯◯の商品をAmazonで探して</q>／<q>このASINの商品情報は？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">レポート・取引</td>
+        <td class="ex"><q>◯◯のレポートを出して</q>／<q>この取引ID、Amazonに受理された？</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info">💡 セラー（自社出品・マーケットプレイス販売）のデータは<b>別のコネクタ「Amazonセラー MCP」</b>です。「電池屋のAmazonの数字」と聞くとAIがどちらか確認するので、「ベンダーの」「セラーの」を付けると速いです。</div>
+
+  <h2>できないこと</h2>
+  <ul class="plain">
+    <li><b>直送（DF）関連</b> — Amazonの追加審査が必要なため未対応です</li>
+    <li><b>出荷通知(ASN)の照会</b> — 準備中です（権限の追加待ち）</li>
+    <li><b>発注への回答・出荷通知の送信</b> — UiPath（RPA）の担当領域です</li>
+  </ul>
+
+  <h2>請求書の提出（管理者向け）</h2>
+  <p>このコネクタで唯一の「変更する操作」として、Amazonへの請求書(インボイス)提出があります。<b>通常業務で使うことはありません</b>。実行時は必ずプレビュー（請求番号・金額・明細数）→確認→実行の流れになり、実行記録が残ります。誤って提出した場合の取り消しはAmazonサポート経由になるため、経理・管理者以外は触らないでください。</p>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
+    <li>招待コードの再発行、「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+  </footer>
+</div>
+
+</body>
+</html>

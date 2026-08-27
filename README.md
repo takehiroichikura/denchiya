@@ -10,6 +10,7 @@
 | [rakuten-mcp-guide.html](./rakuten-mcp-guide.html) | 楽天MCP（Claudeから楽天RMSを使う社内コネクタ）の利用ガイド。接続手順・できること・書き込み操作の約束ごと |
 | [uipath-mcp-guide.html](./uipath-mcp-guide.html) | UiPath MCP（Claudeから社内RPAの状況確認・操作をする社内コネクタ）の利用ガイド |
 | [amazon-seller-mcp-guide.html](./amazon-seller-mcp-guide.html) | Amazonセラー MCP（Claudeからセラーセントラルのデータを照会する社内コネクタ）の利用ガイド |
+| [amazon-vendor-mcp-guide.html](./amazon-vendor-mcp-guide.html) | Amazonベンダー MCP（Claudeからベンダーセントラルの発注・小売分析を照会する社内コネクタ）の利用ガイド |
 
 ## 🔗 閲覧URL
 
@@ -21,6 +22,7 @@
 | 楽天MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/rakuten-mcp-guide.html** |
 | UiPath MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/uipath-mcp-guide.html** |
 | Amazonセラー MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/amazon-seller-mcp-guide.html** |
+| Amazonベンダー MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/amazon-vendor-mcp-guide.html** |
 
 ※ 全ページに `noindex` を設定しており、Google等の検索結果には表示されません（URLを知っている人は閲覧できます）。
 
