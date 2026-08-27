@@ -1,32 +1,29 @@
-# denchiya — Claude×業務自動化研修 事前準備資料
+# denchiya — 電池屋 社内向け資料
 
-株式会社電池屋の「Claude×業務自動化研修」で使う事前準備資料を置いているリポジトリです。
+株式会社電池屋の社内向け資料（研修の事前準備・社内ツールの利用ガイド）を置いているリポジトリです。
 
 ## 📄 資料
 
 | ファイル | 内容 |
 |---|---|
-| [GitHubアカウント作成手順書.html](./GitHubアカウント作成手順書.html) | 研修前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
+| [GitHubアカウント作成手順書.html](./GitHubアカウント作成手順書.html) | 「Claude×業務自動化研修」の前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
+| [rakuten-mcp-guide.html](./rakuten-mcp-guide.html) | 楽天MCP（claude.aiから楽天RMSを使う社内コネクタ）の利用ガイド。接続手順・できること・書き込み操作の約束ごと |
 
-## 🔗 閲覧URL（参加者向け）
+## 🔗 閲覧URL
 
 ブラウザでそのまま開けるURLはこちらです（GitHub Pages）：
 
-**https://takehiroichikura.github.io/denchiya/**
+| 資料 | URL |
+|---|---|
+| GitHubアカウント作成手順書 | **https://takehiroichikura.github.io/denchiya/**（開くと自動で手順書に移動） |
+| 楽天MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/rakuten-mcp-guide.html** |
 
-※ 上のURLを開くと自動的に手順書が表示されます。
-
-## 手順書の内容
-
-1. GitHubのページを開く
-2. 「Continue with Google」から自分のアカウントを選ぶ
-3. ユーザー名を決める
-4. ログインできることを確認する
-5. 課題用のリポジトリを作る
-- 補足A. 「2段階認証(2FA)」の設定画面が出た場合
-- 補足B. すでにGitHubアカウントを持っている場合
-- 困ったときは
+※ 全ページに `noindex` を設定しており、Google等の検索結果には表示されません（URLを知っている人は閲覧できます）。
 
 ## 更新方法
 
-`GitHubアカウント作成手順書.html` を編集してこのリポジトリにプッシュ（またはWebからアップロード）すれば、閲覧URLの内容も自動で更新されます。
+各HTMLファイルを編集してこのリポジトリにプッシュ（またはWebからアップロード）すれば、閲覧URLの内容も自動で更新されます。
+
+## 管理
+
+Eコマース部 システム課（市倉）
