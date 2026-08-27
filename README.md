@@ -8,6 +8,7 @@
 |---|---|
 | [GitHubアカウント作成手順書.html](./GitHubアカウント作成手順書.html) | 「Claude×業務自動化研修」の前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
 | [rakuten-mcp-guide.html](./rakuten-mcp-guide.html) | 楽天MCP（Claudeから楽天RMSを使う社内コネクタ）の利用ガイド。接続手順・できること・書き込み操作の約束ごと |
+| [uipath-mcp-guide.html](./uipath-mcp-guide.html) | UiPath MCP（Claudeから社内RPAの状況確認・操作をする社内コネクタ）の利用ガイド |
 
 ## 🔗 閲覧URL
 
@@ -17,6 +18,7 @@
 |---|---|
 | GitHubアカウント作成手順書 | **https://takehiroichikura.github.io/denchiya/**（開くと自動で手順書に移動） |
 | 楽天MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/rakuten-mcp-guide.html** |
+| UiPath MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/uipath-mcp-guide.html** |
 
 ※ 全ページに `noindex` を設定しており、Google等の検索結果には表示されません（URLを知っている人は閲覧できます）。
 

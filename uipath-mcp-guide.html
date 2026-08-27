@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>UiPath MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --card: #ffffff;
+    --ink: #26221e;
+    --sub: #6f6862;
+    --line: #e6dfd6;
+    --accent: #c2500f;
+    --accent-soft: #f9ebe2;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --danger-bg: #f9e9e9;
+    --danger-ink: #8c1f24;
+    --chip-bg: #efeae3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #191512;
+      --card: #221d18;
+      --ink: #ece7df;
+      --sub: #a89f95;
+      --line: #383026;
+      --accent: #e88a55;
+      --accent-soft: #3a2a1e;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --danger-bg: #382325;
+      --danger-ink: #eb9a9e;
+      --chip-bg: #2e2820;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    font-weight: 700; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 14px;
+    margin: 10px 0 14px;
+  }
+  .flow span { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 4px 14px; }
+  .flow em { font-style: normal; color: var(--sub); }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  .danger {
+    background: var(--danger-bg); color: var(--danger-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; margin-top: 10px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
+    <h1>UiPath MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、社内RPA（UiPath Orchestrator）の実行状況・失敗の原因・ロボットの稼働状態を調べたり、ジョブの実行・再実行などの操作ができる社内コネクタです。「RPAが動いてない気がする」のような聞き方で大丈夫です。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li><b>これは正規のUiPathコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>このコネクタは<b>動いている業務のRPAを直接操作できます</b>（ジョブの実行・停止・再実行、トリガーの有効/無効など）。停止や再実行は出荷・発注などの業務処理に直結するため、変更する操作は最大限気を付けてください</li>
+    <li>RPAのログには注文番号などの業務データが含まれることがあります。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-UiPath MCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>楽天MCPと同じコード</b>です（コネクタごとに入力は必要ですが、コードは1人1つ）</li>
+    <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください（1分で再発行できます）。</p>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">稼働状況</td>
+        <td class="ex"><q>今RPAは何が動いてる？</q>／<q>今日失敗したジョブはある？</q>／<q>ロボットはちゃんとつながってる？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">失敗の調査</td>
+        <td class="ex"><q>発注書作成のジョブ、なんで落ちたの？</q>（実行ログから例外の内容まで読めます）／<q>最近のエラーログを見せて</q></td>
+      </tr>
+      <tr>
+        <td class="cat">実行・操作</td>
+        <td class="ex"><q>◯◯のプロセスを実行して</q>／<q>さっき失敗したジョブを再実行して</q>／<q>実行中の◯◯を止めて</q>／<q>◯◯のトリガーを一時的に無効にして</q></td>
+      </tr>
+      <tr>
+        <td class="cat">設定の確認</td>
+        <td class="ex"><q>スケジュール（トリガー）の一覧を見せて</q>／<q>アセット◯◯の値は？</q>／<q>このプロセスのバージョンは最新？</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>できないこと</h2>
+  <ul class="plain">
+    <li><b>RPAプロセスの中身の修正・新規作成</b> — UiPath Studioの領域です</li>
+    <li><b>監査ログ（誰が設定を変えたか）</b> — 準備中です（権限の追加待ち）</li>
+    <li><b>スケジュール（トリガー）の新規作成・削除</b> — 影響が大きいため対象外。有効/無効の切り替えのみできます</li>
+  </ul>
+
+  <h2>変更する操作（実行・停止など）の約束ごと</h2>
+  <div class="card">
+    <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
+    <p>ジョブの実行・停止・再実行などの「変更する操作」は、<b>いきなり実行されることはありません</b>。AIが必ず対象と内容のプレビュー（どのプロセスを・どのロボットで・どんな条件で）を見せてくるので、確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
+    <div class="danger">⚠ RPAの停止・再実行は、出荷・発注・受注取込などの業務処理そのものに影響します。「このジョブを止めていいか」「再実行して二重処理にならないか」の判断に迷ったら、実行せずに担当者か市倉さんに確認してください。</div>
+    <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
+  </div>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
+    <li>招待コードの再発行、権限の相談、「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ。要望は「どの業務で・何を知りたい／したいか」を添えてもらえると早く作れます</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+  </footer>
+</div>
+
+</body>
+</html>
