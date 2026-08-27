@@ -7,7 +7,7 @@
 | ファイル | 内容 |
 |---|---|
 | [GitHubアカウント作成手順書.html](./GitHubアカウント作成手順書.html) | 「Claude×業務自動化研修」の前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
-| [rakuten-mcp-guide.html](./rakuten-mcp-guide.html) | 楽天MCP（claude.aiから楽天RMSを使う社内コネクタ）の利用ガイド。接続手順・できること・書き込み操作の約束ごと |
+| [rakuten-mcp-guide.html](./rakuten-mcp-guide.html) | 楽天MCP（Claudeから楽天RMSを使う社内コネクタ）の利用ガイド。接続手順・できること・書き込み操作の約束ごと |
 
 ## 🔗 閲覧URL
 
