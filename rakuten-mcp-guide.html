@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>楽天MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f7f6f3;
+    --card: #ffffff;
+    --ink: #26221e;
+    --sub: #6f6862;
+    --line: #e4dfd8;
+    --accent: #b3272d;
+    --accent-soft: #f7e9e9;
+    --ok: #2e6b45;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --danger-bg: #f9e9e9;
+    --danger-ink: #8c1f24;
+    --chip-bg: #efece7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #191612;
+      --card: #221e19;
+      --ink: #ece7df;
+      --sub: #a89f95;
+      --line: #37312a;
+      --accent: #e0777c;
+      --accent-soft: #3a2426;
+      --ok: #7dbb93;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --danger-bg: #382325;
+      --danger-ink: #eb9a9e;
+      --chip-bg: #2e2a23;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    font-weight: 700; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 14px;
+    margin: 10px 0 14px;
+  }
+  .flow span { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 4px 14px; }
+  .flow em { font-style: normal; color: var(--sub); }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  .danger {
+    background: var(--danger-bg); color: var(--danger-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; margin-top: 10px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
+    <h1>楽天MCP 利用ガイド</h1>
+    <p class="lede">claude.ai のチャットから、楽天市場（RMS）の受注・問い合わせ・商品・在庫を調べたり、操作したりできる社内コネクタです。使い方はぜんぶ「日本語で聞くだけ」。このガイドは最初の接続と、安全に使うための約束ごとをまとめたものです。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li>このコネクタは <b>Claude（AI）で作成</b>しています。AIによる自己レビューを実施していますが、<b>予期せぬ不具合が入っている可能性</b>があります。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>このコネクタは <b>RMSの操作がほぼひととおりできます</b>。便利な分、間違えたときの影響も大きいので、変更する操作は最大限気を付けてください。プレビューの確認を省略しないこと</li>
+    <li>楽天市場のお客様情報（氏名・住所など）を扱います。回答や画面の内容を<b>社外へ共有しない</b>でください。チャットに顧客情報を不必要に貼り付けるのも控えてください</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>claude.ai の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-楽天MCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。コードは市倉さんから受け取ってください</li>
+    <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <p class="note">招待コードの有効期限は発行から7日です。期限切れ・紛失のときは市倉さんに再発行を依頼してください（1分で再発行できます）。</p>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">受注</td>
+        <td class="ex"><q>今日の発送待ちは何件？</q>／<q>注文 244970-… の状況は？</q>／<q>この注文の請求内訳（ポイント・クーポン）を見せて</q></td>
+      </tr>
+      <tr>
+        <td class="cat">問い合わせ</td>
+        <td class="ex"><q>未返信の問い合わせはある？</q>／<q>この問い合わせに返信案を作って</q> → 内容を確認して <q>送信して</q></td>
+      </tr>
+      <tr>
+        <td class="cat">商品・在庫・価格</td>
+        <td class="ex"><q>品番◯◯の在庫と価格は？</q>／<q>この商品の価格を1,980円にして</q>／<q>商品名の誤記を直して</q>／<q>この商品を倉庫に入れて（非公開に）</q></td>
+      </tr>
+      <tr>
+        <td class="cat">受注の操作</td>
+        <td class="ex"><q>この注文に送り状番号◯◯を登録して</q>／<q>お届け先の住所を変更して</q>／<q>注文に社内メモを付けて</q>／<q>キャンセル申請して</q></td>
+      </tr>
+      <tr>
+        <td class="cat">そのほか</td>
+        <td class="ex"><q>発行中のクーポンを一覧して</q>／<q>R-Cabinetで◯◯の画像を探して</q>／<q>楽天のジャンルIDを調べて</q>／<q>APIキーの期限はいつ？</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>できないこと</h2>
+  <ul class="plain">
+    <li><b>受注の数量変更</b> — 楽天のAPIが対応していません。RMS画面から操作してください</li>
+    <li><b>クーポンの新規発行</b> — 準備中です（確認・削除はできます）</li>
+    <li><b>店舗トップページの編集</b> — 影響が大きいため対象外にしています</li>
+    <li><b>Yahoo!・Amazonのデータ</b> — 別のコネクタです（順次配布予定）</li>
+  </ul>
+
+  <h2>変更する操作（書き込み）の約束ごと</h2>
+  <div class="card">
+    <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
+    <p>価格変更・返信送信などの「変更する操作」は、<b>いきなり実行されることはありません</b>。AIが必ず変更内容のプレビュー（宛先・金額・変更前→変更後）を見せてくるので、内容を確認してから実行を伝えてください。</p>
+    <ul class="plain">
+      <li>実行した記録（誰が・いつ・何を）はすべて残ります</li>
+      <li>ほとんどの変更は、プレビューに表示される<b>「変更前」の値</b>を使って元に戻せます。大事な変更のときは控えておくと安心です</li>
+    </ul>
+    <div class="danger">⚠ 「問い合わせへの返信送信」と「キャンセル申請」だけは取り消せません。お客様に直接届く操作です。プレビューを必ず読み合わせてから実行してください。</div>
+    <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
+  </div>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b>（番号の確認・管理者への依頼・RMS画面からの復旧など）</li>
+    <li>招待コードの再発行、権限の相談、「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ。要望は「どの業務で・何を知りたい／したいか」を添えてもらえると早く作れます</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+  </footer>
+</div>
+
+</body>
+</html>
