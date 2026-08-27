@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>サイボウズ ユーザー管理 MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f4f6f4;
+    --card: #ffffff;
+    --ink: #22271f;
+    --sub: #68705f;
+    --line: #dde3d8;
+    --accent: #3a7a3a;
+    --accent-soft: #e8f1e6;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --danger-bg: #f9e9e9;
+    --danger-ink: #8c1f24;
+    --chip-bg: #eaeee6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #151713;
+      --card: #1e211c;
+      --ink: #e7eae3;
+      --sub: #9aa392;
+      --line: #343a2f;
+      --accent: #8cc08c;
+      --accent-soft: #24301f;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --danger-bg: #382325;
+      --danger-ink: #eb9a9e;
+      --chip-bg: #292e24;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .flow {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    font-weight: 700; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 14px;
+    margin: 10px 0 14px;
+  }
+  .flow span { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 4px 14px; }
+  .flow em { font-style: normal; color: var(--sub); }
+  .danger {
+    background: var(--danger-bg); color: var(--danger-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; margin-top: 10px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール（担当者限定）</div>
+    <h1>サイボウズ ユーザー管理 MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、cybozu.com のユーザー・組織・グループを確認したり、入退社にともなうアカウント作業を進められる社内コネクタです。<b>利用できるのは許可された担当者だけ</b>です（現在：池田・市倉・青木）。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li><b>これは正規のサイボウズコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>全社員のアカウント情報（氏名・ログイン名・所属）を扱います。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
+    <li>このコネクタは<b>全社員のアカウントを直接変更できます</b>。特にユーザーの削除・停止は、その人のスケジュールやメッセージへのアクセスに即影響します。変更する操作は最大限気を付けてください</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-サイボウズMCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のMCPコネクタと同じコード</b>です</li>
+    <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <p class="note">許可された担当者以外は、正しい招待コードを入れても「利用は許可された担当者に限定されています」と表示されて接続できません。招待コードの期限切れ・紛失は市倉さんへ。</p>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">確認</td>
+        <td class="ex"><q>◯◯さんの所属組織とグループは？</q>／<q>Eコマース部のメンバー一覧を見せて</q>／<q>停止中のアカウントはある？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">入社対応</td>
+        <td class="ex"><q>新入社員◯◯さんのアカウントを作って、△△部に所属させて</q>（内容のプレビューを確認してから実行）</td>
+      </tr>
+      <tr>
+        <td class="cat">異動・変更</td>
+        <td class="ex"><q>◯◯さんの表示名を変更して</q>／<q>◯◯さんを△△グループに追加して</q>／<q>組織の名前を変えて</q></td>
+      </tr>
+      <tr>
+        <td class="cat">退社対応</td>
+        <td class="ex"><q>◯◯さんのアカウントを停止して</q>（削除ではなくまず停止を推奨）</td>
+      </tr>
+      <tr>
+        <td class="cat">一括処理</td>
+        <td class="ex"><q>ユーザー一覧をCSVで出して</q>／<q>このCSVでまとめて更新して</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>変更する操作の約束ごと</h2>
+  <div class="card">
+    <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
+    <p>アカウントの追加・変更・停止・削除は、<b>いきなり実行されることはありません</b>。AIが必ず対象と変更内容のプレビューを見せてくるので、対象者と内容を確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
+    <div class="danger">⚠ 「ユーザーの削除」は元に戻せず、その人のデータに影響します。退社対応は原則「停止」を使い、削除が必要な場合は市倉さんに相談してから実行してください。</div>
+  </div>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
+    <li>権限の相談・要望 → <b>市倉さん（システム担当）</b>へ</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+  </footer>
+</div>
+
+</body>
+</html>
