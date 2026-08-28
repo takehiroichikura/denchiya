@@ -12,6 +12,7 @@
 | [amazon-seller-mcp-guide.html](./amazon-seller-mcp-guide.html) | Amazonセラー MCP（Claudeからセラーセントラルのデータを照会する社内コネクタ）の利用ガイド |
 | [amazon-vendor-mcp-guide.html](./amazon-vendor-mcp-guide.html) | Amazonベンダー MCP（Claudeからベンダーセントラルの発注・小売分析を照会する社内コネクタ）の利用ガイド |
 | [cybozu-mcp-guide.html](./cybozu-mcp-guide.html) | サイボウズ ユーザー管理 MCP（担当者限定）の利用ガイド |
+| [yahoo-mcp-guide.html](./yahoo-mcp-guide.html) | Yahoo!ショッピング MCP（Claudeから受注・問い合わせ・在庫・価格を扱う社内コネクタ）の利用ガイド |
 
 ## 🔗 閲覧URL
 
@@ -25,6 +26,7 @@
 | Amazonセラー MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/amazon-seller-mcp-guide.html** |
 | Amazonベンダー MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/amazon-vendor-mcp-guide.html** |
 | サイボウズ ユーザー管理 MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/cybozu-mcp-guide.html** |
+| Yahoo!ショッピング MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/yahoo-mcp-guide.html** |
 
 ※ 全ページに `noindex` を設定しており、Google等の検索結果には表示されません（URLを知っている人は閲覧できます）。
 

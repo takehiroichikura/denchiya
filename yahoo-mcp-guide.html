@@ -4,39 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>UiPath MCP 利用ガイド</title>
+<title>Yahoo!ショッピング MCP 利用ガイド</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
   :root {
-    --bg: #f7f5f2;
+    --bg: #f6f4f7;
     --card: #ffffff;
-    --ink: #26221e;
-    --sub: #6f6862;
-    --line: #e6dfd6;
-    --accent: #c2500f;
-    --accent-soft: #f9ebe2;
+    --ink: #241f27;
+    --sub: #6c6472;
+    --line: #e3dde8;
+    --accent: #6b3fa0;
+    --accent-soft: #efe7f7;
     --warn-bg: #fdf3e4;
     --warn-line: #e0b36a;
     --warn-ink: #7a5416;
     --danger-bg: #f9e9e9;
     --danger-ink: #8c1f24;
-    --chip-bg: #efeae3;
+    --info-bg: #ecf0f5;
+    --info-ink: #3d4c68;
+    --chip-bg: #ece7f0;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #191512;
-      --card: #221d18;
-      --ink: #ece7df;
-      --sub: #a89f95;
-      --line: #383026;
-      --accent: #e88a55;
-      --accent-soft: #3a2a1e;
+      --bg: #171419;
+      --card: #201c24;
+      --ink: #eae5ee;
+      --sub: #a49aac;
+      --line: #362f3c;
+      --accent: #b394e0;
+      --accent-soft: #2e2438;
       --warn-bg: #322818;
       --warn-line: #8a6c33;
       --warn-ink: #e3bd7a;
       --danger-bg: #382325;
       --danger-ink: #eb9a9e;
-      --chip-bg: #2e2820;
+      --info-bg: #21272f;
+      --info-ink: #9db0cd;
+      --chip-bg: #2b2530;
     }
   }
   * { box-sizing: border-box; }
@@ -115,6 +119,10 @@
     background: var(--danger-bg); color: var(--danger-ink);
     border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 700; margin-top: 10px;
   }
+  .info {
+    background: var(--info-bg); color: var(--info-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
   footer {
     margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
     font-size: 13px; color: var(--sub);
@@ -126,67 +134,69 @@
 <div class="wrap">
   <header class="top">
     <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
-    <h1>UiPath MCP 利用ガイド</h1>
-    <p class="lede">Claude のチャットから、社内RPA（UiPath Orchestrator）の実行状況・失敗の原因・ロボットの稼働状態を調べたり、ジョブの実行・再実行などの操作ができる社内コネクタです。「RPAが動いてない気がする」のような聞き方で大丈夫です。</p>
+    <h1>Yahoo!ショッピング MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、Yahoo!ショッピング（denchiya店）の受注・問い合わせ・商品・在庫を調べたり、在庫や価格の変更・問い合わせへの返信までできる社内コネクタです。</p>
   </header>
 
   <h2>注意事項</h2>
   <ul class="plain">
-    <li><b>これは正規のUiPathコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
-    <li>このコネクタは<b>動いている業務のRPAを直接操作できます</b>（ジョブの実行・停止・再実行、トリガーの有効/無効など）。停止や再実行は出荷・発注などの業務処理に直結するため、変更する操作は最大限気を付けてください</li>
-    <li>RPAのログには注文番号などの業務データが含まれることがあります。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
+    <li><b>これは正規のYahoo!コネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>このコネクタは<b>Yahoo!店の在庫・価格・商品ページを直接変更でき、お客様への返信も送れます</b>。変更する操作は最大限気を付けてください</li>
+    <li>お客様の情報や取引データを扱います。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
   </ul>
 
   <h2>はじめる（初回だけ・3分）</h2>
   <ol class="steps">
-    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-UiPathMCP</b> をオンにする</li>
-    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>楽天MCPと同じコード</b>です（コネクタごとに入力は必要ですが、コードは1人1つ）</li>
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋-Yahoo!ショッピングMCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のMCPコネクタと同じコード</b>です</li>
     <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
   </ol>
-  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください（1分で再発行できます）。</p>
+  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください。</p>
 
   <h2>できること（聞き方の例）</h2>
   <div class="tablewrap">
     <table>
       <tr><th>分野</th><th>こんなふうに聞く</th></tr>
       <tr>
-        <td class="cat">稼働状況</td>
-        <td class="ex"><q>今RPAは何が動いてる？</q>／<q>今日失敗したジョブはある？</q>／<q>ロボットはちゃんとつながってる？</q></td>
+        <td class="cat">受注</td>
+        <td class="ex"><q>Yahooの今日の注文を見せて</q>／<q>注文◯◯の状況は？</q>／<q>この注文に送り状番号を登録して</q>／<q>注文の数量を変更して</q></td>
       </tr>
       <tr>
-        <td class="cat">失敗の調査</td>
-        <td class="ex"><q>発注書作成のジョブ、なんで落ちたの？</q>（実行ログから例外の内容まで読めます）／<q>最近のエラーログを見せて</q></td>
+        <td class="cat">問い合わせ</td>
+        <td class="ex"><q>Yahooの未返信の問い合わせある？</q>／<q>この問い合わせに返信案を作って</q> → 内容を確認して <q>送信して</q>／<q>対応済みにして</q></td>
       </tr>
       <tr>
-        <td class="cat">実行・操作</td>
-        <td class="ex"><q>◯◯のプロセスを実行して</q>／<q>さっき失敗したジョブを再実行して</q>／<q>実行中の◯◯を止めて</q>／<q>◯◯のトリガーを一時的に無効にして</q></td>
+        <td class="cat">商品・在庫・価格</td>
+        <td class="ex"><q>商品名◯◯で検索して</q>／<q>この品番リストのYahoo在庫をまとめて見せて</q>／<q>在庫を10にして</q>／<q>価格を1,980円にして</q></td>
       </tr>
       <tr>
-        <td class="cat">設定の確認</td>
-        <td class="ex"><q>スケジュール（トリガー）の一覧を見せて</q>／<q>アセット◯◯の値は？</q>／<q>このプロセスのバージョンは最新？</q></td>
+        <td class="cat">商品ページ</td>
+        <td class="ex"><q>◯◯の商品画像を確認して</q>／<q>ストアカテゴリの一覧を見せて</q>／<q>編集した内容を店頭に反映して</q></td>
       </tr>
     </table>
   </div>
 
+  <div class="info">💡 <b>Yahooだけの2段階ルール</b>：価格・商品ページ・カテゴリの変更は「保存」→「<b>反映</b>」の2段階です（保存しただけではお客様に見えません）。AIが反映の要否を案内しますが、<b>反映はストア全体の編集中データが一括で公開される</b>操作なので、店舗担当がストアクリエイターProで編集作業中でないか確認してから実行してください。在庫の変更だけは即時反映です。</div>
+
   <h2>できないこと</h2>
   <ul class="plain">
-    <li><b>RPAプロセスの中身の修正・新規作成</b> — UiPath Studioの領域です</li>
-    <li><b>監査ログ（誰が設定を変えたか）</b> — 準備中です（権限の追加待ち）</li>
-    <li><b>スケジュール（トリガー）の新規作成・削除</b> — 影響が大きいため対象外。有効/無効の切り替えのみできます</li>
+    <li><b>レビューの取得</b> — Yahoo側にAPIがありません</li>
+    <li><b>店舗トップページのデザイン編集</b> — 対象外にしています</li>
+    <li><b>商品の削除・カテゴリの削除</b> — ストアクリエイターProから操作してください</li>
   </ul>
 
-  <h2>変更する操作（実行・停止など）の約束ごと</h2>
+  <h2>変更する操作（書き込み）の約束ごと</h2>
   <div class="card">
     <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
-    <p>ジョブの実行・停止・再実行などの「変更する操作」は、<b>いきなり実行されることはありません</b>。AIが必ず対象と内容のプレビュー（どのプロセスを・どのロボットで・どんな条件で）を見せてくるので、確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
-    <div class="danger">⚠ RPAの停止・再実行は、出荷・発注・受注取込などの業務処理そのものに影響します。「このジョブを止めていいか」「再実行して二重処理にならないか」の判断に迷ったら、実行せずに担当者か市倉さんに確認してください。</div>
-    <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
+    <p>在庫・価格・注文の変更や返信の送信は、<b>いきなり実行されることはありません</b>。AIが必ず変更内容のプレビュー（変更前→変更後）を見せてくるので、確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
+    <div class="danger">⚠ 「問い合わせへの返信送信」は取り消せません。お客様に直接届く操作です。プレビューを必ず読み合わせてから実行してください。また、Yahooの出荷処理は通常GoQが自動で行っているため、出荷まわりを手で変更するときは食い違いに注意してください。</div>
   </div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
-    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
-    <li>招待コードの再発行、権限の相談、「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ。要望は「どの業務で・何を知りたい／したいか」を添えてもらえると早く作れます</li>
+    <li><b>注文・問い合わせだけエラーになる（商品・在庫は動く）</b>ときは、オフィスの中継機が止まっています。市倉さんに連絡してください（Yahoo側の制約で、注文・問い合わせは社内の中継機を経由しています）</li>
+    <li>「セッションが切れています」と出たら、案内されたURLを誰か1人がブラウザで開いてログイン・同意すれば全員復旧します（月1回程度）</li>
+    <li>招待コードの再発行・要望 → <b>市倉さん（システム担当）</b>へ</li>
   </ul>
 
   <footer>
