@@ -177,7 +177,7 @@
   <h2>できないこと</h2>
   <ul class="plain">
     <li><b>受注の数量変更</b> — 楽天のAPIが対応していません。RMS画面から操作してください</li>
-    <li><b>クーポンの新規発行</b> — 準備中です（確認・削除はできます）</li>
+    
     <li><b>店舗トップページの編集</b> — 影響が大きいため対象外にしています</li>
     <li><b>Yahoo!・Amazonのデータ</b> — 別のコネクタです（順次配布予定）</li>
   </ul>
@@ -196,6 +196,122 @@
     <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
   </div>
 
+  <h2>ツール一覧（52本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。ふだんは意識しなくて構いませんが、<b>「これは頼めるのか」</b>を確かめたいときに見てください。<b>楽天はすべて直接つながる</b>ので、時間帯や社内の機器に左右されません。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:38%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">受注（12本）</td></tr>
+        <tr><td><code>rakuten_search_orders</code></td><td>期間・ステータスで注文を検索</td></tr>
+        <tr><td><code>rakuten_get_orders</code></td><td>注文の詳細（お客様情報を含みます）</td></tr>
+        <tr><td><code>rakuten_search_order_items</code></td><td><b>商品で注文を検索</b>（品番・SKU・商品名）</td></tr>
+        <tr><td><code>rakuten_get_order_items</code></td><td>注文の商品明細。個数の集計もできます（お客様情報は都道府県のみ）</td></tr>
+        <tr><td><code>rakuten_get_payment</code></td><td>支払明細（ポイント・クーポンの内訳）</td></tr>
+        <tr><td><code>rakuten_get_sub_status_list</code></td><td>サブステータスの一覧</td></tr>
+        <tr><td><code>rakuten_confirm_orders</code> <b>書</b></td><td>注文確認（100→300）</td></tr>
+        <tr><td><code>rakuten_register_shipping</code> <b>書</b></td><td>出荷登録（1注文ずつ）</td></tr>
+        <tr><td><code>rakuten_register_shipping_async</code> <b>書</b></td><td><b>出荷登録を最大100注文まとめて</b>（結果は後から確認）</td></tr>
+        <tr><td><code>rakuten_get_shipping_async_result</code></td><td>上の結果確認</td></tr>
+        <tr><td><code>rakuten_cancel_order</code> <b>書</b></td><td>キャンセル申請</td></tr>
+        <tr><td><code>rakuten_cancel_order_after_shipping</code> <b>書</b></td><td>発送後キャンセル</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">受注の変更（4本）</td></tr>
+        <tr><td><code>rakuten_update_order_memo</code> <b>書</b></td><td>ひとことメモ・担当者・サブステータス</td></tr>
+        <tr><td><code>rakuten_update_order_sender</code> <b>書</b></td><td>お届け先の変更</td></tr>
+        <tr><td><code>rakuten_update_order_remarks</code> <b>書</b></td><td>注文コメント欄（<b>全文置き換え</b>）</td></tr>
+        <tr><td><code>rakuten_update_order_delivery</code> <b>書</b></td><td>配送方法の変更</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">問い合わせ（6本）</td></tr>
+        <tr><td><code>rakuten_search_inquiries</code></td><td>未返信・返信済みで検索</td></tr>
+        <tr><td><code>rakuten_get_inquiry</code></td><td>やり取りの全文</td></tr>
+        <tr><td><code>rakuten_get_inquiry_counts</code></td><td>期間内の問い合わせ件数</td></tr>
+        <tr><td><code>rakuten_get_inquiry_attachment</code></td><td><b>添付ファイル（写真）を見る</b></td></tr>
+        <tr><td><code>rakuten_reply_inquiry</code> <b>書</b></td><td><b>返信を送信（取り消せません）</b></td></tr>
+        <tr><td><code>rakuten_complete_inquiries</code> / <code>rakuten_reopen_inquiries</code> / <code>rakuten_mark_inquiries_read</code> <b>書</b></td><td>完了・未完了・既読にする</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">商品（8本）</td></tr>
+        <tr><td><code>rakuten_get_item</code> / <code>rakuten_bulk_get_items</code></td><td>商品情報の取得（1件／一括）</td></tr>
+        <tr><td><code>rakuten_search_items</code></td><td>条件で商品を検索（在庫切れの抽出など）</td></tr>
+        <tr><td><code>rakuten_search_products</code></td><td>楽天の製品マスタを検索</td></tr>
+        <tr><td><code>rakuten_update_item</code> <b>書</b></td><td>商品情報の更新（指定した項目だけ）</td></tr>
+        <tr><td><code>rakuten_update_price</code> <b>書</b></td><td>販売価格の変更</td></tr>
+        <tr><td><code>rakuten_add_sku</code> <b>書</b></td><td>SKUの追加</td></tr>
+        <tr><td><code>rakuten_update_lead_time</code> <b>書</b></td><td>納期表示の設定</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">在庫（4本）</td></tr>
+        <tr><td><code>rakuten_get_inventory</code> / <code>rakuten_bulk_get_inventory</code></td><td>在庫数の取得（1件／一括）</td></tr>
+        <tr><td><code>rakuten_update_inventory</code> <b>書</b></td><td>在庫数の変更（絶対値・増減の両方）</td></tr>
+        <tr><td><code>rakuten_bulk_update_inventory</code> <b>書</b></td><td>在庫の一括更新（最大200件）</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">カテゴリ・ジャンル・店舗設定（6本）</td></tr>
+        <tr><td><code>rakuten_get_shop_categories</code></td><td>店舗内カテゴリの階層</td></tr>
+        <tr><td><code>rakuten_get_item_categories</code></td><td>商品がどのカテゴリに入っているか</td></tr>
+        <tr><td><code>rakuten_update_item_categories</code> <b>書</b></td><td>商品のカテゴリ変更（<b>全置き換え</b>）</td></tr>
+        <tr><td><code>rakuten_get_genre</code></td><td>楽天のジャンル情報</td></tr>
+        <tr><td><code>rakuten_get_delivery_dates</code></td><td>納期情報設定の一覧（納期IDと文言の対応表）</td></tr>
+        <tr><td><code>rakuten_get_shop_settings</code></td><td><b>送料区分・商品別配送設定・重要なお知らせ</b></td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">クーポン・画像・その他（8本）</td></tr>
+        <tr><td><code>rakuten_search_coupons</code> / <code>rakuten_get_coupon</code></td><td>クーポンの検索・詳細</td></tr>
+        <tr><td><code>rakuten_issue_coupon</code> / <code>rakuten_delete_coupon</code> <b>書</b></td><td>クーポンの発行・削除</td></tr>
+        <tr><td><code>rakuten_get_cabinet_usage</code> / <code>rakuten_get_cabinet_folders</code> / <code>rakuten_search_cabinet_files</code></td><td>R-Cabinetの利用状況・フォルダ・画像検索</td></tr>
+        <tr><td><code>rakuten_upload_cabinet_image</code> / <code>rakuten_delete_cabinet_file</code> <b>書</b></td><td>画像の登録・削除（削除はゴミ箱へ移動）</td></tr>
+        <tr><td><code>rakuten_get_license_expiry</code></td><td>APIキーの有効期限</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>書</b>＝変更する操作（24本）。ほかは読み取りだけ（28本）。
+  変更する操作はすべて<b>確認画面（プレビュー）が先に出ます</b>。</p>
+
+  <h2>まだできないこと</h2>
+  <p class="lede" style="margin-bottom:14px">楽天が提供している機能のうち、電池屋が契約していて<b>まだ道具にしていないものが82件</b>あります。
+  「できない」ではなく<b>「まだ作っていない」</b>ものが大半です。必要になったら言ってください。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">分野</th><th style="width:12%">未実装</th><th>中身</th></tr></thead>
+      <tbody>
+        <tr><td>店舗の設定・ページ</td><td>31</td><td>看板・ヘッダー・フッター・ナビボタン・共通説明文・地域別送料・スマホ用レイアウトなど</td></tr>
+        <tr><td>店舗ページの構成</td><td>16</td><td>レイアウト・ナビゲーション・パーツの作成と差し替え</td></tr>
+        <tr><td>クーポン</td><td>6</td><td>クーポンの更新、サンキュークーポン一式</td></tr>
+        <tr><td>R-Cabinet</td><td>5</td><td><b>ゴミ箱からの復元</b>、画像情報の更新、フォルダ作成</td></tr>
+        <tr><td>カテゴリ</td><td>5</td><td>カテゴリ自体の作成・更新、カテゴリツリーの編集</td></tr>
+        <tr><td>組み合わせ販売</td><td>5</td><td>セット販売の作成・更新・削除</td></tr>
+        <tr><td>ジャンル・商品属性の検索</td><td>4</td><td>ジャンルIDに紐づく属性と推奨値の取得</td></tr>
+        <tr><td>受注</td><td>4</td><td>注文者情報の変更、サブステータス専用更新、クーポン試算、発送後の送り状変更</td></tr>
+        <tr><td>商品</td><td>2</td><td>商品の削除、商品の全項目置き換え</td></tr>
+        <tr><td>予約商品</td><td>2</td><td>予約の早期確定など</td></tr>
+        <tr><td>問い合わせ</td><td>1</td><td>返信への添付ファイル登録</td></tr>
+        <tr><td>在庫</td><td>1</td><td>在庫情報の削除</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn" style="margin-top:14px">
+    <b>あえて作っていないものもあります。</b>
+    <ul class="plain" style="margin:8px 0 0">
+      <li><b>商品の削除</b> — 取り返しがつかないので、RMS画面から操作するのが妥当と判断しています</li>
+      <li><b>商品の全項目置き換え</b> — 送らなかった項目が消える仕組みです。今の「指定した項目だけ変える」で足りている限り作りません</li>
+      <li><b>店舗ページの公開レイアウト差し替え</b> — お客様に見える表示が即座に変わるため、影響が大きすぎます</li>
+      <li><b>在庫情報の削除</b> — 業務上の必要が確認できていません</li>
+    </ul>
+    必要になったら市倉さんに言ってください。作らない判断も、作る判断もその都度します。
+  </div>
+
+  <h2>アーティファクトから楽天を使う</h2>
+  <p>Claudeが作る「アーティファクト」（共有できる画面）から、このコネクタを呼べます。
+  <b>楽天は社内の機器を経由しない</b>ので、Yahooのような時間帯・順番待ちの制約はありません。ただし共通の注意が2つあります。</p>
+  <div class="info">
+    <ul class="plain" style="margin:0">
+      <li><b>「確認してから実行」が効かなくなります。</b> チャットではAIがプレビューを出して人が判断しますが、画面の中では<b>作った人が書いたとおりに実行されます</b>。しかも記録は<b>開いた人の操作</b>として残ります。<br>
+      → <b>画面に組み込むのは読み取りだけにしてください。</b> 変更する操作を入れたい場合は先に市倉さんへ</li>
+      <li><b>社外に共有できません。</b> コネクタを使う画面は社内配布のみです</li>
+    </ul>
+  </div>
+
+
   <h2>困ったとき</h2>
   <ul class="plain">
     <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b>（番号の確認・管理者への依頼・RMS画面からの復旧など）</li>
@@ -203,7 +319,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 

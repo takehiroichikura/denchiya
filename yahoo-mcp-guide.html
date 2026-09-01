@@ -192,6 +192,172 @@
     <div class="danger">⚠ 「問い合わせへの返信送信」は取り消せません。お客様に直接届く操作です。プレビューを必ず読み合わせてから実行してください。また、Yahooの出荷処理は通常GoQが自動で行っているため、出荷まわりを手で変更するときは食い違いに注意してください。</div>
   </div>
 
+  <h2>ツール一覧（22本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。ふだんは意識しなくて構いませんが、<b>「なぜかこれだけ動かない」</b>ときの切り分けに使えます。</p>
+
+  <div class="info">
+    <b>Yahooのツールは2種類に分かれます。</b>「直接」の14本はどこからでも動きます。
+    「中継」の8本は<b>オフィスのパソコン（D400-000）が動いていないと使えません</b>。
+    注文と問い合わせだけエラーになるのはこれが理由です。
+  </div>
+
+  <div class="tablewrap" style="margin-top:14px">
+    <table>
+      <thead><tr><th style="width:34%">道具</th><th style="width:13%">経路</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">受注（すべて中継経由）</td></tr>
+        <tr><td><code>search_orders</code></td><td>中継</td><td>期間やステータスで注文を検索</td></tr>
+        <tr><td><code>get_order</code></td><td>中継</td><td>注文1件の明細。既定では購入者の個人情報を含みません</td></tr>
+        <tr><td><code>update_shipping_status</code> <b>書</b></td><td>中継</td><td>出荷ステータス変更・送り状番号の登録</td></tr>
+        <tr><td><code>update_order</code> <b>書</b></td><td>中継</td><td>社内メモ・請求先・お届け先・支払方法・明細の変更</td></tr>
+
+        <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">問い合わせ（すべて中継経由）</td></tr>
+        <tr><td><code>search_inquiries</code></td><td>中継</td><td>未返信・返信済みで問い合わせを検索</td></tr>
+        <tr><td><code>get_inquiry</code></td><td>中継</td><td>やり取りの全文。返信案を作る前に必ずこれを読みます</td></tr>
+        <tr><td><code>reply_inquiry</code> <b>書</b></td><td>中継</td><td><b>返信を送信（取り消せません）</b></td></tr>
+        <tr><td><code>complete_inquiry</code> <b>書</b></td><td>中継</td><td>対応済みにする</td></tr>
+
+        <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">商品・在庫・価格（直接）</td></tr>
+        <tr><td><code>get_item</code></td><td>直接</td><td>商品1件の価格・在庫・JAN・表示状態</td></tr>
+        <tr><td><code>search_items</code></td><td>直接</td><td>自店商品の一覧・検索（在庫僅少の抽出など）</td></tr>
+        <tr><td><code>get_stock</code></td><td>直接</td><td>在庫数をまとめて取得（一度に最大100件）</td></tr>
+        <tr><td><code>update_stock</code> <b>書</b></td><td>直接</td><td>在庫数を変更（<b>即時反映</b>）</td></tr>
+        <tr><td><code>update_price</code> <b>書</b></td><td>直接</td><td>価格を変更（保存だけ。<b>反映が別途必要</b>）</td></tr>
+        <tr><td><code>edit_item</code> <b>書</b></td><td>直接</td><td>商品の新規登録・フル編集（<b>全置換型</b>）</td></tr>
+
+        <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">商品ページ・反映（直接）</td></tr>
+        <tr><td><code>list_item_images</code></td><td>直接</td><td>登録済みの商品画像を検索</td></tr>
+        <tr><td><code>upload_item_image</code> <b>書</b></td><td>直接</td><td>画像URLから商品画像として登録</td></tr>
+        <tr><td><code>list_store_categories</code></td><td>直接</td><td>ストアカテゴリの階層</td></tr>
+        <tr><td><code>edit_store_category</code> <b>書</b></td><td>直接</td><td>カテゴリの作成・編集（削除は不可）</td></tr>
+        <tr><td><code>get_publish_status</code></td><td>直接</td><td>店頭反映の予約状況を確認</td></tr>
+        <tr><td><code>publish_items</code> <b>書</b></td><td>直接</td><td><b>編集中データをストア全体で一括公開</b></td></tr>
+
+        <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">設定・確認（直接）</td></tr>
+        <tr><td><code>whoami</code></td><td>直接</td><td>接続状態・<b>中継の生死</b>・認証の状態を確認</td></tr>
+        <tr><td><code>get_auth_url</code></td><td>直接</td><td>再同意用のURLを発行（通常4週間ごと）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>書</b>＝変更する操作（10本）。ほかは読み取りだけ（12本）。<br>
+  <b>困ったときはまず「Yahooの接続状態を見せて」</b>と聞いてください（<code>whoami</code>が中継の生死まで答えます）。</p>
+
+  <h2>まだできないこと（Yahoo側の制約）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:34%">やりたいこと</th><th>なぜできないか</th></tr></thead>
+      <tbody>
+        <tr><td>レビューの取得</td><td>Yahooにこの機能のAPIがありません</td></tr>
+        <tr><td>商品の削除</td><td>APIがなく、ストアクリエイターProからの操作になります</td></tr>
+        <tr><td>カテゴリの削除</td><td>同上（作成・編集はできます）</td></tr>
+        <tr><td>店舗トップページのデザイン編集</td><td>影響が大きいため対象外にしています</td></tr>
+        <tr><td>注文の一括出荷登録</td><td>Yahooは1件ずつの登録のみ。まとめて処理する仕組みがありません</td></tr>
+        <tr><td>在庫を「＋3」のように増減で指定</td><td>Yahooは絶対値のみ。現在値を読んでから計算しています</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">楽天と比べると使える機能は少なめです。Yahoo側のAPIが提供している範囲が狭いためで、
+  電池屋側の作り込み不足ではありません。</p>
+
+  <h2>アーティファクトからYahooを使うとどうなるか</h2>
+  <p class="lede" style="margin-bottom:14px">Claudeが作る「アーティファクト」（共有できる画面）から、このコネクタを呼ぶこともできます。
+  ただし<b>Yahooは楽天と事情が違います</b>。理由は経路です。</p>
+
+  <div class="card" style="padding:20px 16px">
+    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto" role="img"
+         aria-label="楽天は直接つながるがYahooの注文・問い合わせはオフィスの中継機を1本のWebSocketで経由する図">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="'Zen Kaku Gothic New',sans-serif" font-size="13" color="var(--sub)">
+
+        <!-- 上段: 楽天 / Yahoo直接 -->
+        <rect x="8" y="18" width="118" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
+        <text x="67" y="40" text-anchor="middle" fill="var(--ink)" font-weight="700">アーティファクト</text>
+        <text x="67" y="56" text-anchor="middle" fill="var(--sub)" font-size="11">（見る人の資格情報）</text>
+
+        <rect x="214" y="18" width="112" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
+        <text x="270" y="47" text-anchor="middle" fill="var(--ink)" font-weight="700">Worker</text>
+
+        <rect x="420" y="8" width="132" height="30" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="486" y="28" text-anchor="middle" fill="var(--accent)" font-weight="700">楽天 RMS</text>
+        <rect x="420" y="44" width="132" height="30" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="486" y="64" text-anchor="middle" fill="var(--accent)" font-weight="700">Yahoo 商品・在庫</text>
+
+        <g stroke="currentColor" fill="none" marker-end="url(#ar)">
+          <path d="M128 41 H210"/>
+          <path d="M328 30 H416"/>
+          <path d="M328 55 H416"/>
+        </g>
+        <text x="576" y="28" fill="var(--ok)" font-size="12" font-weight="700">動く</text>
+        <text x="576" y="64" fill="var(--ok)" font-size="12" font-weight="700">動く</text>
+        <text x="168" y="33" text-anchor="middle" fill="var(--sub)" font-size="11">仲介</text>
+
+        <!-- 区切り -->
+        <path d="M8 96 H692" stroke="var(--line)" stroke-dasharray="4 4"/>
+        <text x="8" y="120" fill="var(--ink)" font-weight="700" font-size="13">Yahoo の 注文・問い合わせ（8本）だけ経路が違う</text>
+
+        <!-- 下段 -->
+        <rect x="8" y="140" width="118" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
+        <text x="67" y="169" text-anchor="middle" fill="var(--ink)" font-weight="700">アーティファクト</text>
+
+        <rect x="214" y="140" width="112" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
+        <text x="270" y="169" text-anchor="middle" fill="var(--ink)" font-weight="700">Worker</text>
+
+        <rect x="214" y="212" width="112" height="42" rx="8" fill="var(--card)" stroke="var(--line)"/>
+        <text x="270" y="230" text-anchor="middle" fill="var(--ink)" font-size="12" font-weight="700">中継ハブ</text>
+        <text x="270" y="246" text-anchor="middle" fill="var(--sub)" font-size="11">順番待ちの列</text>
+
+        <rect x="396" y="206" width="150" height="54" rx="8" fill="var(--warn-bg)" stroke="var(--warn-line)"/>
+        <text x="471" y="226" text-anchor="middle" fill="var(--warn-ink)" font-size="12" font-weight="700">オフィスのパソコン</text>
+        <text x="471" y="242" text-anchor="middle" fill="var(--warn-ink)" font-size="11">D400-000（社内IP）</text>
+        <text x="471" y="255" text-anchor="middle" fill="var(--warn-ink)" font-size="11">これが止まると全滅</text>
+
+        <rect x="600" y="212" width="92" height="42" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="646" y="238" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="700">Yahoo 注文</text>
+
+        <g stroke="currentColor" fill="none" marker-end="url(#ar)">
+          <path d="M128 163 H210"/>
+          <path d="M270 190 V208"/>
+          <path d="M552 233 H596"/>
+        </g>
+        <!-- WebSocket 1本を太線で -->
+        <path d="M328 233 H392" stroke="var(--warn-line)" stroke-width="4" fill="none" marker-end="url(#ar)" color="var(--warn-line)"/>
+        <text x="360" y="224" text-anchor="middle" fill="var(--warn-ink)" font-size="11" font-weight="700">1本だけ</text>
+
+        <!-- 業務からの流入 -->
+        <rect x="8" y="212" width="118" height="42" rx="8" fill="var(--card)" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <text x="67" y="230" text-anchor="middle" fill="var(--sub)" font-size="12" font-weight="700">ふだんの業務</text>
+        <text x="67" y="246" text-anchor="middle" fill="var(--sub)" font-size="11">出荷登録・返信</text>
+        <path d="M128 233 H206" stroke="currentColor" fill="none" marker-end="url(#ar)" stroke-dasharray="3 3"/>
+
+        <text x="8" y="292" fill="var(--danger-ink)" font-size="12" font-weight="700">アーティファクトを何人かが開くと、この1本にアーティファクトの通信が並ぶ</text>
+        <text x="8" y="310" fill="var(--danger-ink)" font-size="12" font-weight="700">＝ ふだんの出荷登録や返信が待たされる</text>
+        <text x="8" y="330" fill="var(--sub)" font-size="11">※ 技術的には呼べます。「壊れる」のではなく「業務の通り道を細くする」のが問題です。</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="warn" style="margin-top:14px">
+    <b>まとめ：Yahooの注文・問い合わせは、アーティファクトからの利用に向きません。</b>
+    <ul class="plain" style="margin:8px 0 0">
+      <li><b>オフィスのパソコンが必要</b> — 夜間・休日にアーティファクトを開いても、注文と問い合わせは動きません</li>
+      <li><b>通り道が1本しかない</b> — 複数人が開くと、ふだんの出荷登録や返信が順番待ちになります</li>
+      <li><b>「確認してから実行」が効かなくなる</b> — チャットではAIがプレビューを出して人が判断しますが、画面の中では作った人が書いたとおりに実行されます。しかも<b>記録は開いた人の操作として残ります</b></li>
+      <li><b>社外に共有できない</b> — コネクタを使う画面は社内配布のみです</li>
+    </ul>
+  </div>
+
+  <div class="info" style="margin-top:12px">
+    <b>作るならこうしてください。</b>
+    商品・在庫・価格（直接の14本）と<b>読み取りだけ</b>に絞れば、アーティファクトでも安全に使えます。
+    注文・問い合わせを画面に出したい場合や、変更する操作を入れたい場合は、
+    先に市倉さんに相談してください（楽天なら中継を通らないので制約は緩くなります）。
+  </div>
+
+
   <h2>困ったとき</h2>
   <ul class="plain">
     <li><b>注文・問い合わせだけエラーになる（商品・在庫は動く）</b>ときは、オフィスの中継機が止まっています。市倉さんに連絡してください（Yahoo側の制約で、注文・問い合わせは社内の中継機を経由しています）</li>
@@ -200,7 +366,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 
