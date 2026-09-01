@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電池屋 全業務マップ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  /* 赤×白 単一テーマ（意図的にライト固定・全色を明示指定） */
+  :root {
+    color-scheme: light;
+    --red: #E60012;
+    --red-deep: #B3000F;
+    --tint: #FDECEE;
+    --paper: #F5F5F5;
+    --card: #FFFFFF;
+    --ink: #3B3B3B;
+    --ink-2: #6E6E6E;
+    --ink-3: #969696;
+    --line: #E6E6E6;
+    --bar: #E60012;
+    --d-ec: #2a78d6;      /* Eコマース課 */
+    --d-gyomu: #1baf7a;   /* 業務課・システム課 */
+    --d-eigyo: #eb6834;   /* 営業部 */
+    --d-keiri: #4a3aa7;   /* 経理総務部 */
+    --d-buturyu: #e87ba4; /* 物流・製造 */
+    --d-keiei: #b97a0e;   /* 経営 */
+    --flag-bg: #FDECEE;
+    --flag-ink: #B3000F;
+    --accent: #E60012;
+    --accent-soft: #FDECEE;
+    --font-round: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+    --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 96px; }
+
+  /* ===== header: 赤い大型ラウンドバナー ===== */
+  header {
+    background: var(--red);
+    border-radius: 24px;
+    padding: 44px 44px 36px;
+    color: #fff;
+  }
+  .brand-pill {
+    display: inline-block;
+    background: #fff;
+    color: var(--red);
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: .12em;
+    border-radius: 999px;
+    padding: 5px 26px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: clamp(34px, 5.5vw, 52px);
+    line-height: 1.25;
+    margin: 0 0 12px;
+    letter-spacing: .03em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .lede { max-width: 42em; color: rgba(255,255,255,.92); margin: 0; }
+  .lede strong { color: #fff; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 28px 0 0; }
+  .kpi { background: var(--card); border-radius: 16px; padding: 16px 18px 13px; }
+  .kpi b { display: block; font-family: var(--font-round); font-size: 30px; font-weight: 800; line-height: 1.2; color: var(--red); }
+  .kpi b small { font-size: 14px; font-weight: 700; color: var(--ink-2); margin-left: 2px; }
+  .kpi span { font-size: 12px; color: var(--ink-2); }
+  .kpi .note { display: block; font-size: 11px; color: var(--ink-3); }
+
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 4px 4px; }
+  nav.toc a {
+    font-family: var(--font-round);
+    font-weight: 700;
+    font-size: 13px; color: var(--ink-2); text-decoration: none;
+    border: 2px solid var(--line); border-radius: 999px; padding: 5px 18px; background: var(--card);
+    transition: color .15s, border-color .15s;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--red); border-color: var(--red); outline: none; }
+
+  /* ===== sections ===== */
+  section { margin-top: 64px; }
+  .sec-eyebrow {
+    display: inline-block;
+    background: var(--red); color: #fff;
+    font-size: 11px; letter-spacing: .18em; font-weight: 700;
+    border-radius: 999px; padding: 3px 14px;
+  }
+  h2 {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: clamp(24px, 3.4vw, 31px);
+    margin: 12px 0 10px;
+    color: var(--ink);
+    letter-spacing: .02em;
+    text-wrap: balance;
+  }
+  .sec-lede { color: var(--ink-2); max-width: 46em; margin: 0 0 26px; }
+  h3 { font-family: var(--font-round); font-size: 17px; font-weight: 800; margin: 34px 0 12px; color: var(--ink); }
+
+  /* pillars */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .pillar { background: var(--card); border-radius: 16px; padding: 20px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .pillar h4 { margin: 0 0 6px; font-family: var(--font-round); font-weight: 800; font-size: 16px; color: var(--ink); }
+  .pillar h4 .num {
+    display: inline-block; background: var(--tint); color: var(--red);
+    font-family: var(--font-round); font-weight: 800; font-size: 13px;
+    border-radius: 999px; padding: 1px 11px; margin-right: 9px; vertical-align: 2px;
+  }
+  .pillar p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+  .pillar .who { margin-top: 10px; font-size: 12px; color: var(--ink-3); }
+  .pillar .who b { color: var(--ink-2); font-weight: 500; }
+
+  .support-note {
+    margin-top: 14px; background: var(--tint); border-radius: 16px;
+    padding: 16px 22px; font-size: 13.5px; color: var(--ink);
+  }
+  .support-note b { color: var(--red-deep); }
+
+  /* flows */
+  .flow-block { background: var(--card); border-radius: 16px; padding: 22px 24px 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .flow-title { font-family: var(--font-round); font-weight: 800; font-size: 15.5px; margin-bottom: 4px; color: var(--ink); }
+  .flow-sub { font-size: 12.5px; color: var(--ink-3); margin-bottom: 14px; }
+  ol.flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 0; align-items: stretch; }
+  ol.flow li { display: flex; align-items: stretch; }
+  ol.flow li + li::before {
+    content: "▶"; align-self: center; color: var(--red);
+    margin: 0 8px; font-size: 10px; flex: none;
+  }
+  .step { border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 13px 7px; background: var(--paper); min-width: 104px; }
+  .step b { display: block; font-size: 13px; font-weight: 700; line-height: 1.4; color: var(--ink); }
+  .step span { display: block; font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+  .step.sys { border-color: #F5C1C6; background: #FFF7F8; }
+  .step.sys b { color: var(--red); }
+  .flow-actors { margin-top: 12px; padding-top: 10px; border-top: 1.5px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+  .flow-actors b { font-weight: 700; color: var(--ink); }
+
+  /* chart */
+  .chart { background: var(--card); border-radius: 16px; padding: 24px 24px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .chart-note { font-size: 12px; color: var(--ink-3); margin: 10px 2px 0; }
+  .row { display: grid; grid-template-columns: 118px 1fr 62px; gap: 10px; align-items: center; padding: 3px 0; }
+  .row .nm { font-size: 13px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+  .row .nm .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .row .track { height: 16px; position: relative; }
+  .row .fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); border-radius: 0 6px 6px 0; min-width: 3px; }
+  .row .val { font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row.dq .fill { opacity: .38; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 16px; font-size: 12px; color: var(--ink-2); }
+  .legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+
+  /* people */
+  .dept-head { display: flex; align-items: baseline; gap: 10px; margin: 40px 0 12px; padding: 10px 18px; background: var(--card); border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .dept-head .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; align-self: center; }
+  .dept-head h3 { margin: 0; font-size: 16px; }
+  .dept-head .cnt { font-size: 12.5px; color: var(--ink-3); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .person { background: var(--card); border-radius: 16px; padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--line); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .person .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .person .name { font-family: var(--font-round); font-weight: 800; font-size: 19px; color: var(--ink); }
+  .person .role { font-size: 12px; color: var(--ink-3); }
+  .person .stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .person .stats b { font-family: var(--font-round); font-size: 15px; font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; }
+  .mini { display: grid; gap: 4px; }
+  .mini .mrow { display: grid; grid-template-columns: 9.5em 1fr 3.4em; gap: 8px; align-items: center; font-size: 12px; color: var(--ink-2); }
+  .mini .mrow .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini .mtrack { height: 8px; position: relative; }
+  .mini .mfill { position: absolute; inset: 0 auto 0 0; border-radius: 0 4px 4px 0; min-width: 2px; background: var(--bar); }
+  .mini .mval { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-3); }
+  .person .desc { font-size: 13px; color: var(--ink-2); line-height: 1.75; margin: 0; }
+  .person .flag { font-size: 12px; background: var(--flag-bg); color: var(--flag-ink); border-radius: 10px; padding: 7px 12px; line-height: 1.6; }
+
+  /* systems */
+  .sysgroups { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .sysgroup { background: var(--card); border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .sysgroup h4 { margin: 0 0 8px; font-family: var(--font-round); font-weight: 800; font-size: 14.5px; color: var(--ink); }
+  .sysgroup p { margin: 0 0 10px; font-size: 12.5px; color: var(--ink-3); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 12.5px; border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 3px 13px; color: var(--ink-2); }
+  .tag b { color: var(--ink); font-weight: 500; }
+  .tag.hot { border-color: var(--red); background: #FFF7F8; color: var(--red-deep); }
+  .tag.hot b { color: var(--red); font-weight: 700; }
+
+  /* insights */
+  .insights { display: grid; gap: 14px; }
+  .insight { background: var(--card); border-left: 5px solid var(--red); border-radius: 12px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .insight h4 { margin: 0 0 6px; font-family: var(--font-round); font-weight: 800; font-size: 15px; color: var(--ink); }
+  .insight p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  /* next */
+  .next-wrap { overflow-x: auto; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .next-table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 13.5px; }
+  .next-table th, .next-table td { text-align: left; padding: 13px 18px; border-bottom: 1.5px solid var(--line); vertical-align: top; }
+  .next-table th { font-size: 12px; letter-spacing: .06em; color: var(--ink-3); font-weight: 700; background: #FAFAFA; white-space: nowrap; }
+  .next-table td.n { font-family: var(--font-round); font-weight: 800; color: var(--red); white-space: nowrap; }
+  .next-table td .t { font-weight: 700; color: var(--ink); }
+  .next-table td .d { color: var(--ink-2); font-size: 13px; }
+  .next-table td.w { white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .next-table tr:last-child td { border-bottom: none; }
+
+  footer { margin-top: 80px; padding-top: 18px; border-top: 1.5px solid var(--line); font-size: 12px; color: var(--ink-3); line-height: 1.9; }
+
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    header { padding: 32px 24px 28px; border-radius: 20px; }
+    .row { grid-template-columns: 96px 1fr 56px; }
+    ol.flow { flex-direction: column; }
+    ol.flow li { flex-direction: column; }
+    ol.flow li + li::before { content: "▼"; margin: 4px 0; align-self: flex-start; padding-left: 14px; }
+    .step { width: 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fill, .mfill { transition: width .6s ease; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand-pill">電池屋</div>
+    <h1>全業務マップ</h1>
+    <p class="lede">
+      従業員23名がまとめた「業務詳細」Excel（2026年8月21日〜31日更新）を全件読み込み、
+      <strong>誰が・何を・どのくらい・どのツールで</strong>やっているかを1枚に統合した資料です。
+      工数はすべて<strong>本人の自己申告値</strong>で、監視業務など並行作業を含みます。
+    </p>
+    <div class="kpis">
+      <div class="kpi"><b>23<small>名</small></b><span>業務詳細の提出者</span></div>
+      <div class="kpi"><b>931<small>業務</small></b><span>小業務の総数</span></div>
+      <div class="kpi"><b>5,525<small>h/月</small></b><span>申告工数の合計</span><span class="note">※並行作業・概算を含む</span></div>
+      <div class="kpi"><b>68<small>%</small></b><span>定型業務の割合（632/931件）</span></div>
+      <div class="kpi"><b>1<small>名</small></b><span>「改善したい業務」に☑を付けた人</span></div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="目次">
+    <a href="#pillars">① 5つの商流</a>
+    <a href="#flows">② 仕事の流れ</a>
+    <a href="#workload">③ 工数の全体像</a>
+    <a href="#people">④ 部門別・23名の業務</a>
+    <a href="#systems">⑤ システムと道具</a>
+    <a href="#insights">⑥ 横断的にわかること</a>
+    <a href="#next">⑦ 改善の種</a>
+  </nav>
+
+  <!-- ================= ① 5つの商流 ================= -->
+  <section id="pillars">
+    <div class="sec-eyebrow">STRUCTURE</div>
+    <h2>会社は「5つの商流」でできている</h2>
+    <p class="sec-lede">23名の業務を束ねると、売上をつくる流れは5本。それを業務課・システム課・経理総務・物流が下支えする構図です。</p>
+    <div class="pillars">
+      <div class="pillar">
+        <h4><span class="num">壱</span>モールEC・本館</h4>
+        <p>楽天・Yahoo!・Amazonセラー・本館（EC-CUBE）でのネット通販。商品登録、価格追従、広告、日々の受注処理と大量の顧客対応が回る、日次のメインライン。</p>
+        <div class="who"><b>主担当:</b> 岩崎・上保・川島・池田・砥綿 ＋ 業務課（加藤・瀬能・福島）</div>
+      </div>
+      <div class="pillar">
+        <h4><span class="num">弐</span>Amazonベンダー</h4>
+        <p>Amazonベンダーセントラル5アカウントの受注・商品・価格管理。日次で受注データを取得→加工→反映し、Claudeで利益・危険物を確認して登録可否を判断。</p>
+        <div class="who"><b>主担当:</b> 横森隆政（＋福島がベンダー分発注 月22h）</div>
+      </div>
+      <div class="pillar">
+        <h4><span class="num">参</span>官公庁入札</h4>
+        <p>自治体入札の公告収集（スクレイピング）→精査→参加申請・同等品申請→応札→落札後は中国工場調達・輸入通関・全国納品、納入後の訓練立会や不具合対応まで続く長い商流。</p>
+        <div class="who"><b>主担当:</b> 篠本・工藤・横森真俊 ＋ 横森成子（契約・資金）</div>
+      </div>
+      <div class="pillar">
+        <h4><span class="num">肆</span>地場の電材卸営業</h4>
+        <p>メール・FAX・電話（fondesk）で届く注文と見積依頼に応える昔ながらの卸売。受注登録・見積作成・売上転記はランサーズへ委託し、社内は照合と判断に集中。配達も自社で。</p>
+        <div class="who"><b>主担当:</b> 加賀美・奥田勝</div>
+      </div>
+      <div class="pillar">
+        <h4><span class="num">伍</span>電工試験キット製造</h4>
+        <p>電気工事士実技試験の練習キットを自社製造。南甲府で電線切断・束取り、山梨事業所の4人チームが袋詰め・箱詰めし、エアロジに在庫登録してECで販売。</p>
+        <div class="who"><b>主担当:</b> 横森英俊・田中（山梨4人体制）</div>
+      </div>
+      <div class="pillar">
+        <h4><span class="num">＋</span>支える機能</h4>
+        <p>発注・受領・出荷・顧客対応（業務課）、RPA・社内システム（システム課）、決算・資金・勤怠（経理総務）、倉庫の入出荷（物流）。ここが止まると5つの商流すべてが止まる。</p>
+        <div class="who"><b>主担当:</b> 福島・瀬能・加藤／市倉・青木／畢・山坂・横森成子・奥田淳子／佐藤</div>
+      </div>
+    </div>
+    <div class="support-note">
+      <b>背骨は NetSuite（オラクル）。</b>ただし GoQ・エアロジ・ヤマトB2・EC CUBE・各モールとは直接つながっておらず、
+      間のデータ受け渡しは <b>CSV ＋ UiPath（RPA 100本以上）</b>が担う。このRPAの監視・保守が市倉・青木の2名に乗っている。
+    </div>
+  </section>
+
+  <!-- ================= ② 仕事の流れ ================= -->
+  <section id="flows">
+    <div class="sec-eyebrow">FLOWS</div>
+    <h2>お金と商品の流れ — 3本の幹線</h2>
+    <p class="sec-lede">日々動いている代表的な3本の流れ。各ステップの下に「誰が・何で」を添えています。</p>
+
+    <div class="flow-block">
+      <div class="flow-title">1. ネット注文が出荷されるまで（日次のメインライン）</div>
+      <div class="flow-sub">ほぼ全ステップ間をRPAがつなぐ。エラー時は人がリカバリー。</div>
+      <ol class="flow">
+        <li><div class="step"><b>注文発生</b><span>楽天・Yahoo!・Amazon・本館</span></div></li>
+        <li><div class="step sys"><b>GoQ</b><span>受注を集約</span></div></li>
+        <li><div class="step sys"><b>NetSuite</b><span>受注登録・在庫引当・発注連動</span></div></li>
+        <li><div class="step sys"><b>エアロジ</b><span>山梨倉庫へ出荷指示</span></div></li>
+        <li><div class="step sys"><b>ヤマトB2</b><span>送り状発行</span></div></li>
+        <li><div class="step"><b>出荷</b><span>山梨倉庫・本社（ネコポス等）</span></div></li>
+        <li><div class="step sys"><b>売上転記</b><span>問い合わせ番号連携→RPAで計上</span></div></li>
+        <li><div class="step"><b>入金照合</b><span>月次でモール入金と突合</span></div></li>
+      </ol>
+      <div class="flow-actors">
+        <b>見張り役:</b> 青木（RPA監視・チェックメール・番号エラー対応）、市倉（RPA基盤・終日監視）
+        ／ <b>顧客対応:</b> 加藤（モール問合せ）、瀬能（納期220件・キャンセル判定330件/月）
+        ／ <b>例外処理:</b> 福島（欠品・中止品・在庫連携修正）
+      </div>
+    </div>
+
+    <div class="flow-block">
+      <div class="flow-title">2. 仕入れて、受け取って、払うまで</div>
+      <div class="flow-sub">発注は「FAX・メール・仕入先システム・ランサーズ委託」の4経路が併存。</div>
+      <ol class="flow">
+        <li><div class="step"><b>発注判断</b><span>発注点・受注連動（福島）</span></div></li>
+        <li><div class="step"><b>発注書</b><span>印刷→仕分け→FAX44/メール/システム200件</span></div></li>
+        <li><div class="step"><b>仕入先</b><span>納期回答はFAXで返る</span></div></li>
+        <li><div class="step sys"><b>入荷</b><span>山梨倉庫→エアロジ入庫実績</span></div></li>
+        <li><div class="step sys"><b>受領チェック</b><span>NetSuite×エアロジ照合（瀬能 月66回）</span></div></li>
+        <li><div class="step"><b>納品書突合</b><span>紙納品書は委託も活用</span></div></li>
+        <li><div class="step"><b>支払</b><span>請求書処理・振込（奥田淳子・畢）</span></div></li>
+        <li><div class="step sys"><b>月次決算</b><span>Oracle→JDL→税理士（畢）</span></div></li>
+      </ol>
+      <div class="flow-actors">
+        <b>納期の番人:</b> 瀬能（遅延・予定日空白の追跡）、青木（FAX納期回答→スキャン→委託入力→照合 月128h）
+      </div>
+    </div>
+
+    <div class="flow-block">
+      <div class="flow-title">3. 入札案件が納品されるまで（月単位の長い流れ）</div>
+      <div class="flow-sub">篠本は月66件の参加申請・44件の同等品申請をこなす。落札後は中国調達へ。</div>
+      <ol class="flow">
+        <li><div class="step"><b>公告収集</b><span>スクレイピング＋外注精査（篠本）</span></div></li>
+        <li><div class="step"><b>台帳・締切管理</b><span>スプレッドシート（工藤）</span></div></li>
+        <li><div class="step"><b>参加・同等品申請</b><span>性能比較表・カタログ（篠本・真俊）</span></div></li>
+        <li><div class="step"><b>応札</b><span>過去類似案件から価格算定</span></div></li>
+        <li><div class="step"><b>落札・契約</b><span>契約書押印・袋綴じ（成子）</span></div></li>
+        <li><div class="step"><b>中国調達</b><span>工場発注・生産管理・検査（真俊）</span></div></li>
+        <li><div class="step"><b>輸入通関</b><span>B/L・HSコード・関税（真俊）</span></div></li>
+        <li><div class="step"><b>全国納品</b><span>外注業者手配・受領書回収（篠本）</span></div></li>
+        <li><div class="step"><b>請求・入金</b><span>役所へ請求（篠本）、入金・資金繰り把握（成子）</span></div></li>
+      </ol>
+      <div class="flow-actors">
+        <b>特徴:</b> 役所指定の紙書式・手書き提出が多く残る。中国側とのやりとりは夜間に返信が届くため翌朝確認が定常業務。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ③ 工数 ================= -->
+  <section id="workload">
+    <div class="sec-eyebrow">WORKLOAD</div>
+    <h2>誰にどれだけ乗っているか</h2>
+    <p class="sec-lede">申告された月あたり工数の合計。色付きの点は所属グループを示します（バーの長さのみが工数）。</p>
+    <div class="chart">
+      <div class="legend" id="legend"></div>
+      <div id="bars"></div>
+      <div class="chart-note">
+        ※ 自己申告値。監視のような「見ながら他の作業をする」時間や概算を含むため、160hを超える申告もそのまま表示しています。
+        薄いバー（池田・奥田淳子）は記入がテンプレートのまま（全業務が一律「月12回×1時間」）で、実態を反映していない可能性が高いもの。
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ④ 部門別・人別 ================= -->
+  <section id="people">
+    <div class="sec-eyebrow">PEOPLE</div>
+    <h2>部門別・23名の業務詳細</h2>
+    <p class="sec-lede">各カードは「業務数・月工数・定型率」と、工数の大きい業務トップ3、仕事の中身の要約です。所属はファイル記載からの推定を含みます。</p>
+    <div id="people-root"></div>
+  </section>
+
+  <!-- ================= ⑤ システム ================= -->
+  <section id="systems">
+    <div class="sec-eyebrow">SYSTEMS</div>
+    <h2>システムと道具の地図</h2>
+    <p class="sec-lede">数字は「業務詳細の中で使用ツールとして挙がった回数」。何が現場の主役かがそのまま表れます。</p>
+    <div class="sysgroups">
+      <div class="sysgroup">
+        <h4>基幹・受注・物流</h4>
+        <p>会社の背骨。互いに直接つながらず、CSVとRPAが橋渡し。</p>
+        <div class="tags">
+          <span class="tag hot"><b>NetSuite／オラクル</b> 307回</span>
+          <span class="tag"><b>GoQ</b> 75回</span>
+          <span class="tag"><b>エアロジ</b> 54回</span>
+          <span class="tag"><b>EC CUBE（本館）</b></span>
+          <span class="tag"><b>ヤマトB2クラウド</b></span>
+        </div>
+      </div>
+      <div class="sysgroup">
+        <h4>モール運営</h4>
+        <p>店舗ごとに管理画面が分かれ、店長がそれぞれ張り付く。</p>
+        <div class="tags">
+          <span class="tag"><b>Yahoo!ストアクリエイターPro</b> 78回</span>
+          <span class="tag"><b>楽天RMS</b> 54回</span>
+          <span class="tag"><b>Amazonセラーセントラル</b> 24回</span>
+          <span class="tag"><b>Amazonベンダーセントラル</b> 17回</span>
+        </div>
+      </div>
+      <div class="sysgroup">
+        <h4>自動化・AI</h4>
+        <p>すでに現場に入り込みつつある層。</p>
+        <div class="tags">
+          <span class="tag hot"><b>UiPath（RPA）</b> 100本以上稼働</span>
+          <span class="tag hot"><b>Claude／Claude Code</b> 利益確認・回転率・不動在庫アプリ</span>
+          <span class="tag"><b>スクレイピング</b> 入札公告・商品情報</span>
+          <span class="tag"><b>Excelマクロ</b> EC入金照合・会計移行</span>
+          <span class="tag"><b>価格追従ツール</b></span>
+          <span class="tag"><b>リモートMCP（Cloudflare）</b></span>
+        </div>
+      </div>
+      <div class="sysgroup">
+        <h4>連絡手段</h4>
+        <p>メールが圧倒的。FAXと電話も現役の主力。</p>
+        <div class="tags">
+          <span class="tag hot"><b>メール</b> 453回</span>
+          <span class="tag"><b>チャットワーク等チャット</b> 193回</span>
+          <span class="tag"><b>サイボウズ</b> 60回</span>
+          <span class="tag"><b>電話</b> 53回</span>
+          <span class="tag hot"><b>FAX</b> 48回</span>
+          <span class="tag"><b>LINE</b></span>
+          <span class="tag"><b>fondesk（電話代行）</b></span>
+        </div>
+      </div>
+      <div class="sysgroup">
+        <h4>経理・人事</h4>
+        <p>会計はOracle→JDLへ月次で移し替えて税理士へ。</p>
+        <div class="tags">
+          <span class="tag"><b>JDL会計</b></span>
+          <span class="tag"><b>インターネットバンキング</b> 各行</span>
+          <span class="tag"><b>KING OF TIME</b> 勤怠</span>
+          <span class="tag"><b>Googleスプレッドシート</b> 入金チェック等</span>
+          <span class="tag"><b>現金・紙・銀行通帳の記帳</b></span>
+        </div>
+      </div>
+      <div class="sysgroup">
+        <h4>外部の手</h4>
+        <p>定型作業は外に出し、社内は照合と判断を持つ設計。</p>
+        <div class="tags">
+          <span class="tag hot"><b>ランサーズ</b> 受注登録・見積・売上転記・直送切替・納期入力・ページ作成</span>
+          <span class="tag"><b>業務委託者</b> 紙納品書照合</span>
+          <span class="tag"><b>納品作業外注</b> 入札の全国納品</span>
+          <span class="tag"><b>社労士・税理士・行政書士</b></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ⑥ 所見 ================= -->
+  <section id="insights">
+    <div class="sec-eyebrow">FINDINGS</div>
+    <h2>横断的にわかること</h2>
+    <div class="insights">
+      <div class="insight">
+        <h4>1. RPAの監視が2名に集中している</h4>
+        <p>受注→出荷→売上の日次ラインはRPA前提で組まれており、監視・復旧・保守は市倉・青木の2名。青木のRPA運用だけで月178h、市倉は終日監視176hを申告。ここが最大の属人化ポイント。</p>
+      </div>
+      <div class="insight">
+        <h4>2. 顧客対応が複数部署に分散し、量が大きい</h4>
+        <p>瀬能（納期問合せ220件・キャンセル判定330件/月）、加藤（モール問合せ 月135h）、加賀美（メール132・FAX88・電話88件/月）、青木（長納期の個別連絡 月11h）、上保（業務部の代理対応 月22h）。回答材料の大半はNetSuite・GoQ・エアロジの中にある。</p>
+      </div>
+      <div class="insight">
+        <h4>3. FAXと紙がまだ幹線に残っている</h4>
+        <p>仕入先の納期回答はFAXで届き、仕分け→スキャン→委託入力→照合→例外対応で青木の月128h。発注もFAX44件/月、営業課はFAX受信88件/月。入札は役所指定の紙書式・手書き・袋綴じが現役。</p>
+      </div>
+      <div class="insight">
+        <h4>4. 「委託して照合する」型が定着している</h4>
+        <p>ランサーズに受注登録・見積作成・売上転記を出し、加賀美が全件照合（照合だけで月24h超）。紙納品書・納期入力・商品ページ作成・入札納品も外部の手。委託は機能しているが、照合工数が社内に残る。</p>
+      </div>
+      <div class="insight">
+        <h4>5. AI活用の芽がすでに各所にある</h4>
+        <p>横森隆政（Claudeで利益・危険物確認）、福島（Claudeで回転率・過剰発注確認）、岩崎（Claude Code製の不動在庫抽出アプリ）、市倉（リモートMCP開発 月36h）、池田（AI画像生成）、横森真俊（AIテンプレート群の整備）。点在する成功例を横展開できる下地がある。</p>
+      </div>
+      <div class="insight">
+        <h4>6. データの読み方に3つの注意</h4>
+        <p>①工数は自己申告で、監視など並行作業を含み月160hを超える申告がある（篠本424h・市倉400h・加賀美378h等）。②池田・奥田淳子はテンプレート文のままで実態が読めない。③「改善したい業務（3つ以上選択）」に回答したのは横森真俊1名のみ（7件）。次回収集時の改善余地。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ⑦ 改善の種 ================= -->
+  <section id="next">
+    <div class="sec-eyebrow">OPPORTUNITIES</div>
+    <h2>データが示す改善の種</h2>
+    <p class="sec-lede">業務詳細に書かれている数字と、本人の改善希望（☑）から素直に導けるものだけを並べています。</p>
+    <div class="next-wrap">
+      <table class="next-table">
+        <tr><th></th><th>テーマ</th><th>関係する工数</th></tr>
+        <tr>
+          <td class="n">壱</td>
+          <td><span class="t">納期問合せ・キャンセル可否の一次回答を自動化</span><br>
+          <span class="d">回答材料（入荷予定・請求保留・エアロジ登録状況）はすべてシステム内。瀬能・加藤の定型判定部分から着手できる。</span></td>
+          <td class="w">月100h超<br>（瀬能・加藤）</td>
+        </tr>
+        <tr>
+          <td class="n">弐</td>
+          <td><span class="t">FAX納期回答のデジタル化（OCR/AI読取）</span><br>
+          <span class="d">スキャン→委託入力→照合の一連をAI読取＋自動突合に置き換えると、例外対応だけが人の仕事になる。</span></td>
+          <td class="w">月128h<br>（青木）</td>
+        </tr>
+        <tr>
+          <td class="n">参</td>
+          <td><span class="t">入札の過去落札DBと公告精査の自動化拡大</span><br>
+          <span class="d">横森真俊が☑した本人希望。応札価格算定49.5h/月・類似案件検索33h/月（篠本）に直結する。</span></td>
+          <td class="w">月80h超<br>（篠本・工藤・真俊）</td>
+        </tr>
+        <tr>
+          <td class="n">肆</td>
+          <td><span class="t">中国工場・代理店の進捗確認の自動化</span><br>
+          <span class="d">真俊が☑×3で希望。夜間に届く返信の要約・進捗表への自動反映・翻訳テンプレの整備。</span></td>
+          <td class="w">月33h＋<br>（真俊）</td>
+        </tr>
+        <tr>
+          <td class="n">伍</td>
+          <td><span class="t">ランサーズ委託成果の自動照合</span><br>
+          <span class="d">受注登録・見積・売上転記の照合は「元書類とNetSuiteの突合」という機械向きの仕事。</span></td>
+          <td class="w">月24h超<br>（加賀美）</td>
+        </tr>
+        <tr>
+          <td class="n">陸</td>
+          <td><span class="t">会議運営のAI支援（議事録・宿題追跡）</span><br>
+          <span class="d">火曜EC・水曜システム・木曜役員・金曜倉庫の4定例。準備・参加・議事録・宿題確認・決定事項の実行まで運営全体で月89h。</span></td>
+          <td class="w">月89h<br>（横森隆政）</td>
+        </tr>
+        <tr>
+          <td class="n">漆</td>
+          <td><span class="t">業務詳細そのものの再収集</span><br>
+          <span class="d">池田・奥田淳子分の実態反映と、22名分の「改善したい業務」回収。このマップの精度が上がる。</span></td>
+          <td class="w">—</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    出典: ヨコモリ電池屋 Dropbox「01_全社共有／04_共有資料／99_全社共有マニュアル／電池屋業務詳細」内の23ファイル（【氏名】業務詳細_2026-08-21〜31.xlsx）。<br>
+    集計方法: 各ファイルの「月あたり工数」列を単純合計。所属は記載の連携部署・業務内容からの推定を含みます。誤りがあれば市倉まで。
+  </footer>
+</div>
+
+<script>
+const DEPTS = {
+  ec:      { label: "Eコマース課（モール・本館）", color: "var(--d-ec)" },
+  gyomu:   { label: "業務課・システム課", color: "var(--d-gyomu)" },
+  eigyo:   { label: "営業部（営業課・入札課）", color: "var(--d-eigyo)" },
+  keiri:   { label: "経理総務部", color: "var(--d-keiri)" },
+  buturyu: { label: "物流・製造", color: "var(--d-buturyu)" },
+  keiei:   { label: "経営・全社", color: "var(--d-keiei)" },
+};
+
+const PEOPLE = [
+  { name: "篠本", dept: "eigyo", role: "入札課", tasks: 36, hours: 424.3, teikei: 20, hitei: 16,
+    top: [["入札対応", 389.8], ["納品対応", 34.5]],
+    desc: "入札実務のエンジン。参加申請66件・同等品申請44件/月をこなし、性能比較表作成に44h、応札価格の検討に月82h。落札後は外注業者を束ねて全国納品まで面倒を見る。役所の紙書式・手書き提出が多い。" },
+  { name: "市倉", dept: "gyomu", role: "システム課", tasks: 18, hours: 399.8, teikei: 10, hitei: 8,
+    top: [["RPA管理", 255.8], ["社内向け開発", 100.0], ["社内システム管理", 22.0]],
+    desc: "RPA（UiPath）の監視・開発・保守と社内システム全般。出社前のリモート確認から退勤まで終日監視（176h/月申告）。CloudflareでのリモートMCP開発36h/月など、社内向け開発も1人で担う。" },
+  { name: "池田", dept: "ec", role: "本館（自社サイト）・Web制作", tasks: 33, hours: 396, teikei: 33, hitei: 0,
+    top: [["社内報告・経理連携", 180.0], ["商品ページ運用", 72.0], ["社内制作依頼対応", 72.0]],
+    desc: "売上・詐欺注文・価格の日次確認（本館担当と推定）、AI画像生成や電池写真の撮影加工、GA・Google/Yahoo広告の会議資料づくり、名刺・シールなど社内デザインまで幅広い。",
+    flag: "記入がテンプレート文のまま（全33業務が一律12回×1h）。実態の工数・内容は要ヒアリング。", dq: true },
+  { name: "加賀美", dept: "eigyo", role: "営業課", tasks: 60, hours: 377.6, teikei: 44, hitei: 16,
+    top: [["見積・照会管理", 114.6], ["出荷・納期管理", 60.1], ["外部委託管理", 54.3]],
+    desc: "営業課の司令塔。メール132・FAX88・fondesk電話88件/月を受け、見積44件を処理。受注登録・見積作成・売上転記はランサーズへ委託して全件照合。月末は締め請求書の作成・送付に12h。" },
+  { name: "横森英俊", dept: "keiei", role: "電工キット製造・業界団体役員", tasks: 15, hours: 351.8, teikei: 11, hitei: 4,
+    top: [["電工試験キット作成", 276.8], ["東京組合役員業務", 51.0], ["全国連合会役員業務", 24.0]],
+    desc: "南甲府作業場で電気工事士試験キットの電線切断（66h）・巻取り（44h）・箱詰め（66h）を自ら担う。東京電設資材卸業協同組合の副理事長・西支部長、全国連合会の専務理事として月75hの団体活動も。" },
+  { name: "青木", dept: "gyomu", role: "システム課", tasks: 40, hours: 337.4, teikei: 27, hitei: 13,
+    top: [["RPA運用管理", 177.7], ["納期回答処理", 128.2], ["入金処理", 27.5]],
+    desc: "受注出荷RPAの監視・エラー復旧・保守と、FAX納期回答の一連処理（仕分け→スキャン→委託入力→照合→廃番・価格変更・長納期の例外対応）。長納期顧客への個別メール連絡や銀行振込の入金伝票作成も。" },
+  { name: "横森真俊", dept: "eigyo", role: "入札課・海外調達", tasks: 151, hours: 329, teikei: 64, hitei: 87,
+    top: [["入札・契約業務", 152.4], ["海外調達・生産管理", 72.9], ["案件・数値管理", 32.7]],
+    desc: "入札×中国調達×輸入通関×品質・アフターを1人で151業務。同等品申請資料、原価積算、中国工場との夜間連絡、開札結果の競合分析、AIテンプレート整備まで。非定型業務87件は全社最多。",
+    flag: "全社で唯一「改善したい業務」に☑（7件）: 同等品カタログの自動作成、中国側進捗の自動確認、過去落札DB、社内AIツール開発。" },
+  { name: "横森隆政", dept: "keiei", role: "経営管理・Amazonベンダー", tasks: 78, hours: 297.8, teikei: 58, hitei: 20,
+    top: [["会議運営", 89.0], ["Eコマース運営", 74.1], ["全社支援", 68.0]],
+    desc: "Amazonベンダー5アカウントの日次運用（受注取得→加工→反映、Claudeで利益・危険物確認）と、週次の全社業績集計・役員報告。火曜EC・水曜システム・木曜役員・金曜倉庫の4定例会議を運営し、倉庫移転も推進。" },
+  { name: "瀬能", dept: "gyomu", role: "業務課", tasks: 71, hours: 286, teikei: 53, hitei: 18,
+    top: [["顧客対応", 88.7], ["入荷予定管理", 52.9], ["納品書管理", 52.5]],
+    desc: "入荷と出荷の要。受領チェック月66回（NetSuite×エアロジ照合）、入荷遅延・予定日空白の追跡、納品書突合。顧客対応は納期問合せ220件・キャンセル可否判定330件/月と全社最大級の件数。" },
+  { name: "上保", dept: "ec", role: "Eコマース課（Yahoo!店長）", tasks: 25, hours: 248.5, teikei: 16, hitei: 9,
+    top: [["商品ページ運営", 145.8], ["仕入れ企画", 35.0], ["販売管理", 33.8]],
+    desc: "Yahoo!ショッピングの店舗運営。Photoshopで画像作成22h、商品文言16.5h、詳細入力22hなどページ制作が中心。モールイベント前の集中掲載、広告調整、業務部の問合せ代理対応22h/月も。" },
+  { name: "加藤", dept: "gyomu", role: "業務課（EC顧客対応）", tasks: 56, hours: 246.6, teikei: 35, hitei: 21,
+    top: [["顧客問合せ対応", 135.2], ["社内作業依頼", 52.3], ["入金管理", 25.7]],
+    desc: "モール横断のカスタマー対応。楽天・Yahoo!・メール・チャット・フォーム・LINE・サイボウズの7チャネルを毎日確認し、納期案内・領収書発行・返品交換・後払いNG・振込期限切れ・エアロジエラーまで処理。" },
+  { name: "福島", dept: "gyomu", role: "業務課（発注）", tasks: 59, hours: 237.5, teikei: 41, hitei: 18,
+    top: [["発注管理", 107.1], ["連絡・依頼管理", 58.6], ["倉庫依頼対応", 47.1]],
+    desc: "全社の発注管理。システム発注200件・FAX発注44件/月、発注点の調整、価格改定・廃番の反映。山梨倉庫からの数量違い・破損・誤入庫の対応も月47h。回転率・過剰発注の確認にClaudeを活用（月13h）。" },
+  { name: "砥綿", dept: "ec", role: "Eコマース課（Amazonセラー）", tasks: 35, hours: 233.3, teikei: 23, hitei: 12,
+    top: [["在庫出荷管理", 75.3], ["商品調達管理", 70.3], ["顧客返品管理", 49.5]],
+    desc: "Amazonセラー運営を一気通貫で。リサーチツールでの商品発掘→見積→FBA納品→当日出荷→返品返金・再販まで。商品ページ作成や競合他社の掲載確認は外部委託に指示を出して回す。" },
+  { name: "田中", dept: "buturyu", role: "山梨事業所（キット製造）", tasks: 13, hours: 212.6, teikei: 10, hitei: 3,
+    top: [["工事士キット作成", 212.6]],
+    desc: "山梨の4人チームで電工試験キットを製造。器具の袋詰め44h、ケーブル切断44h、箱詰め44h。1パレット完成ごとに作成スプレッドシートとエアロジの両方へ数量を入力し、月末は全在庫の棚卸し。" },
+  { name: "佐藤", dept: "buturyu", role: "物流課（倉庫）", tasks: 14, hours: 199, teikei: 12, hitei: 2,
+    top: [["倉庫入出荷業務", 199.0]],
+    desc: "倉庫の入出荷実務。ピッキング66h・梱包44hが中心で、営業前の商品出し・伝票印刷から、営業終了後の出荷漏れ確認、急ぎ案件の宅配事業者への持ち込みまで。返品受取や資材補充も。" },
+  { name: "川島", dept: "ec", role: "Eコマース課", tasks: 10, hours: 168, teikei: 8, hitei: 2,
+    top: [["価格・採算管理", 66.0], ["商品情報管理", 59.0], ["売上管理", 22.0]],
+    desc: "商品登録（スクレイピングでデータ取得、月48h）と価格の番人。最安価格調査22h、売値調整22h、価格追従設定、赤字チェック11h。売上集計も日次で22h。" },
+  { name: "岩崎", dept: "ec", role: "Web事業部（統括）", tasks: 29, hours: 147, teikei: 22, hitei: 7,
+    top: [["商品仕入れ", 99.2], ["ECサイト運営", 31.5], ["受注・在庫管理", 16.3]],
+    desc: "EC全体の指揮役。受注CSVを毎朝分析して部下へ在庫調整を指示し、リサーチツールのデータ分析44h/月で仕入れを判断。Claude Codeで作った不動在庫抽出アプリで損切りを回し、モール店長4名へ処理を依頼。" },
+  { name: "工藤", dept: "eigyo", role: "入札課", tasks: 25, hours: 134.2, teikei: 17, hitei: 8,
+    top: [["入札案件管理", 74.7], ["協業会社対応", 35.5], ["入札書類作成", 24.0]],
+    desc: "入札案件の管制塔。毎日の新規案件確認、説明書・仕様書の取得とDropbox保管、締切・提出方法・参加可否のスプレッドシート台帳管理。協業会社との見積・書類のやりとり窓口も。" },
+  { name: "奥田淳子", dept: "keiri", role: "経理支払・総務書類", tasks: 10, hours: 120, teikei: 10, hitei: 0,
+    top: [["経理支払管理", 84.0], ["総務書類管理", 36.0]],
+    desc: "振込・返金依頼の確認、銀行振込手続き、請求書のメール確認・仕分け・オラクル請求処理、出金票。郵便物と納品書の整理も。",
+    flag: "記入がテンプレート文のまま（全10業務が一律12回×1h）。実態は要ヒアリング。", dq: true },
+  { name: "奥田勝", dept: "eigyo", role: "営業課（営業補佐）", tasks: 8, hours: 111.8, teikei: 6, hitei: 2,
+    top: [["営業補佐", 111.8]],
+    desc: "朝礼で当日の段取りを確認し、仕入発注11h・見積書作成22h・納期管理11h。入荷したら商品を積み込み、顧客先へ配達（月44h）。地場営業の「最後の1マイル」担当。" },
+  { name: "畢", dept: "keiri", role: "経理", tasks: 70, hours: 110.3, teikei: 55, hitei: 15,
+    top: [["日次・随時経理", 50.3], ["月次決算", 46.5], ["資金・借入管理", 9.9]],
+    desc: "経理の中核。日次は精算・小口現金・返金・入金差異、月次は銀行仕訳・EC売上入金のマクロ照合・Oracle→JDLへの会計データ移行・税理士送付、年次決算まで。海外送金や借入管理も担当。" },
+  { name: "横森成子", dept: "keiri", role: "総務", tasks: 27, hours: 81.5, teikei: 11, hitei: 16,
+    top: [["入札・契約管理", 34.8], ["社内管理支援", 32.6], ["金融機関対応", 13.3]],
+    desc: "入札の申請手続き・契約書の押印・袋綴じ・返送と書類保管。案件の請求・入金・中国先払いを把握して借入要否を判断する資金繰りの窓口。給与の最終チェック、経審、産廃資格の更新も。" },
+  { name: "山坂", dept: "keiri", role: "総務（経理補助）", tasks: 48, hours: 75.1, teikei: 46, hitei: 2,
+    top: [["経理補助", 50.1], ["総務事務", 25.0]],
+    desc: "毎朝の銀行入金データ抽出→スプレッドシート反映→オラクル入金登録のライン。掛売の締め請求（20日・25日・末締め）、能美防災の支払通知の営業所別按分、KING OF TIMEの勤怠締め、備品調達。" },
+];
+
+// ---- legend ----
+const legendEl = document.getElementById("legend");
+for (const key of ["ec", "gyomu", "eigyo", "keiri", "buturyu", "keiei"]) {
+  const d = DEPTS[key];
+  const s = document.createElement("span");
+  s.innerHTML = `<span class="dot" style="background:${d.color}"></span>${d.label}`;
+  legendEl.appendChild(s);
+}
+
+// ---- overall bar chart ----
+const barsEl = document.getElementById("bars");
+const max = Math.max(...PEOPLE.map(p => p.hours));
+for (const p of [...PEOPLE].sort((a, b) => b.hours - a.hours)) {
+  const row = document.createElement("div");
+  row.className = "row" + (p.dq ? " dq" : "");
+  const pct = (p.hours / max * 100).toFixed(1);
+  row.innerHTML =
+    `<div class="nm"><span class="dot" style="background:${DEPTS[p.dept].color}"></span>${p.name}</div>` +
+    `<div class="track"><div class="fill" style="width:${pct}%"></div></div>` +
+    `<div class="val">${p.hours.toLocaleString()} h</div>`;
+  barsEl.appendChild(row);
+}
+
+// ---- people cards grouped by dept ----
+const GROUPS = [
+  { key: "ec", note: "モール4店舗＋本館。店長制で各モールに張り付く。" },
+  { key: "gyomu", note: "受注・発注・出荷・顧客対応の実務と、それを自動化するRPA・システム。" },
+  { key: "eigyo", note: "地場の電材卸（営業課）と官公庁入札（入札課）。" },
+  { key: "keiri", note: "決算・資金繰り・支払・勤怠・契約書類。" },
+  { key: "buturyu", note: "倉庫の入出荷と、電工試験キットの製造ライン。" },
+  { key: "keiei", note: "経営数値・会議体の運営と、製造・業界団体活動。" },
+];
+const root = document.getElementById("people-root");
+for (const g of GROUPS) {
+  const members = PEOPLE.filter(p => p.dept === g.key).sort((a, b) => b.hours - a.hours);
+  const d = DEPTS[g.key];
+  const head = document.createElement("div");
+  head.className = "dept-head";
+  head.innerHTML = `<span class="dot" style="background:${d.color}"></span><h3>${d.label}</h3><span class="cnt">${members.length}名 — ${g.note}</span>`;
+  root.appendChild(head);
+  const grid = document.createElement("div");
+  grid.className = "cards";
+  for (const p of members) {
+    const card = document.createElement("div");
+    card.className = "person";
+    card.style.borderTopColor = d.color;
+    const rate = Math.round(p.teikei / (p.teikei + p.hitei) * 100);
+    const topMax = Math.max(...p.top.map(t => t[1]));
+    const miniRows = p.top.map(([lbl, h]) =>
+      `<div class="mrow"><span class="lbl">${lbl}</span><span class="mtrack"><span class="mfill" style="width:${(h / topMax * 100).toFixed(1)}%; background:${d.color}"></span></span><span class="mval">${h.toLocaleString()}h</span></div>`
+    ).join("");
+    card.innerHTML =
+      `<div class="top"><span class="name">${p.name}</span><span class="role">${p.role}</span></div>` +
+      `<div class="stats"><span><b>${p.tasks}</b> 業務</span><span><b>${p.hours.toLocaleString()}</b> h/月</span><span>定型率 <b>${rate}%</b></span></div>` +
+      `<div class="mini">${miniRows}</div>` +
+      `<p class="desc">${p.desc}</p>` +
+      (p.flag ? `<div class="flag">⚑ ${p.flag}</div>` : "");
+    grid.appendChild(card);
+  }
+  root.appendChild(grid);
+}
+</script>
+
+</body>
+</html>
