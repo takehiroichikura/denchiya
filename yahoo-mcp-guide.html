@@ -260,8 +260,19 @@
   電池屋側の作り込み不足ではありません。</p>
 
   <h2>アーティファクトからYahooを使うとどうなるか</h2>
-  <p class="lede" style="margin-bottom:14px">Claudeが作る「アーティファクト」（共有できる画面）から、このコネクタを呼ぶこともできます。
-  ただし<b>Yahooは楽天と事情が違います</b>。理由は経路です。</p>
+  <p class="lede" style="margin-bottom:14px"><b>結論：Yahooの注文・問い合わせは、アーティファクトからは使わないでください。うまく動きません。</b><br>
+  Claudeが作る「アーティファクト」（社内で共有できる画面）から楽天やYahooのデータを呼ぶ機能はあります。
+  楽天はこれで問題なく動きます。Yahooの商品・在庫・価格も動きます。<b>Yahooの注文と問い合わせだけがダメ</b>で、理由は「通り道」にあります。</p>
+
+  <div class="info" style="margin-bottom:14px">
+    <b>たとえで言うと</b><br>
+    楽天は<b>電話で直接つながる相手</b>です。誰がいつかけても通じます。<br>
+    Yahooの注文・問い合わせは<b>「オフィスの固定電話からしか受け付けない」</b>と決めている相手です。
+    そのため外から頼むときは、いったんオフィスにいる人（オフィスのパソコン）に電話をかけ、その人がYahooにかけ直しています。
+    オフィスの電話は<b>1回線しかありません</b>。<br>
+    アーティファクトの画面を何人かが開くと、その全員がこの1回線に電話をかけることになります。
+    夜や休日にオフィスが閉まっていれば、そもそも誰も出ません。
+  </div>
 
   <div class="card" style="padding:20px 16px">
     <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto" role="img"
@@ -276,7 +287,7 @@
         <!-- 上段: 楽天 / Yahoo直接 -->
         <rect x="8" y="18" width="118" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
         <text x="67" y="40" text-anchor="middle" fill="var(--ink)" font-weight="700">アーティファクト</text>
-        <text x="67" y="56" text-anchor="middle" fill="var(--sub)" font-size="11">（見る人の資格情報）</text>
+        <text x="67" y="56" text-anchor="middle" fill="var(--sub)" font-size="11">（画面を開いた人）</text>
 
         <rect x="214" y="18" width="112" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
         <text x="270" y="47" text-anchor="middle" fill="var(--ink)" font-weight="700">Worker</text>
@@ -333,28 +344,27 @@
         <text x="67" y="246" text-anchor="middle" fill="var(--sub)" font-size="11">出荷登録・返信</text>
         <path d="M128 233 H206" stroke="currentColor" fill="none" marker-end="url(#ar)" stroke-dasharray="3 3"/>
 
-        <text x="8" y="292" fill="var(--danger-ink)" font-size="12" font-weight="700">アーティファクトを何人かが開くと、この1本にアーティファクトの通信が並ぶ</text>
-        <text x="8" y="310" fill="var(--danger-ink)" font-size="12" font-weight="700">＝ ふだんの出荷登録や返信が待たされる</text>
-        <text x="8" y="330" fill="var(--sub)" font-size="11">※ 技術的には呼べます。「壊れる」のではなく「業務の通り道を細くする」のが問題です。</text>
+        <text x="8" y="292" fill="var(--danger-ink)" font-size="12" font-weight="700">画面を開いた人の数だけ、この1本の通り道に通信が並ぶ</text>
+        <text x="8" y="310" fill="var(--danger-ink)" font-size="12" font-weight="700">＝ 画面はなかなか表示されず、ふだんの出荷登録や返信まで待たされる</text>
+        <text x="8" y="330" fill="var(--sub)" font-size="11">※ オフィスのパソコンが止まっている時間帯（夜間・休日）は、画面を開いてもエラーになります。</text>
       </g>
     </svg>
   </div>
 
   <div class="warn" style="margin-top:14px">
-    <b>まとめ：Yahooの注文・問い合わせは、アーティファクトからの利用に向きません。</b>
+    <b>うまくいかない理由を3つにまとめると</b>
     <ul class="plain" style="margin:8px 0 0">
-      <li><b>オフィスのパソコンが必要</b> — 夜間・休日にアーティファクトを開いても、注文と問い合わせは動きません</li>
-      <li><b>通り道が1本しかない</b> — 複数人が開くと、ふだんの出荷登録や返信が順番待ちになります</li>
-      <li><b>「確認してから実行」が効かなくなる</b> — チャットではAIがプレビューを出して人が判断しますが、画面の中では作った人が書いたとおりに実行されます。しかも<b>記録は開いた人の操作として残ります</b></li>
-      <li><b>社外に共有できない</b> — コネクタを使う画面は社内配布のみです</li>
+      <li><b>時間帯で動かない</b> — オフィスのパソコンが動いている時間しか使えません。夜間・休日に画面を開くとエラーになります</li>
+      <li><b>遅くなる・止まる</b> — 通り道が1本しかないので、何人かが画面を開くと表示が遅れます。同時に、その裏でスタッフがやっている出荷登録や問い合わせ返信も順番待ちになります。<b>画面を見る人が業務の邪魔をしてしまう</b>のが一番の問題です</li>
+      <li><b>ミスの歯止めが消える</b> — チャットならAIが「これを実行します、いいですか」と確認してくれますが、画面の中ではその確認がありません。しかも操作の記録は<b>画面を開いた人の名前で残ります</b></li>
     </ul>
   </div>
 
   <div class="info" style="margin-top:12px">
-    <b>作るならこうしてください。</b>
-    商品・在庫・価格（直接の14本）と<b>読み取りだけ</b>に絞れば、アーティファクトでも安全に使えます。
-    注文・問い合わせを画面に出したい場合や、変更する操作を入れたい場合は、
-    先に市倉さんに相談してください（楽天なら中継を通らないので制約は緩くなります）。
+    <b>ではどうすればいいか</b><br>
+    Yahooの注文や問い合わせを見たいときは、アーティファクトではなく<b>ふだんどおりチャットでClaudeに聞いてください</b>。それが正しい使い方です。<br>
+    アーティファクトで画面を作るなら、<b>楽天</b>か、Yahooの<b>商品・在庫・価格（読み取りだけ）</b>にしてください。
+    それ以外を画面に入れたいときは、先に市倉さんに相談してください。
   </div>
 
 
