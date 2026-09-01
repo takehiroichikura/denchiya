@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電池屋 スキル化候補マップ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  /* 赤×白 単一テーマ（意図的にライト固定・全色を明示指定） */
+  :root {
+    color-scheme: light;
+    --red: #E60012;
+    --red-deep: #B3000F;
+    --tint: #FDECEE;
+    --paper: #F5F5F5;
+    --card: #FFFFFF;
+    --ink: #3B3B3B;
+    --ink-2: #6E6E6E;
+    --ink-3: #969696;
+    --line: #E6E6E6;
+    --bar: #E60012;
+    --d-ec: #2a78d6;      /* Eコマース課 */
+    --d-gyomu: #1baf7a;   /* 業務課・システム課 */
+    --d-eigyo: #eb6834;   /* 営業部 */
+    --d-keiri: #4a3aa7;   /* 経理総務部 */
+    --d-buturyu: #e87ba4; /* 物流・製造 */
+    --d-keiei: #b97a0e;   /* 経営 */
+    --flag-bg: #FDECEE;
+    --flag-ink: #B3000F;
+    --accent: #E60012;
+    --accent-soft: #FDECEE;
+    --font-round: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+    --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 96px; }
+
+  /* ===== header: 赤い大型ラウンドバナー ===== */
+  header {
+    background: var(--red);
+    border-radius: 24px;
+    padding: 44px 44px 36px;
+    color: #fff;
+  }
+  .brand-pill {
+    display: inline-block;
+    background: #fff;
+    color: var(--red);
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: .12em;
+    border-radius: 999px;
+    padding: 5px 26px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: clamp(34px, 5.5vw, 52px);
+    line-height: 1.25;
+    margin: 0 0 12px;
+    letter-spacing: .03em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .lede { max-width: 42em; color: rgba(255,255,255,.92); margin: 0; }
+  .lede strong { color: #fff; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 28px 0 0; }
+  .kpi { background: var(--card); border-radius: 16px; padding: 16px 18px 13px; }
+  .kpi b { display: block; font-family: var(--font-round); font-size: 30px; font-weight: 800; line-height: 1.2; color: var(--red); }
+  .kpi b small { font-size: 14px; font-weight: 700; color: var(--ink-2); margin-left: 2px; }
+  .kpi span { font-size: 12px; color: var(--ink-2); }
+  .kpi .note { display: block; font-size: 11px; color: var(--ink-3); }
+
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 4px 4px; }
+  nav.toc a {
+    font-family: var(--font-round);
+    font-weight: 700;
+    font-size: 13px; color: var(--ink-2); text-decoration: none;
+    border: 2px solid var(--line); border-radius: 999px; padding: 5px 18px; background: var(--card);
+    transition: color .15s, border-color .15s;
+  }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--red); border-color: var(--red); outline: none; }
+
+  /* ===== sections ===== */
+  section { margin-top: 64px; }
+  .sec-eyebrow {
+    display: inline-block;
+    background: var(--red); color: #fff;
+    font-size: 11px; letter-spacing: .18em; font-weight: 700;
+    border-radius: 999px; padding: 3px 14px;
+  }
+  h2 {
+    font-family: var(--font-round);
+    font-weight: 800;
+    font-size: clamp(24px, 3.4vw, 31px);
+    margin: 12px 0 10px;
+    color: var(--ink);
+    letter-spacing: .02em;
+    text-wrap: balance;
+  }
+  .sec-lede { color: var(--ink-2); max-width: 46em; margin: 0 0 26px; }
+  h3 { font-family: var(--font-round); font-size: 17px; font-weight: 800; margin: 34px 0 12px; color: var(--ink); }
+
+  /* pillars */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .pillar { background: var(--card); border-radius: 16px; padding: 20px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .pillar h4 { margin: 0 0 6px; font-family: var(--font-round); font-weight: 800; font-size: 16px; color: var(--ink); }
+  .pillar h4 .num {
+    display: inline-block; background: var(--tint); color: var(--red);
+    font-family: var(--font-round); font-weight: 800; font-size: 13px;
+    border-radius: 999px; padding: 1px 11px; margin-right: 9px; vertical-align: 2px;
+  }
+  .pillar p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+  .pillar .who { margin-top: 10px; font-size: 12px; color: var(--ink-3); }
+  .pillar .who b { color: var(--ink-2); font-weight: 500; }
+
+  .support-note {
+    margin-top: 14px; background: var(--tint); border-radius: 16px;
+    padding: 16px 22px; font-size: 13.5px; color: var(--ink);
+  }
+  .support-note b { color: var(--red-deep); }
+
+  /* flows */
+  .flow-block { background: var(--card); border-radius: 16px; padding: 22px 24px 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .flow-title { font-family: var(--font-round); font-weight: 800; font-size: 15.5px; margin-bottom: 4px; color: var(--ink); }
+  .flow-sub { font-size: 12.5px; color: var(--ink-3); margin-bottom: 14px; }
+  ol.flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 0; align-items: stretch; }
+  ol.flow li { display: flex; align-items: stretch; }
+  ol.flow li + li::before {
+    content: "▶"; align-self: center; color: var(--red);
+    margin: 0 8px; font-size: 10px; flex: none;
+  }
+  .step { border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 13px 7px; background: var(--paper); min-width: 104px; }
+  .step b { display: block; font-size: 13px; font-weight: 700; line-height: 1.4; color: var(--ink); }
+  .step span { display: block; font-size: 11px; color: var(--ink-3); line-height: 1.5; }
+  .step.sys { border-color: #F5C1C6; background: #FFF7F8; }
+  .step.sys b { color: var(--red); }
+  .flow-actors { margin-top: 12px; padding-top: 10px; border-top: 1.5px dashed var(--line); font-size: 12.5px; color: var(--ink-2); }
+  .flow-actors b { font-weight: 700; color: var(--ink); }
+
+  /* chart */
+  .chart { background: var(--card); border-radius: 16px; padding: 24px 24px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .chart-note { font-size: 12px; color: var(--ink-3); margin: 10px 2px 0; }
+  .row { display: grid; grid-template-columns: 118px 1fr 62px; gap: 10px; align-items: center; padding: 3px 0; }
+  .row .nm { font-size: 13px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
+  .row .nm .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+  .row .track { height: 16px; position: relative; }
+  .row .fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); border-radius: 0 6px 6px 0; min-width: 3px; }
+  .row .val { font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row.dq .fill { opacity: .38; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 16px; font-size: 12px; color: var(--ink-2); }
+  .legend .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+
+  /* people */
+  .dept-head { display: flex; align-items: baseline; gap: 10px; margin: 40px 0 12px; padding: 10px 18px; background: var(--card); border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .dept-head .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; align-self: center; }
+  .dept-head h3 { margin: 0; font-size: 16px; }
+  .dept-head .cnt { font-size: 12.5px; color: var(--ink-3); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .person { background: var(--card); border-radius: 16px; padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--line); box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .person .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .person .name { font-family: var(--font-round); font-weight: 800; font-size: 19px; color: var(--ink); }
+  .person .role { font-size: 12px; color: var(--ink-3); }
+  .person .stats { display: flex; gap: 14px; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .person .stats b { font-family: var(--font-round); font-size: 15px; font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; }
+  .mini { display: grid; gap: 4px; }
+  .mini .mrow { display: grid; grid-template-columns: 9.5em 1fr 3.4em; gap: 8px; align-items: center; font-size: 12px; color: var(--ink-2); }
+  .mini .mrow .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini .mtrack { height: 8px; position: relative; }
+  .mini .mfill { position: absolute; inset: 0 auto 0 0; border-radius: 0 4px 4px 0; min-width: 2px; background: var(--bar); }
+  .mini .mval { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-3); }
+  .person .desc { font-size: 13px; color: var(--ink-2); line-height: 1.75; margin: 0; }
+  .person .flag { font-size: 12px; background: var(--flag-bg); color: var(--flag-ink); border-radius: 10px; padding: 7px 12px; line-height: 1.6; }
+
+  /* systems */
+  .sysgroups { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+  .sysgroup { background: var(--card); border-radius: 16px; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .sysgroup h4 { margin: 0 0 8px; font-family: var(--font-round); font-weight: 800; font-size: 14.5px; color: var(--ink); }
+  .sysgroup p { margin: 0 0 10px; font-size: 12.5px; color: var(--ink-3); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 12.5px; border: 1.5px solid var(--line); background: var(--paper); border-radius: 999px; padding: 3px 13px; color: var(--ink-2); }
+  .tag b { color: var(--ink); font-weight: 500; }
+  .tag.hot { border-color: var(--red); background: #FFF7F8; color: var(--red-deep); }
+  .tag.hot b { color: var(--red); font-weight: 700; }
+
+  /* insights */
+  .insights { display: grid; gap: 14px; }
+  .insight { background: var(--card); border-left: 5px solid var(--red); border-radius: 12px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .insight h4 { margin: 0 0 6px; font-family: var(--font-round); font-weight: 800; font-size: 15px; color: var(--ink); }
+  .insight p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  /* next */
+  .next-wrap { overflow-x: auto; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .next-table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 13.5px; }
+  .next-table th, .next-table td { text-align: left; padding: 13px 18px; border-bottom: 1.5px solid var(--line); vertical-align: top; }
+  .next-table th { font-size: 12px; letter-spacing: .06em; color: var(--ink-3); font-weight: 700; background: #FAFAFA; white-space: nowrap; }
+  .next-table td.n { font-family: var(--font-round); font-weight: 800; color: var(--red); white-space: nowrap; }
+  .next-table td .t { font-weight: 700; color: var(--ink); }
+  .next-table td .d { color: var(--ink-2); font-size: 13px; }
+  .next-table td.w { white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .next-table tr:last-child td { border-bottom: none; }
+
+  footer { margin-top: 80px; padding-top: 18px; border-top: 1.5px solid var(--line); font-size: 12px; color: var(--ink-3); line-height: 1.9; }
+
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    header { padding: 32px 24px 28px; border-radius: 20px; }
+    .row { grid-template-columns: 96px 1fr 56px; }
+    ol.flow { flex-direction: column; }
+    ol.flow li { flex-direction: column; }
+    ol.flow li + li::before { content: "▼"; margin: 4px 0; align-self: flex-start; padding-left: 14px; }
+    .step { width: 100%; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fill, .mfill { transition: width .6s ease; }
+  }
+
+
+  .legend-abc { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; margin:0 0 8px; }
+  .legend-abc .lg { background:var(--card); border-radius:14px; padding:13px 16px; font-size:13px; color:var(--ink-2); box-shadow:0 2px 8px rgba(0,0,0,.04); }
+  .bdg { display:inline-block; font-family:var(--font-round); font-weight:800; font-size:11px; border-radius:999px; padding:2px 11px; white-space:nowrap; vertical-align:2px; }
+  .bdg.a { background:var(--red); color:#fff; }
+  .bdg.b { background:#fff; color:var(--red); border:1.5px solid var(--red); }
+  .bdg.c { background:#EFEFEF; color:var(--ink-2); border:1.5px solid var(--line); }
+  .theme { background:var(--card); border-radius:16px; padding:16px 20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+  .themes { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+  .theme h4 { margin:0 0 5px; font-family:var(--font-round); font-weight:800; font-size:15px; color:var(--ink); }
+  .theme h4 .tn { display:inline-block; background:var(--tint); color:var(--red); font-size:12px; border-radius:999px; padding:1px 10px; margin-right:8px; }
+  .theme p { margin:0; font-size:13px; color:var(--ink-2); }
+  .theme .members { margin-top:8px; font-size:12px; color:var(--ink-3); }
+  .pblock { background:var(--card); border-radius:16px; padding:18px 22px 14px; margin-bottom:14px; border-top:4px solid var(--line); box-shadow:0 2px 8px rgba(0,0,0,.04); }
+  .pblock .phead { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+  .pblock .pname { font-family:var(--font-round); font-weight:800; font-size:19px; color:var(--ink); }
+  .pblock .prole { font-size:12px; color:var(--ink-3); }
+  .cand { padding:12px 0; border-top:1.5px solid var(--line); }
+  .cand .c1 { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .cand .ct { font-weight:700; font-size:14px; color:var(--ink); }
+  .cand .ch { font-family:var(--font-round); font-weight:800; font-size:13px; color:var(--red); font-variant-numeric:tabular-nums; margin-left:auto; white-space:nowrap; }
+  .cand .tgt { font-size:12px; color:var(--ink-3); margin:2px 0 4px; }
+  .cand .how { font-size:13px; color:var(--ink-2); margin:0; line-height:1.75; }
+  .pnote { font-size:12px; background:var(--flag-bg); color:var(--flag-ink); border-radius:10px; padding:7px 12px; margin-bottom:10px; }
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand-pill">電池屋</div>
+    <h1>スキル化候補マップ</h1>
+    <p class="lede">「全業務マップ」の23名分の業務詳細から、<strong>Claudeのスキル（手順・判断ルール・文例の明文化）にできそうな業務</strong>を一人ひとり抽出しました。工数は対象業務の自己申告値の合計です。</p>
+    <div class="kpis">
+      <div class="kpi"><b>23<small>名</small></b><span>全員に候補あり</span></div>
+      <div class="kpi"><b>82<small>件</small></b><span>スキル化候補</span></div>
+      <div class="kpi"><b>31<small>件</small></b><span>A: 今すぐ作れる<br>（対象 月688h分）</span></div>
+      <div class="kpi"><b>48<small>件</small></b><span>B: 下書き・判定支援で今すぐ価値</span></div>
+      <div class="kpi"><b>3<small>件</small></b><span>C: MCP等の足回り待ち</span></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-eyebrow">HOW TO READ</div>
+    <h2>A・B・Cの意味</h2>
+    <div class="legend-abc">
+      <div class="lg"><span class="bdg a">A 今すぐ作れる</span><br>既存のMCP（NetSuite・楽天・Yahoo!・Amazon・UiPath等）やファイルだけで完結。作ればその日から回る。</div>
+      <div class="lg"><span class="bdg b">B 下書き・判定支援</span><br>実行（送信・登録・画面操作）は人が担い、Claudeが判定・照合・文面下書きを出す形なら今すぐ価値が出る。</div>
+      <div class="lg"><span class="bdg c">C 足回り待ち</span><br>GoQ・エアロジなどMCPが無いシステムが中心の業務。MCP整備かRPA連携ができてから。</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">CROSS-CUTTING</div>
+    <h2>横断で1本にまとめたい6テーマ</h2>
+    <p class="sec-lede">個人別候補を見比べると、同じ型の仕事が複数人にまたがっています。人別に作るより、共通スキル1本＋人別の差分にするのが効率的です。</p>
+    <div class="themes">
+      <div class="theme"><h4><span class="tn">壱</span>キャンセル可否判定</h4><p>「NetSuiteの請求保留 × エアロジ登録状況」で決まる定型判定。楽天版は実装済みなので、全モール・メール・本館へ拡張する。</p><div class="members">瀬能（月330件）・加藤・砥綿 ほか</div></div>
+      <div class="theme"><h4><span class="tn">弐</span>納期照会・回答ドラフト</h4><p>注文状況・入荷予定・仕入先回答を照会して回答文を作る型。既存の納期管理スキルを顧客回答用に拡張して1本化。</p><div class="members">瀬能（月220件）・加藤・青木・奥田勝・上保</div></div>
+      <div class="theme"><h4><span class="tn">参</span>RPA監視の定時サマリー</h4><p>UiPath MCPで夜間・日中のジョブを定時チェックし、異常だけ報告。2名で月250h超の張り付き監視を軽くする。</p><div class="members">市倉・青木</div></div>
+      <div class="theme"><h4><span class="tn">肆</span>入札書類ドラフト工房</h4><p>仕様書読取→性能比較表・同等品申請書・質問文・台帳行の生成までを1セットに。本人☑の改善希望とも一致。</p><div class="members">篠本・工藤・横森真俊・横森成子</div></div>
+      <div class="theme"><h4><span class="tn">伍</span>価格・利益判定エンジン</h4><p>仕入価格×手数料×送料×競合価格の利益計算と赤字ライン判定を全社共通ルールに。リサーチ・値付け・発注判断で共用。</p><div class="members">川島・上保・岩崎・砥綿・横森隆政・福島</div></div>
+      <div class="theme"><h4><span class="tn">陸</span>照合・突合チェッカー</h4><p>「元書類 × NetSuite」の突合はすべて同じ型。委託成果の検品、納品書照合、納期入力照合、入金照合に共通で効く。</p><div class="members">加賀美・瀬能・青木・山坂・畢</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">BY PERSON</div>
+    <h2>個人別のスキル化候補（23名・82件）</h2>
+    <p class="sec-lede">各候補の「対象 ◯h/月」は、その業務に現在かかっている自己申告工数の合計。スキル化で全部が消えるわけではなく、下書き・判定部分が軽くなる目安です。</p>
+    <div class="dept-head"><span class="dot" style="background:var(--d-ec)"></span><h3>Eコマース課（モール・本館）</h3><span class="cnt">5名</span></div>
+<div class="pblock" style="border-top-color:var(--d-ec)"><div class="phead"><span class="pname">岩崎</span><span class="prole">Web事業部（統括）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">仕入れリサーチCSV分析・売れ筋候補抽出</span><span class="ch">対象 60.5h/月</span></div><div class="tgt">対象業務: 商品データ分析、売れ筋候補抽出</div><p class="how">リサーチツールのCSVを渡すと、販売実績・競合価格・仕入見込価格から利益計算式と売れ筋条件（回転見込み・在庫リスク）で候補を絞り込み、根拠付きの候補リストを出力する手順と判定基準をスキル化。本人最大の工数（月60.5h・非定型2h/回）で費用対効果が最も高い。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">モール掲載・価格・在庫チェック</span><span class="ch">対象 20.46h/月</span></div><div class="tgt">対象業務: 商品ページ確認、価格表示確認、在庫表示確認、キャンペーン確認、掲載状況確認</div><p class="how">楽天RMS・Yahoo・AmazonセラーのMCPで対象商品の掲載状況・価格・在庫を横断取得し、NetSuite在庫と突合して不備一覧（誤表示・掲載漏れ・在庫ずれ）を作るチェック手順をスキル化。修正依頼のチャットワーク文面下書きまで生成（本館EC-CUBEのみ目視継続）。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">見積もり利益判定</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 見積もり確認、利益商品選定</div><p class="how">見積もり情報（仕入原価・数量）とモール手数料・送料・販売予定価格から利益率を自動計算し、仕入GO/NGの判定案と理由を提示する判断ルール（最低利益率・回転条件）をスキルに明文化。最終判断は本人、判定表の作成をClaudeが担う。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">前日受注分析・在庫調整指示書</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 受注CSV取得、前日受注確認、受注傾向分析、調整情報作成</div><p class="how">GoQからDLした前日受注CSV（またはNetSuite MCP照会）を渡すと、商品別・モール別の受注集計→在庫不足リスク抽出→部下向け在庫調整指示（対象商品・数量・優先度）の文面まで一気に生成する毎朝の定型手順をスキル化。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-ec)"><div class="phead"><span class="pname">上保</span><span class="prole">Eコマース課（Yahoo!店長）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">Yahoo問い合わせ返信案</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 問い合わせ代理処理</div><p class="how">既存の楽天版（rakuten-toiawase-henshin）のYahoo拡張。yahoo-store MCPで問い合わせ・注文・在庫納期を照会し、電池屋の返信ルール（謝罪1回・キャンセル可否判定など）に沿った返信案を生成。送信は本人がストアクリエイターProで実施。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">Yahoo新規商品リサーチの型</span><span class="ch">対象 48h/月</span></div><div class="tgt">対象業務: 掲載商品調査、仕入商品調査</div><p class="how">仕入先サイトの商品情報を渡すと、yahoo-store MCPの商品検索で競合・需要状況を照会し、掲載可否チェックリスト（競合数・価格差・利益見込み・納期）で判定表を作る調査手順をスキル化。仕入先サイト巡回は人、判断材料の整理をClaudeが担う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">Yahoo商品ページ文言・登録データ下書き</span><span class="ch">対象 38.5h/月</span></div><div class="tgt">対象業務: 商品文言作成、商品詳細入力</div><p class="how">型番・仕様・仕入先の商品説明を渡すと、Yahoo向けタイトル規則・説明文テンプレ・注意事項の定型文に沿ってストアクリエイターPro登録用の文言一式（タイトル/キャッチ/説明/仕様表）を生成。過去の良ページを文例として収録。登録作業は本人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">商品価格設定ルール</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 商品価格設定</div><p class="how">仕入価格・定価・競合価格・送料・目標利益率から売価候補を計算する価格決定ルール（イベント時の価格方針含む）を明文化し、根拠付きの推奨売価を提示。競合価格はyahoo-store MCPで照会可能。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-ec)"><div class="phead"><span class="pname">川島</span><span class="prole">Eコマース課</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">商品登録データ自動作成</span><span class="ch">対象 48h/月</span></div><div class="tgt">対象業務: 商品情報登録</div><p class="how">本人がツール欄に「スクレーピングしてデータ取得」と記載済みで意向に合致。仕入先サイトの商品情報から商品名・説明文・カテゴリ・価格・納期の登録用データ（CSV/下書き）を生成する手順と表記ルールをスキル化。EC-CUBEへの投入は人（MCP無し）。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">モール横断・最安価格調査</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 最安価格調査</div><p class="how">対象商品リストを渡すと、楽天（search_products）・Yahoo（search_items）・Amazon（get_competitive_pricing/get_item_offers）のMCPで競合最安価格を取得し、自社価格との差分・送料条件込みの比較表を自動生成する手順をスキル化。毎日1hの調査がほぼ自動化できる。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">売値調整・赤字チェック</span><span class="ch">対象 33h/月</span></div><div class="tgt">対象業務: 売値調整、赤字チェック</div><p class="how">最安価格調査の結果とNetSuiteの仕入原価・モール手数料・送料から、赤字ライン割れ商品の警告リストと値付け調整案（下限価格・推奨売価・根拠）を生成する判断ルールをスキル化。価格変更の実行は人（本館）またはMCP（楽天）で段階導入。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">売上集計レポート</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 売上データ集計</div><p class="how">既存netsuite-suiteqlスキルの拡張として、日次/期間別の商品別販売数・売上金額・粗利・キャンセル返品を定型SuiteQLで集計し、報告用の表に整形する手順をスキル化。毎日1hの集計作業をMCP照会で置き換え。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-ec)"><div class="phead"><span class="pname">池田</span><span class="prole">本館・Web制作（推定）</span></div><div class="pnote">⚑ 工数はテンプレ値（一律12回×1h）のため参考値。着手前に実態ヒアリングが必要。</div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">月次会議資料作成パック</span><span class="ch">対象 156h/月</span></div><div class="tgt">対象業務: NetSuite情報加工、GA情報収集加工、Google広告情報加工、Yahoo広告情報加工、売上実績整理、利益率整理、注文数整理、売上商品整理、掲載商品数整理、広告費整理、ROAS整理、広告経由販売整理、会議資料作成</div><p class="how">本人最大の工数塊（13業務・月156h）。NetSuite系の数値はMCPで直接取得、GA・Google広告・Yahoo広告は人がCSVをDLして渡す前提で、集計フォーマット・ROAS等の計算式・資料の章立てをスキル化し、会議資料の下書きまで一括生成する。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">詐欺注文チェック</span><span class="ch">対象 12h/月</span></div><div class="tgt">対象業務: 詐欺注文確認</div><p class="how">高額注文・注文者/届け先不一致・決済方法・過去履歴などの疑義判定チェックリストを本人からヒアリングして明文化し、NetSuite・モールMCPで注文を照会して疑わしい注文の一覧と判定理由を出す定型判定スキルにする（型①の典型）。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">日次売上確認レポート</span><span class="ch">対象 12h/月</span></div><div class="tgt">対象業務: 日次売上確認</div><p class="how">netsuite-suiteqlスキルの拡張として、前日売上・モール別内訳・前週同曜日比を定型クエリで自動集計し、確認ポイント（異常値・急増減）をコメント付きで出力する朝の定型スキルにする。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">レビュー返信案作成</span><span class="ch">対象 12h/月</span></div><div class="tgt">対象業務: レビュー確認返信</div><p class="how">rakuten-toiawase-henshinの姉妹スキルとして、レビュー内容（低評価/高評価/クレーム別）に応じた返信文例集と電池屋の文面ルール（謝罪1回・シンプルに）を収録し、返信案を生成。投稿は本人が各モール画面で実施。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-ec)"><div class="phead"><span class="pname">砥綿</span><span class="prole">Eコマース課（Amazonセラー）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">Amazon掲載可否・競合リサーチ判定</span><span class="ch">対象 27.5h/月</span></div><div class="tgt">対象業務: 外部ツールデータ収集、商品掲載可否判断</div><p class="how">amazon-seller MCPのcheck_listing_restrictions（出品制限）・get_competitive_pricing・search_catalog_itemsで掲載可否と競合価格を自動確認し、仕入見込価格と手数料（get_fees_estimate）から利益判定して管理表用の行データまで生成する手順をスキル化。既存amazon-seller-sousaの拡張。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">当日出荷引当チェック</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 当日出荷注文引当確認</div><p class="how">amazon-seller list_ordersで当日出荷対象の注文を抽出し、在庫管理表（スプレッドシート/ファイル）と突合して引当漏れ・在庫不足の注文一覧を出す毎日の照合手順をスキル化。倉庫への入荷指示メール文面の下書きまで生成。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">返品返金・再販可否判定</span><span class="ch">対象 16.5h/月</span></div><div class="tgt">対象業務: 顧客返品返金処理、再販用データ入力</div><p class="how">返品理由・返送状況・商品状態から返金可否と再販可否を判定するルール（Amazon返品ポリシー＋社内基準）を明文化し、判定結果と返品管理表・在庫戻し用の記録データを生成。セラーセントラルでの返金実行は人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">仕入先見積依頼・回答整理</span><span class="ch">対象 14.52h/月</span></div><div class="tgt">対象業務: 仕入先見積依頼、見積回答メール確認</div><p class="how">見積対象リスト（型番・数量・希望納期）から仕入先別の見積依頼メール定型文を生成し、届いた回答メールの本文から価格・納期を抽出してスプレッドシート転記用に整形する文例＋抽出ルールをスキル化。送受信は人。</p></div></div>
+<div class="dept-head"><span class="dot" style="background:var(--d-gyomu)"></span><h3>業務課・システム課</h3><span class="cnt">5名</span></div>
+<div class="pblock" style="border-top-color:var(--d-gyomu)"><div class="phead"><span class="pname">市倉</span><span class="prole">システム課</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">RPA朝イチ監視レポート</span><span class="ch">対象 15.76h/月</span></div><div class="tgt">対象業務: リモート稼働確認、UiPathジョブ確認、夜間ジョブ確認、エラー有無確認</div><p class="how">既存rpa-job-checkの拡張として、uipath-orchestrator MCPで前日退勤以降のジョブ実行履歴・失敗ジョブ・ログを一括取得し、「異常なし／要対応（対象業務・影響範囲・再実行可否）」の定型サマリーを毎朝生成する手順と判断ルールを書く。定時自動チェック化すれば終日稼働監視（月176h）の常時拘束の軽減にも波及する。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">社内開発の企画・段取りテンプレート</span><span class="ch">対象 48h/月</span></div><div class="tgt">対象業務: 社内プラン検討、技術調査、開発段取り</div><p class="how">社内ニーズ→要件→優先度→制約→タスク・スケジュール→リスクの定型フォーマットと、技術調査の観点チェックリスト（既存環境・利用予定サービス・制約条件）をスキル化し、企画書・段取り表のドラフトをClaudeが生成する。属人化しがちな開発企画の型を明文化する効果も大きい。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">RPA開発・改善の要件定義シート</span><span class="ch">対象 40h/月</span></div><div class="tgt">対象業務: RPA作成、RPA改善</div><p class="how">依頼部門からの自動化要望を「対象業務の手順・入力データ・出力データ・利用システム・例外処理」の定型ヒアリング項目に落とし込む質問セットと設計書ドラフトの型をスキル化。改善案件ではuipath-orchestrator MCPのジョブログからエラー傾向を集計して改善提案の根拠にできる。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-gyomu)"><div class="phead"><span class="pname">青木</span><span class="prole">システム課</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">受注出荷RPA定時監視サマリー</span><span class="ch">対象 79.86h/月</span></div><div class="tgt">対象業務: 夜間実行結果確認、日中実行確認、システム稼働確認、注文取込確認、発注処理確認、出荷回し確認、送り状発行確認、売上処理確認、在庫連携確認</div><p class="how">rpa-job-check拡張として、uipath-orchestrator MCPのジョブ結果＋楽天/Yahoo/AmazonのモールMCPとNetSuite MCPの受注件数突合で「取込漏れ・発注漏れ・売上転記漏れ」を定時チェックし異常だけ報告する手順と正常/異常の判定ルールを書く。GoQ・エアロジ画面の直接確認だけはUiPathジョブログで代替する。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">納期回答書の読み取り・例外抽出・入力照合</span><span class="ch">対象 44h/月</span></div><div class="tgt">対象業務: 原本要対応確認、入力結果照合</div><p class="how">既にスキャン済みの納期回答書データをClaudeに読ませ、廃番・価格変更・長納期など要対応案件の抽出ルールを明文化。委託先の入力結果はNetSuite MCPで納期を照会し、回答書との突合結果（漏れ・誤入力の一覧）を自動生成する。最終判断と修正は人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">長納期の顧客連絡文面作成</span><span class="ch">対象 17h/月</span></div><div class="tgt">対象業務: 長納期リスト作成、顧客メール送信、モール部署共有</div><p class="how">NetSuite MCPで長納期対象受注を抽出してリスト化し、モール別・受注番号・回答納期を差し込んだ顧客向け連絡文（謝罪1回・シンプルの社内ルール準拠）とモール部署共有文をドラフトする。送信はGoQ・各モールチャットで人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">銀行振込の入金照合・伝票ドラフト</span><span class="ch">対象 27.5h/月</span></div><div class="tgt">対象業務: 入金一覧確認、対象受注確認、NetSuite伝票作成</div><p class="how">入金一覧スプレッドシートとNetSuite MCPの受注情報（受注番号・顧客・請求金額）を突合し、金額一致・伝票作成対象の判定リストと伝票内容ドラフトを生成する手順を書く。金銭に関わるためns_createRecordでの登録は人の確認を挟むゲート付きにする。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-gyomu)"><div class="phead"><span class="pname">福島</span><span class="prole">業務課（発注）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">発注数量・発注点の妥当性チェック</span><span class="ch">対象 19.8h/月</span></div><div class="tgt">対象業務: 回転率確認、過剰発注確認、商品情報確認、在庫数確認、発注点修正</div><p class="how">既にClaude＋NetSuiteで実施中の業務をスキル化する本命。SuiteQLで回転率・在庫数・販売実績・入荷予定を一括取得する定型クエリと、過剰発注／発注点適正の判定基準（しきい値・例外品の扱い）を明文化し、誰が頼んでも同じ品質で判定結果と修正案を返せるようにする。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">ベンダーセントラル発注処理リスト</span><span class="ch">対象 27.28h/月</span></div><div class="tgt">対象業務: ベンダー分発注処理、ベンダー取消入力</div><p class="how">amazon-vendor-sousaの拡張として、amazon-vendor MCPでPOとキャンセル情報を取得し、発注対象・数量・キャンセル反映済みの処理リストをスプレッドシート転記用に整形する手順を書く。NetSuite MCPで在庫・発注状況の突合も同時に行う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">仕入先連絡（納期・欠品・照会）の一次対応</span><span class="ch">対象 20.02h/月</span></div><div class="tgt">対象業務: 発注内容照会対応、納期回答確認、欠品連絡確認</div><p class="how">仕入先メールを「納期回答／欠品／照会」に分類し、欠品時のキャンセル・代替・納期調整・顧客連絡要否の判断フローと、仕入先・社内向け返信文例をスキル化。NetSuite MCPで発注書・受注情報を照会して回答材料を揃え、送信は人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg c">C 足回り待ち</span><span class="ct">倉庫依頼（山梨チャット）の一次仕分け</span><span class="ch">対象 30.6h/月</span></div><div class="tgt">対象業務: 山梨チャット確認、エアロジ確認、NetSuite確認</div><p class="how">数量違い・破損・登録変更・誤入庫の依頼種別ごとに確認手順と修正判断をスキル化したいが、照合の中心であるエアロジにMCPが無い。NetSuite側の発注・入荷情報照合だけなら既存MCCPで今すぐ支援可能で、エアロジMCP整備後に完全化する。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-gyomu)"><div class="phead"><span class="pname">瀬能</span><span class="prole">業務課</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">キャンセル可否判定と顧客連絡文</span><span class="ch">対象 26.4h/月</span></div><div class="tgt">対象業務: 出荷登録確認、取消可否判断、不可連絡送信、完了連絡送信</div><p class="how">月330件の定型判定。「オラクル請求保留＋エアロジ登録状況で可否が決まる」ルール（rakuten-toiawase-henshinに一部実装済み）を全チャネル（メール・チャット・本館）へ拡張し、NetSuite MCPで請求保留を確認→可否判定→不可連絡/完了連絡の文面ドラフトまで生成。GOQ・ECキューブの取消操作は人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">顧客問い合わせ回答ドラフト（納期・商品詳細）</span><span class="ch">対象 42.9h/月</span></div><div class="tgt">対象業務: 注文納期確認、納期回答送信、商品情報確認、詳細回答送信</div><p class="how">月220件超の納期問い合わせに対し、NetSuite MCPで注文状況・入荷予定日・仕入先回答を照会して回答文をドラフトする手順と文例（納期未定時の言い回し含む）をスキル化。nouki-kanriスキルの照会ロジックを顧客回答用に転用できる。送信は人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">納品書×受領データ突合チェック</span><span class="ch">対象 33h/月</span></div><div class="tgt">対象業務: 受領書一覧出力、納品書照合、納品差異処理、差異問合せ</div><p class="how">メール添付・スキャン済み納品書をClaudeが読み取り、NetSuite MCPの受領済み一覧と品番・数量・発注番号を突合して差異一覧を自動生成。差異種別（数量違い・品番違い・発注書不一致）ごとの整理ルールと仕入先問い合わせ文例まで含める。紙納品書はスキャンが前提。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">入荷遅延・予定日空白リストの自動抽出</span><span class="ch">対象 15.88h/月</span></div><div class="tgt">対象業務: 遅延商品抽出、遅延商品絞込、空白一覧出力、空白商品絞込、対象外行削除</div><p class="how">現在Excelで手作業している絞り込み条件（場所・SOURYOU除外・問合せ除外先・月曜のみ・DK末尾・直近1週間除外・納期確認済みコメント除外など）が明文化済みなので、SuiteQLの定型クエリとして再現し、確認対象リストと仕入先別の納期確認メール/FAX下書きまで一括生成する。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-gyomu)"><div class="phead"><span class="pname">加藤</span><span class="prole">業務課（EC顧客対応）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">モール未返信問い合わせの朝トリアージ</span><span class="ch">対象 33h/月</span></div><div class="tgt">対象業務: 楽天問合せ確認、Yahoo問合せ確認、古い問合せ抽出</div><p class="how">楽天RMS MCP・Yahoo MCPで未返信/未対応の問い合わせを一括取得し、受付日時の古い順＋種別（納期・キャンセル・領収書）で優先順位付きの対応リストを毎朝生成する手順を書く。既存のrakuten-sousa/yahoo-sousaの拡張として、返信案は既存rakuten-toiawase-henshinへ連携。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">キャンセル・注文変更の可否判定</span><span class="ch">対象 13.2h/月</span></div><div class="tgt">対象業務: 取消可否回答、出荷前取消受付、日時変更受付、届け先変更受付</div><p class="how">判定ルール（NetSuiteの請求保留状態＝断ってよい、出荷ステータス別の可否、決済方法別の返金手順）と顧客向け回答文例を明文化。NetSuite・楽天・YahooはMCPで照会でき、エアロジ登録状況のみ人が画面確認して結果を渡す。既存rakuten-toiawase-henshinのキャンセル判定を全モール・注文変更に拡張。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">領収書・請求書・納品書の案内</span><span class="ch">対象 8.66h/月</span></div><div class="tgt">対象業務: 領収書案内、領収書発行、請求書発行、納品書発行</div><p class="how">モール別（楽天/Yahoo/Amazon/本館）の発行可否・発行手順・宛名/但し書きルールをFAQ化し、顧客への案内文例と発行時のチェックリスト（決済方法別の注意点）を書く。案内文は即返信でき、発行操作のみ人がモール画面で行う。</p></div><div class="cand"><div class="c1"><span class="bdg c">C 足回り待ち</span><span class="ct">GoQ入金確認・入金シート記入</span><span class="ch">対象 14.52h/月</span></div><div class="tgt">対象業務: GOQ入金確認、入金シート記入</div><p class="how">GoQにMCPが無いため照会の自動化は足回り待ち。当面はGoQからCSVを落として渡せば、Claudeが請求額と入金額の差異抽出・入金シートへの転記案・不足/過入金の連絡文（不足入金連絡の文例含む）まで作れる手順をスキル化する。</p></div></div>
+<div class="dept-head"><span class="dot" style="background:var(--d-eigyo)"></span><h3>営業部（営業課・入札課）</h3><span class="cnt">5名</span></div>
+<div class="pblock" style="border-top-color:var(--d-eigyo)"><div class="phead"><span class="pname">篠本</span><span class="prole">入札課</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">同等品申請書・性能比較表ドラフト</span><span class="ch">対象 77h/月</span></div><div class="tgt">対象業務: 同等品申請書作成、性能比較表作成</div><p class="how">仕様書PDF・参考品仕様・同等品候補カタログを渡すと、比較すべき性能項目の抽出ルールに沿って性能比較表（Excel）と申請書の記載文面を自動ドラフト。役所指定の紙書式への転記・手書きは人が行う。過去に承認された比較表を文例として蓄積する。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">応札価格検討支援（類似案件リサーチの型）</span><span class="ch">対象 82.5h/月</span></div><div class="tgt">対象業務: 類似案件検索、応札価格算定</div><p class="how">過去案件データ（スプレッドシート/Excel）と仕様書を渡すと、類似案件の抽出条件（品目・数量・自治体規模）と価格算定の考慮要素（落札率・原価・納品条件）を型どおりに整理し、応札価格の候補レンジと根拠を提示。入札情報サイトの巡回自体はMCPが無いため人が実施。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">案件期限・処理順序の判定</span><span class="ch">対象 22.44h/月</span></div><div class="tgt">対象業務: 案件期限確認、処理順序判断</div><p class="how">公告文・仕様書PDFから参加申請・質問・同等品・入札書の各期限を抽出して一覧化し、「期限が近い順＋役所回答待ちは除外」等の優先順位ルールで当日の処理順リストを生成。判断ルールを明文化すれば毎朝同じ品質で再現できる。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">仕様質問文の作成支援</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 仕様質問登録</div><p class="how">仕様書と不明点メモから、役所に通る質問文（案件番号・該当箇所の引用・確認したい条件を明記）を過去の質問文例に沿ってドラフト。質問期限のチェックも同時に行う。登録作業は自治体システムで人が実施。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-eigyo)"><div class="phead"><span class="pname">工藤</span><span class="prole">入札課</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">入札説明書からの台帳情報抽出</span><span class="ch">対象 16.72h/月</span></div><div class="tgt">対象業務: 申請日時確認、案件名登録、締切登録、提出方法登録</div><p class="how">入札説明書・公告PDFを渡すと、案件名・発注機関・案件番号・4種の締切（参加申請/質問/同等品/入札書）・提出方法（電子/郵送/持参・部数）を台帳の列順どおりに抽出して貼り付け用の行を生成。台帳への貼り付けは人が行う（スプレッドシートMCPが無いため）。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">申請書・見積書ドラフト</span><span class="ch">対象 24h/月</span></div><div class="tgt">対象業務: 申請書作成、見積書作成</div><p class="how">入札説明書・申請様式・仕様書と会社情報（定型部分をスキルに登録）から、参加申請書・見積書の記入内容を下書き。協業会社見積の転記チェック（数量×単価の検算、仕様との突合）も含める。様式への清書・提出は人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">協業会社向け連絡文面テンプレ</span><span class="ch">対象 18.92h/月</span></div><div class="tgt">対象業務: 協力依頼送付、協業参加可否確認、協業会社メール連絡</div><p class="how">依頼種別（協業参加可否・見積依頼・書類提供依頼・カタログ依頼）ごとの敬語メール文例と必須記載項目（案件名・仕様書添付・回答期限）をスキル化し、案件情報を渡せば送信可能なメール文面を即ドラフト。送信は人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">締切間近案件の抽出と催促文生成</span><span class="ch">対象 9.24h/月</span></div><div class="tgt">対象業務: 締切案件確認、担当者締切確認</div><p class="how">案件台帳（CSV/Excelエクスポート）を渡すと、締切◯日前・未完了の申請区分を抽出し、担当者別のチャット催促文まで生成する判定ルールをスキル化。将来スプレッドシート連携ができれば定期自動チェックに拡張可能。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-eigyo)"><div class="phead"><span class="pname">横森真俊</span><span class="prole">入札課・海外調達</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">同等品カタログ・申請書の自動ドラフト（本人改善案）</span><span class="ch">対象 22h/月</span></div><div class="tgt">対象業務: 同等品申請書の作成</div><p class="how">本人☑改善案「仕様書の仕様を読み取りパワーポイントでカタログを自動作成」そのもの。仕様書PDFと工場資料から要求スペックを抽出し、仕様比較表と提出用カタログ（pptx/docx生成スキルで出力可能）をドラフト。翻訳込みで中国側資料も取り込める。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">中国工場・代理店メール対応支援</span><span class="ch">対象 33h/月</span></div><div class="tgt">対象業務: 工場返信の確認、代理店返信の確認、中国側照会への回答</div><p class="how">本人☑改善案「中国側の進捗状況確認を自動で行いたい」に対応。夜間に届いた中国語メールを貼れば、要約＋案件管理表用の進捗ステータス＋返信文（中国語）を用語集付きテンプレでドラフト。メールボックスのMCP接続ができれば巡回自動化（C拡張）へ発展可能。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">過去落札DB蓄積と落札ライン推定（本人改善案）</span><span class="ch">対象 22.74h/月</span></div><div class="tgt">対象業務: 過去落札情報の調査、落札ラインの推定、案件DBへの蓄積</div><p class="how">本人☑改善案「DBを蓄積し過去の仕様や価格を抽出したい」に対応。案件DBの記録フォーマット（仕様分類・落札価格・競合・自社価格差）を定義し、開札結果を渡せば整形して蓄積、新案件では類似案件の抽出と落札ラインの推定根拠を提示する型をスキル化。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">仕様書要約・日中翻訳テンプレ</span><span class="ch">対象 18.48h/月</span></div><div class="tgt">対象業務: 役所仕様の翻訳伝達、仕様書読解と要求整理、中国資料の翻訳編集</div><p class="how">仕様書PDFから要求スペックを定型項目（寸法・材質・規格・数量・納期）で整理し、専門用語集に沿って工場向け中国語に翻訳して伝達文を生成。逆方向（中国資料→社内・発注者向け日本語）も同じ用語集で統一。本人が整備中のAIテンプレ群をスキルとして固定化する。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-eigyo)"><div class="phead"><span class="pname">加賀美</span><span class="prole">営業課</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">ランサーズ委託成果の検品照合</span><span class="ch">対象 25.74h/月</span></div><div class="tgt">対象業務: 受注登録照合、見積作成照合、売上転記照合</div><p class="how">顧客注文書・見積依頼書（PDF/FAX画像）をClaudeに渡し、NetSuite MCPで登録済み受注・見積・売上転記を取得して、顧客コード・品番・数量・金額・納品先・件名を項目別に突合、相違点だけを一覧で返す照合手順を書く。典型的な照合・突合型で費用対効果が最大。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">仕入先照会文面の一括作成</span><span class="ch">対象 40.92h/月</span></div><div class="tgt">対象業務: 仕入先見積依頼、仕入先メール照会、仕入先FAX照会、仕入先納期確認</div><p class="how">品番・数量・希望納期を渡すと、仕入先別の宛先・書式（メール/FAX）に沿った見積依頼・在庫照会・納期確認の文面を生成する文例集とテンプレートを書く。送信は人（メール/FAX）。仕入先ごとの照会ルート・注意点も表にして属人化を解消。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">オラクル在庫・価格照会と回答下書き</span><span class="ch">対象 27.5h/月</span></div><div class="tgt">対象業務: オラクル在庫確認、在庫確認回答、金額確認回答</div><p class="how">既存netsuite-sousa/suiteqlの拡張として、顧客指定品番→在庫アイテム・在庫数・顧客別登録価格の検索定石（品番の表記ゆれ対応含む）を書き、そのまま顧客向け回答文まで生成。メーカー在庫が必要な場合は人が確認した結果を渡す運用。送信のみ人。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">昨日出荷分の売上転記漏れチェック</span><span class="ch">対象 12.54h/月</span></div><div class="tgt">対象業務: 昨日出荷分確認、配送伝票確認、請求書番号確認、売上金額照合</div><p class="how">SuiteQLで前営業日出荷分の受注→配送伝票→請求書番号→金額を一括突合し、転記漏れ・金額不一致だけを毎朝リストで返す定型クエリと判定基準をスキル化。既存netsuite-suiteqlのノウハウで今すぐ実装できる。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-eigyo)"><div class="phead"><span class="pname">奥田勝</span><span class="prole">営業課（営業補佐）</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">見積依頼整理と見積書下書き</span><span class="ch">対象 29.26h/月</span></div><div class="tgt">対象業務: 見積依頼確認、見積書作成</div><p class="how">見積依頼メール・FAXから商品名・型番・数量・希望納期を抽出して整理し、仕入価格から販売価格を算出する掛率・値付けルールと見積書の文例を明文化。仕入先への価格確認と販売管理システムへの入力は人が行い、Claudeは抽出・計算・下書きを担当。月22件×1時間の見積書作成が本人の最大のデスクワーク。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">仕入先納期確認・催促文面</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 納期状況確認</div><p class="how">発注済み案件の一覧（発注書・納期回答書）を渡すと、入荷予定日と顧客希望納期を突合して遅延リスク案件を抽出し、仕入先への納期確認・催促の文面を生成する手順を書く。既存nouki-kanri（EC側）の営業配達版として整理。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">配達段取り・積み込みリスト生成</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 納品書確認、商品積み込み</div><p class="how">当日の納品書一式を渡すと、納品先・数量の確認チェックリストと配達順（ルート）付きの積み込み指示書を生成する型を書く。配達自体は肉体作業だが、段取り計算・指示書生成の部分をスキル化して積み込みミス・配達順の迷いを削減。</p></div></div>
+<div class="dept-head"><span class="dot" style="background:var(--d-keiri)"></span><h3>経理総務部</h3><span class="cnt">4名</span></div>
+<div class="pblock" style="border-top-color:var(--d-keiri)"><div class="phead"><span class="pname">横森成子</span><span class="prole">総務</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">入札案件の収支・資金繰りサマリー</span><span class="ch">対象 9h/月</span></div><div class="tgt">対象業務: 担当者への進捗確認、請求状況把握、入金状況把握、先払情報確認</div><p class="how">NetSuite MCP（netsuite-sousa/suiteql）で入札案件の請求済み・未請求・入金予定を照会して一覧化し、先払い（中国仕入の前振込）予定と突き合わせて資金繰り上の要注意案件と担当者への確認事項リストを自動生成。借入要否確認の判断材料にもそのまま使える。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">入札申請・物品申請の手順チェックリスト</span><span class="ch">対象 14h/月</span></div><div class="tgt">対象業務: 入札申請手続き、物品申請対応</div><p class="how">都道府県別の申請要件・必要書類・提出方法（電子/紙）と会社情報・資格情報をスキルに明文化し、案件を伝えると必要書類チェックリストと申請書の記入内容をドラフト。属人化している県別ノウハウの引き継ぎ資料にもなる。電子申請システムの操作・郵送は人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">入札メール・チャット依頼のトリアージ</span><span class="ch">対象 14.52h/月</span></div><div class="tgt">対象業務: 入札メール確認、チャット確認</div><p class="how">メール・チャットの内容を貼ると「対応要否・期限・担当振り分け・返信要」を判定ルール（申請依頼→期限確認、契約書到着→押印フロー等）で仕分けし、当日の対応リストを生成。判定基準を明文化すれば確認漏れ防止のダブルチェックとして機能する。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-keiri)"><div class="phead"><span class="pname">奥田淳子</span><span class="prole">経理支払・総務書類</span></div><div class="pnote">⚑ 元シートがテンプレ記入のため、スキル化の前に仕分けルール等のヒアリングが前提。</div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">請求書メール仕分けとオラクル入力下書き</span><span class="ch">対象 36h/月</span></div><div class="tgt">対象業務: 請求書メール確認、請求書仕分け、オラクル請求処理</div><p class="how">受信した請求書PDFから仕入先名・金額・支払期日・費目を抽出して仕分け一覧を作り、NetSuite MCPで仕入先・発注との突合とベンダー請求の入力下書きまで生成する手順を書く。登録の確定は人が確認して実行。現状の業務メモは判断基準が未言語化のため、仕分けルールのヒアリングを最初に行う前提。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">振込・返金依頼の事前突合チェック</span><span class="ch">対象 24h/月</span></div><div class="tgt">対象業務: 振込依頼確認、返金依頼確認</div><p class="how">振込・返金依頼を受けたら、依頼内容とNetSuite上の請求書・受注・過去支払実績を突合し、金額相違・二重払い・依頼元不備を検出するチェックリストをスキル化。銀行振込の実行自体は対象外（人が銀行システムで実施）で、Claudeは支払前の検証のみを担当。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-keiri)"><div class="phead"><span class="pname">畢</span><span class="prole">経理</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">経理メール仕分け・返信下書き</span><span class="ch">対象 27.5h/月</span></div><div class="tgt">対象業務: 経理メール確認、経理メール返信、新しい小業務（依頼整理・優先順位付け）</div><p class="how">依頼種別（返金依頼／入金確認／仕訳計上依頼／税理士・銀行連絡）ごとの分類ルール・対応期限の目安・返信文例をスキル化。メール本文を貼れば「種別・優先度・日次/月次どちらへ回すか・返信案」を一度に出す。shanai-bunsho-tensakuの文体ルールを流用。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">入金差異の原因調査・営業確認文作成</span><span class="ch">対象 6.96h/月</span></div><div class="tgt">対象業務: 入金差異内容確認、営業担当確認連絡</div><p class="how">銀行入金CSV（または入金チェック用スプレッドシート）をファイルで渡し、NetSuite MCP（SuiteQL）で売上・請求と突合。差異原因の定石仮説（振込手数料差引・振込名義相違・複数請求の合算・一部入金）を順にチェックする手順と、営業担当宛の確認連絡文テンプレートを収録。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">返金依頼チェック</span><span class="ch">対象 4.08h/月</span></div><div class="tgt">対象業務: 返金依頼内容確認、返金金額確認、返金対象入金確認</div><p class="how">「対象取引が実在するか→金額が売上・入金と一致するか→入金済みか（未入金返金・二重返金の防止）」の判定チェックリストを明文化し、NetSuite MCPで取引・入金レコードを照会して合否と根拠を返す。NGの場合の依頼部門への差し戻し文例も収録。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">月次決算チェック（財務諸表・滞留債権債務）</span><span class="ch">対象 5.5h/月</span></div><div class="tgt">対象業務: OraclePL確認、OracleBS確認、月次科目残高確認、売掛金残高確認、買掛金残高確認</div><p class="how">既存netsuite-suiteqlスキルの拡張として、前月比較で増減率が閾値を超えた科目の抽出、長期滞留の売掛金・買掛金一覧、異常残高（マイナス残・内容不明科目）の検出をSuiteQL定型クエリ集にする。月1回の実行で確認箇所リストを自動生成。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-keiri)"><div class="phead"><span class="pname">山坂</span><span class="prole">総務（経理補助）</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">締前入金確認・0円締め対象抽出</span><span class="ch">対象 9.17h/月</span></div><div class="tgt">対象業務: 締前入金確認、0円締め対象確認</div><p class="how">NetSuite MCP（SuiteQL）で締め対象顧客の売掛残と入金状況を突合し、未入金・請求残の一覧を自動生成。0円締めの判定ルール（前月売上あり・当月売上なし・入金あり）をそのまま明文化してSuiteQLで対象顧客を抽出。締め処理の実行自体はオラクル上で人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">勤怠データ社労士Excel転記</span><span class="ch">対象 6h/月</span></div><div class="tgt">対象業務: 社労士Excel転記</div><p class="how">KING OF TIMEから出力した勤怠データ（Excel/CSV）をファイルで渡せば、社労士指定Excelへの転記ルール（列対応・丸め・アルバイト個別の扱い）に沿って変換済みファイルを生成。KOTからの出力操作（月0.5h）だけ人が行う。転記6hがほぼ丸ごと削減対象。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">備品価格比較の型</span><span class="ch">対象 6.6h/月</span></div><div class="tgt">対象業務: 備品価格比較</div><p class="how">購入依頼を受けたらClaudeがWeb検索で候補商品・単価・送料・納期・購入先を比較表にまとめ、推奨案と選定理由を提示する調査の型をスキル化。net-hatchu-chuiten（ネット発注注意点）と連携。購入手配（月3.4h）は人が実行。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">銀行入金データ整形・NetSuite入金登録支援</span><span class="ch">対象 9.24h/月</span></div><div class="tgt">対象業務: 入金データ表貼付、オラクル入金登録</div><p class="how">各銀行からダウンロードした入金データ（CSV）を渡せば、入金管理用スプレッドシートの形式へ整形し、NetSuite登録用に顧客名寄せ・入金日・金額をセットした登録リストを作成。登録実行は当面人が行い、精度確認後にNetSuite MCPの書き込み（ns_createRecord）で段階的に自動化する余地あり。銀行からの抽出操作のみ人。</p></div></div>
+<div class="dept-head"><span class="dot" style="background:var(--d-buturyu)"></span><h3>物流・製造</h3><span class="cnt">2名</span></div>
+<div class="pblock" style="border-top-color:var(--d-buturyu)"><div class="phead"><span class="pname">田中</span><span class="prole">山梨事業所（キット製造）</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">キット作成の当日段取り計算</span><span class="ch">対象 5.5h/月</span></div><div class="tgt">対象業務: 器具内容確認</div><p class="how">キット構成マスタと月作成目標・部品在庫をスキルに定義し、当日の作成予定数を入れると器具・部材の種類別必要数量と担当割りの指示書を生成する。作成スプレッドシートをファイルで渡せば入れ間違い・不足のチェックリストも出せる。袋詰め等の実作業は対象外。</p></div><div class="cand"><div class="c1"><span class="bdg c">C 足回り待ち</span><span class="ct">制作数の二重入力一本化（スプシ×エアロジ）</span><span class="ch">対象 14.08h/月</span></div><div class="tgt">対象業務: 作成表へ数入力、エアロジへ数入力</div><p class="how">1パレットごとに同じ制作数をスプレッドシートとエアロジへ二重入力しており（月88回×2）、エアロジにMCPが無いため今は自動化できない。スプシ→エアロジのCSV連携をUiPath（RPA）で組むか、エアロジMCP開発が前提。足回りができれば入力1回に半減できる筆頭候補。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">月末棚卸しの集計・入力チェック</span><span class="ch">対象 4h/月</span></div><div class="tgt">対象業務: 全在庫数確認、棚卸表へ入力</div><p class="how">棚卸対象リスト（部品・袋詰め済み部材・完成品・段ボール）の生成と、数え終わった実在庫の入力値チェック（前月比の異常値検出・翌月作成計画への反映）を手順化する。既存の棚卸差異抽出スキルの山梨事業所版拡張として作れる。実地カウントは人。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-buturyu)"><div class="phead"><span class="pname">佐藤</span><span class="prole">物流課（倉庫）</span></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">出荷締めの漏れ突合チェック</span><span class="ch">対象 18.26h/月</span></div><div class="tgt">対象業務: 出荷漏れ確認、必須注文の処理確認</div><p class="how">当日の注文一覧×出荷済みリストの突合手順と「必ず当日出荷すべき注文」の判定ルール（優先注文の条件・出荷締切）をスキル化し、リスト（CSVや画面コピー）を渡せば未出荷・要対応注文を抽出して一覧にする。NetSuite照会MCPでの出荷ステータス確認も併用できる。エアロジ側の操作は人。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">営業前準備の屋外出し選定リスト</span><span class="ch">対象 11h/月</span></div><div class="tgt">対象業務: 必要商品の屋外出し</div><p class="how">当日の出荷予定データから「屋外に出しておくべき商品・数量・置き場所」の選定ルール（出荷頻度・荷姿・優先度）を明文化し、朝イチで出荷予定リストを渡せば屋外出し指示リストを生成する。運搬の実作業は人で、段取り判断の部分をスキル化する。</p></div></div>
+<div class="dept-head"><span class="dot" style="background:var(--d-keiei)"></span><h3>経営・全社</h3><span class="cnt">2名</span></div>
+<div class="pblock" style="border-top-color:var(--d-keiei)"><div class="phead"><span class="pname">横森隆政</span><span class="prole">経営管理・Amazonベンダー</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">Amazonベンダー受注の日次チェック・加工</span><span class="ch">対象 14.74h/月</span></div><div class="tgt">対象業務: 5アカウント確認、受注データ取得、受注データ加工</div><p class="how">amazon-vendor MCP（account引数でアカウント切替、既存amazon-vendor-sousaスキルの拡張）で毎朝5アカウントのPO・フォロー状況を一括照会し、ベンダーシステム反映用フォーマット（商品コード・数量・納期）への変換ルールを手順化してCSVを生成する。反映操作自体は人が行う。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">商品登録可否判定（利益・危険物）</span><span class="ch">対象 9.24h/月</span></div><div class="tgt">対象業務: Claude利益確認、Claude危険物確認、登録要否判定</div><p class="how">既にClaudeで行っている利益確認・危険物確認の判断基準（利益率基準、手数料・送料の計算式、危険物判定のチェック項目、既存登録の確認手順＝NetSuite/セラー照会MCP）をスキルに明文化し、商品データを渡せば誰でも同じ登録要否判定が出るようにする。</p></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">週次経営数値の集計・資料下書き</span><span class="ch">対象 10.72h/月</span></div><div class="tgt">対象業務: 部署別売上確認、部署別仕入確認、部署別送料確認、部署別手数料確認、部署別間接費確認、部署別広告費確認、部署別粗利確認、部署別営業益確認、週次資料作成</div><p class="how">NetSuite MCP（SuiteQL）で部署別の売上・仕入・送料・手数料・間接費・粗利・営業利益を定型クエリ化し、役員向け週次資料のフォーマットとコメントの書き方をスキル化する。広告費など外部システムのデータだけ人が貼り付ける。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">会議議事録・宿題トラッキング</span><span class="ch">対象 12.64h/月</span></div><div class="tgt">対象業務: EC議事録作成、システム議事録作成、倉庫議事録作成、役員議事録作成、EC宿題確認、システム宿題確認、倉庫宿題確認、役員宿題確認</div><p class="how">週4本の定例（EC・システム・倉庫・役員）の議事録フォーマット（決定事項・宿題・担当・期限）と宿題リストの管理ルールをスキル化し、会議メモを渡せば議事録下書きと宿題進捗の確認リストを生成する。Chatwork共有は人が行う。</p></div></div>
+<div class="pblock" style="border-top-color:var(--d-keiei)"><div class="phead"><span class="pname">横森英俊</span><span class="prole">製造・業界団体役員</span></div><div class="cand"><div class="c1"><span class="bdg a">A 今すぐ作れる</span><span class="ct">電線切断の段取り計算・指示書生成</span><span class="ch">対象 29.26h/月</span></div><div class="tgt">対象業務: 試験問題確認、電線種類確認、合計寸法確認</div><p class="how">電気工事士候補問題13問×約15種類の電線の構成・寸法マスタ（配線図・合計寸法表）をスキルに焼き込み、当日の作成予定数を入力すると電線種類別の必要数量・切断寸法・束取り長さの作業指示書を自動生成する。年度の候補問題改定時にマスタを差し替えるだけで運用できる。切断・巻取りの実作業は対象外。</p></div><div class="cand"><div class="c1"><span class="bdg b">B 下書き・判定支援</span><span class="ct">東京市場動向の発表資料下書き</span><span class="ch">対象 3h/月</span></div><div class="tgt">対象業務: 東京市場動向発表</div><p class="how">組合向け発表の構成（市場動向・業界状況・組合員からの情報の整理順）と過去の発表資料を文例としてスキル化し、当月の材料をメモで渡せば発表資料の下書きを生成する。理事会・支部会議の資料要約にも流用できる。</p></div></div>
+
+  </section>
+
+  <footer>
+    出典: 電池屋業務詳細（23名分、2026年8月）から抽出。既存スキル（楽天問い合わせ返信・NetSuite照会・RPAジョブ確認など）との重複は「拡張」として整理済み。<br>
+    関連資料: <a href="https://takehiroichikura.github.io/denchiya/gyomu-map.html">電池屋 全業務マップ</a>／作成: システム課
+  </footer>
+</div>
+
+</body>
+</html>
