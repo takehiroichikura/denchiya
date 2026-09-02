@@ -136,10 +136,10 @@
   <h2>はじめる（初回だけ・3分）</h2>
   <ol class="steps">
     <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-サイボウズMCP</b> をオンにする</li>
-    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のMCPコネクタと同じコード</b>です</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のコネクタと同じコード</b>です。持っていなければ Chatwork でコダック（RPA用アカウント）に <b>To を付けて「招待コードをください」</b>と送ると自動で返ってきます</li>
     <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
   </ol>
-  <p class="note">許可された担当者以外は、正しい招待コードを入れても「利用は許可された担当者に限定されています」と表示されて接続できません。招待コードの期限切れ・紛失は市倉さんへ。</p>
+  <div class="warn">このコネクタを使えるのは <b>管理者（市倉・青木・池田）</b> です。それ以外の人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。権限の相談は市倉さんへ。</div>
 
   <h2>できること（聞き方の例）</h2>
   <div class="tablewrap">
@@ -168,12 +168,71 @@
     </table>
   </div>
 
-  <h2>変更する操作の約束ごと</h2>
-  <div class="card">
-    <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
-    <p>アカウントの追加・変更・停止・削除は、<b>いきなり実行されることはありません</b>。AIが必ず対象と変更内容のプレビューを見せてくるので、対象者と内容を確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
-    <div class="danger">⚠ 「ユーザーの削除」は元に戻せず、その人のデータに影響します。退社対応は原則「停止」を使い、削除が必要な場合は市倉さんに相談してから実行してください。</div>
+  <h2>ツール一覧（28本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（18本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">ユーザー</td></tr>
+        <tr><td><code>get_users</code> / <code>get_user_organizations</code> / <code>get_user_groups</code> / <code>get_user_services</code></td><td>ユーザーの一覧・所属組織・所属グループ・利用サービス</td></tr>
+        <tr><td><code>add_users</code> / <code>update_users</code> / <code>update_user_codes</code> <b>書</b></td><td>ユーザーの追加・変更（表示名・停止など）・ログイン名の変更</td></tr>
+        <tr><td><code>delete_users</code> <b>書</b></td><td>ユーザーの削除（<b>元に戻せない</b>。原則は停止を使う）</td></tr>
+        <tr><td><code>update_user_organizations</code> / <code>update_user_groups</code> / <code>update_user_services</code> <b>書</b></td><td>所属組織・グループ・利用サービスの変更</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">組織</td></tr>
+        <tr><td><code>get_organizations</code> / <code>get_organization_users</code></td><td>組織の一覧・組織のメンバー</td></tr>
+        <tr><td><code>add_organizations</code> / <code>update_organizations</code> / <code>update_organization_codes</code> / <code>delete_organizations</code> <b>書</b></td><td>組織の追加・変更・コード変更・削除</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">グループ</td></tr>
+        <tr><td><code>get_groups</code> / <code>get_group_users</code></td><td>グループの一覧・メンバー</td></tr>
+        <tr><td><code>add_groups</code> / <code>update_groups</code> / <code>update_group_codes</code> / <code>update_group_users</code> / <code>delete_groups</code> <b>書</b></td><td>グループの追加・変更・コード変更・メンバー変更・削除</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">一括処理（CSV）</td></tr>
+        <tr><td><code>export_csv</code> / <code>get_csv_result</code></td><td>ユーザー・組織・グループの CSV 出力と結果取得</td></tr>
+        <tr><td><code>upload_file</code> / <code>import_csv</code> <b>書</b></td><td>CSV をアップロードして一括登録・更新</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <h2>できないこと</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
+      <tbody>
+        <tr><td><b>スケジュール・メッセージ・ファイルなど業務データを読む</b></td><td>✕</td><td>このコネクタは<b>ユーザー管理API</b>だけです。Garoon や kintone の中身は対象外</td></tr>
+        <tr><td><b>パスワードの確認・初期化</b></td><td>✕</td><td>API では扱えません。cybozu.com 共通管理の画面で</td></tr>
+        <tr><td><b>ライセンスの追加・契約変更</b></td><td>✕</td><td>契約はサイボウズの管理画面から</td></tr>
+        <tr><td><b>管理者以外が使う</b></td><td>✕</td><td>全社員のアカウントを変えられるため、管理者3名に限定しています</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>まだできないこと（サイボウズ側の制約）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
+      <tbody>
+        <tr><td>ログイン履歴・監査ログの取得</td><td>ユーザー管理APIに含まれていません。共通管理の画面で確認</td></tr>
+        <tr><td>削除したユーザーの復元</td><td>API にありません。削除は取り消せないので、退社対応は「停止」を使う</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>変更する操作（実装済→管理者向け）</h2>
+  <p>変更する操作は18本あり、<b>全社員のアカウントに直接影響</b>します。どれも同じ流れで動きます：<b>1回目はプレビュー（対象者と変更内容）→ 内容を見て承認 → 確認コードを付けた2回目でだけ実行</b>。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">操作</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><code>add_users</code><br><b>ユーザー追加</b></td><td><b>起きること</b>　新しいアカウントが作られる（ライセンスを消費）<br><b>取り消し</b>　停止または削除<br><b>安全装置</b>　ログイン名の重複を事前確認。所属は別ツールで付ける</td></tr>
+        <tr><td><code>update_users</code> / <code>update_user_codes</code><br><b>ユーザー変更</b></td><td><b>起きること</b>　表示名・停止状態・ログイン名が変わる（停止は本人が即ログイン不可）<br><b>取り消し</b>　元の値に戻す（プレビューに現在値）<br><b>安全装置</b>　変更前後を並べて表示</td></tr>
+        <tr><td><code>delete_users</code><br><b>ユーザー削除</b></td><td><b>起きること</b>　アカウントとその人のデータへのアクセスが消える<br><b>取り消し</b>　<b>不可</b><br><b>安全装置</b>　削除は原則使わず「停止」。実行前に市倉さんに相談</td></tr>
+        <tr><td><code>update_user_organizations</code> / <code>update_user_groups</code> / <code>update_user_services</code><br><b>所属・サービス変更</b></td><td><b>起きること</b>　見えるスケジュール・スペース・使えるサービスが変わる<br><b>取り消し</b>　元の所属に戻す<br><b>安全装置</b>　<b>一括置き換え</b>なので、外れる所属をプレビューで確認</td></tr>
+        <tr><td><code>add_organizations</code> / <code>update_organizations</code> / <code>update_organization_codes</code> / <code>delete_organizations</code><br><b>組織の操作</b></td><td><b>起きること</b>　組織構成が変わる。<b>親組織を削除すると子組織も削除され、配下の所属関係も解除される</b><br><b>取り消し</b>　作り直し・付け直し<br><b>安全装置</b>　削除対象の組織と所属人数をプレビュー。削除前に get_organization_users で所属者を確認する</td></tr>
+        <tr><td><code>add_groups</code> / <code>update_groups</code> / <code>update_group_codes</code> / <code>update_group_users</code> / <code>delete_groups</code><br><b>グループの操作</b></td><td><b>起きること</b>　グループ構成・メンバーが変わる<br><b>取り消し</b>　作り直し・付け直し<br><b>安全装置</b>　メンバー変更は一括置き換え。外れる人をプレビュー</td></tr>
+        <tr><td><code>upload_file</code> / <code>import_csv</code><br><b>CSV一括更新</b></td><td><b>起きること</b>　CSV の全行が一度に反映される<br><b>取り消し</b>　逆内容の CSV を再投入<br><b>安全装置</b>　件数と先頭行をプレビュー。まず export_csv で現状を控える</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="info">⚠️ 送信の途中で通信エラーになった場合は「送信したが受理されたか分からない」と表示されます。このときは<b>再実行せず</b>、<code>get_users</code> か cybozu.com 共通管理の画面で状態を確認してください。</div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
@@ -182,7 +241,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 

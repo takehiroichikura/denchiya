@@ -140,10 +140,10 @@
   <h2>はじめる（初回だけ・3分）</h2>
   <ol class="steps">
     <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-UiPathMCP</b> をオンにする</li>
-    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>楽天MCPと同じコード</b>です（コネクタごとに入力は必要ですが、コードは1人1つ）</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>他のコネクタと同じコード</b>です。持っていなければ Chatwork でコダック（RPA用アカウント）に <b>To を付けて「招待コードをください」</b>と送ると自動で返ってきます</li>
     <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
   </ol>
-  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください（1分で再発行できます）。</p>
+  <div class="warn">このコネクタを使えるのは <b>管理者（市倉・青木・池田）</b> です。それ以外の人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。権限の相談は市倉さんへ。</div>
 
   <h2>できること（聞き方の例）</h2>
   <div class="tablewrap">
@@ -168,20 +168,72 @@
     </table>
   </div>
 
-  <h2>できないこと</h2>
-  <ul class="plain">
-    <li><b>RPAプロセスの中身の修正・新規作成</b> — UiPath Studioの領域です</li>
-    <li><b>監査ログ（誰が設定を変えたか）</b> — 準備中です（権限の追加待ち）</li>
-    <li><b>スケジュール（トリガー）の新規作成・削除</b> — 影響が大きいため対象外。有効/無効の切り替えのみできます</li>
-  </ul>
-
-  <h2>変更する操作（実行・停止など）の約束ごと</h2>
-  <div class="card">
-    <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
-    <p>ジョブの実行・停止・再実行などの「変更する操作」は、<b>いきなり実行されることはありません</b>。AIが必ず対象と内容のプレビュー（どのプロセスを・どのロボットで・どんな条件で）を見せてくるので、確認してから実行を伝えてください。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
-    <div class="danger">⚠ RPAの停止・再実行は、出荷・発注・受注取込などの業務処理そのものに影響します。「このジョブを止めていいか」「再実行して二重処理にならないか」の判断に迷ったら、実行せずに担当者か市倉さんに確認してください。</div>
-    <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
+  <h2>ツール一覧（24本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（8本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">稼働状況を見る</td></tr>
+        <tr><td><code>list_jobs</code> / <code>get_job</code> / <code>get_job_logs</code></td><td>ジョブの一覧・1件の詳細・実行ログ（失敗の原因はここ）</td></tr>
+        <tr><td><code>list_robots</code> / <code>get_robot_sessions</code> / <code>list_machines</code></td><td>ロボットの接続状態・セッション・マシン</td></tr>
+        <tr><td><code>list_alerts</code> / <code>get_audit_logs</code></td><td>アラートと監査ログ（誰が設定を変えたか）</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">設定を見る</td></tr>
+        <tr><td><code>list_folders</code> / <code>list_processes</code> / <code>list_packages</code></td><td>フォルダ・プロセス・パッケージ（バージョン）の一覧</td></tr>
+        <tr><td><code>list_triggers</code> / <code>list_assets</code></td><td>スケジュール（トリガー）とアセットの一覧</td></tr>
+        <tr><td><code>list_queues</code> / <code>get_queue_items</code> / <code>get_queue_stats</code></td><td>キューの一覧・中身・処理状況</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">動かす（確認画面あり）</td></tr>
+        <tr><td><code>start_job</code> / <code>restart_job</code> / <code>resume_job</code> <b>書</b></td><td>プロセスの実行・失敗ジョブの再実行・保留中ジョブの再開</td></tr>
+        <tr><td><code>stop_job</code> <b>書</b></td><td>実行中ジョブの停止</td></tr>
+        <tr><td><code>set_trigger_enabled</code> <b>書</b></td><td>スケジュール（トリガー）の有効／無効</td></tr>
+        <tr><td><code>set_asset</code> <b>書</b></td><td>アセットの値を変える（RPAが読む設定値）</td></tr>
+        <tr><td><code>add_queue_item</code> / <code>retry_queue_item</code> <b>書</b></td><td>キューへの投入・失敗アイテムの再試行</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <h2>できないこと</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
+      <tbody>
+        <tr><td><b>RPAプロセスの中身を直す・新しく作る</b></td><td>✕</td><td>UiPath Studio の領域です。動かす・止める・設定値を変えるところまでがこのコネクタ</td></tr>
+        <tr><td><b>スケジュール（トリガー）の新規作成・削除</b></td><td>✕</td><td>影響が大きいため対象外。有効／無効の切り替えだけできます</td></tr>
+        <tr><td><b>ロボット・マシン・フォルダの追加・削除</b></td><td>✕</td><td>Orchestrator の画面で行ってください</td></tr>
+        <tr><td><b>パッケージのアップロード・デプロイ</b></td><td>✕</td><td>Studio からの公開手順で行ってください</td></tr>
+        <tr><td><b>アセットの中の資格情報（パスワード）を読む</b></td><td>△</td><td>ユーザー名までは見えますが、パスワードは UiPath 側が返しません（API仕様）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>まだできないこと（UiPath側の制約）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
+      <tbody>
+        <tr><td>資格情報アセットの更新結果の確認</td><td>更新後にパスワードを読み戻せないため、ユーザー名の一致だけ確認しています</td></tr>
+        <tr><td>ログの全文検索</td><td>Orchestrator の API はジョブ単位の取得のみ。期間や語での横断検索はできません</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>変更する操作（実装済→管理者向け）</h2>
+  <p>変更する操作は8本あり、<b>すべて業務処理（出荷・発注・受注取込）に直結</b>します。管理者以外は触らないでください。
+  どれも同じ流れで動きます：<b>1回目はプレビュー（対象と内容）→ 内容を見て承認 → 確認コードを付けた2回目でだけ実行</b>。実行した記録（誰が・いつ・何を）はすべて残ります。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">操作</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><code>start_job</code> / <code>restart_job</code><br><b>実行・再実行</b></td><td><b>起きること</b>　RPAがその場で動き始める<br><b>取り消し</b>　stop_job で停止（処理途中のデータは残る）<br><b>安全装置</b>　プロセス名・ロボット・引数をプレビュー。<b>再実行は二重処理にならないか</b>を先に確認</td></tr>
+        <tr><td><code>stop_job</code><br><b>停止</b></td><td><b>起きること</b>　実行中の処理が途中で止まる<br><b>取り消し</b>　start_job でやり直し<br><b>安全装置</b>　対象ジョブの状態をプレビュー。出荷・発注中は担当者に確認してから</td></tr>
+        <tr><td><code>resume_job</code><br><b>再開</b></td><td><b>起きること</b>　保留中のジョブが続きから動く<br><b>取り消し</b>　stop_job<br><b>安全装置</b>　保留状態でなければ送らない</td></tr>
+        <tr><td><code>set_trigger_enabled</code><br><b>スケジュールの有効／無効</b></td><td><b>起きること</b>　定期実行が止まる／再開する<br><b>取り消し</b>　逆に切り替える<br><b>安全装置</b>　現在の状態をプレビュー。無効にしたまま忘れないこと</td></tr>
+        <tr><td><code>set_asset</code><br><b>アセット更新</b></td><td><b>起きること</b>　RPAが次回から新しい値で動く<br><b>取り消し</b>　前の値に戻す（プレビューに現在値を出す）<br><b>安全装置</b>　種別（Text/Integer/Bool/Credential）を既存アセットから自動判定。資格情報は全置換のためパスワードを毎回入力（読み戻せない）。Secret型は対象外</td></tr>
+        <tr><td><code>add_queue_item</code> / <code>retry_queue_item</code><br><b>キュー投入・再試行</b></td><td><b>起きること</b>　RPAがそのアイテムを処理する<br><b>取り消し</b>　処理前なら Orchestrator で削除<br><b>安全装置</b>　内容をプレビュー。重複投入に注意</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="info">⚠️ 送信の途中で通信エラーになった場合は「送信したが受理されたか分からない」と表示されます。このときは<b>再実行せず</b>、<code>list_jobs</code> か Orchestrator の画面で状態を確認してください。確認せずに再実行すると二重処理になります。</div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
@@ -190,7 +242,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 
