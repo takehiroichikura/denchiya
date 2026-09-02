@@ -260,113 +260,75 @@
   電池屋側の作り込み不足ではありません。</p>
 
   <h2>アーティファクトからYahooを使うとどうなるか</h2>
-  <p class="lede" style="margin-bottom:14px"><b>結論：Yahooの注文・問い合わせは、アーティファクトからは使わないでください。うまく動きません。</b><br>
-  Claudeが作る「アーティファクト」（社内で共有できる画面）から楽天やYahooのデータを呼ぶ機能はあります。
-  楽天はこれで問題なく動きます。Yahooの商品・在庫・価格も動きます。<b>Yahooの注文と問い合わせだけがダメ</b>で、理由は「通り道」にあります。</p>
+  <p class="lede" style="margin-bottom:6px"><b>結論：Yahooの注文・問い合わせは、アーティファクトからは使わないでください。つながりません。</b><br>
+  ふだんの<b>チャット</b>からなら通ります。同じYahooでも「通り道（回線）」が違うためです。</p>
 
-  <div class="info" style="margin-bottom:14px">
-    <b>たとえで言うと</b><br>
-    楽天は<b>電話で直接つながる相手</b>です。誰がいつかけても通じます。<br>
-    Yahooの注文・問い合わせは<b>「オフィスの固定電話からしか受け付けない」</b>と決めている相手です。
-    そのため外から頼むときは、いったんオフィスにいる人（オフィスのパソコン）に電話をかけ、その人がYahooにかけ直しています。
-    オフィスの電話は<b>1回線しかありません</b>。<br>
-    アーティファクトの画面を何人かが開くと、その全員がこの1回線に電話をかけることになります。
-    夜や休日にオフィスが閉まっていれば、そもそも誰も出ません。
+  <style>
+    .lane { border-radius: 12px; border: 1px solid var(--line); background: var(--card); padding: 16px 18px; margin-top: 14px; border-left: 5px solid var(--accent); }
+    .lane.down { border-left-color: var(--danger-ink); }
+    .lane-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .lane-head .no { font-size: 11px; letter-spacing: .12em; color: var(--sub); }
+    .lane-head h3 { margin: 0; font-size: 17px; }
+    .lane-head .st { margin-left: auto; font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--info-bg); color: var(--info-ink); }
+    .lane.down .lane-head .st { background: var(--danger-bg); color: var(--danger-ink); }
+    .route { display: flex; align-items: center; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+    .node { flex: 1 1 0; min-width: 120px; border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 12px 8px; text-align: center; }
+    .node .k { display: block; font-size: 10px; letter-spacing: .12em; color: var(--sub); margin-bottom: 4px; }
+    .node .n { font-weight: 700; font-size: 14px; line-height: 1.35; }
+    .node.hi { border-color: var(--warn-line); box-shadow: 0 0 0 1px var(--warn-line) inset; }
+    .node.dim { opacity: .45; }
+    .link { flex: 0 0 34px; height: 3px; background: var(--info-ink); }
+    .lane.down .link { background: var(--danger-ink); }
+    .link.dash { background: repeating-linear-gradient(90deg, var(--danger-ink) 0 6px, transparent 6px 11px); }
+    .cut { flex: 0 0 34px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .cut::before { content: ""; position: absolute; left: 0; right: 0; height: 3px; background: var(--danger-ink); }
+    .cut span { position: relative; width: 22px; height: 22px; border-radius: 50%; background: var(--danger-ink); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .kv { display: grid; grid-template-columns: 4.2em 1fr; gap: 8px 12px; margin-top: 12px; font-size: 14px; line-height: 1.7; }
+    .kv .tag { font-size: 11px; padding: 2px 6px; border-radius: 4px; text-align: center; align-self: start; margin-top: 4px; background: var(--chip-bg); color: var(--sub); }
+    .kv .tag.bad { background: var(--danger-bg); color: var(--danger-ink); }
+    .kv .tag.warn { background: var(--warn-bg); color: var(--warn-ink); }
+    @media (max-width: 560px) { .node .n { font-size: 12px; } .node { min-width: 96px; padding: 10px 4px; } }
+  </style>
+
+  <div class="lane">
+    <div class="lane-head"><span class="no">回線 A</span><h3>チャットから呼ぶ</h3><span class="st">通電</span></div>
+    <div class="route">
+      <div class="node"><span class="k">SERVER</span><span class="n">Claude<br>（Anthropic）</span></div>
+      <div class="link"></div>
+      <div class="node"><span class="k">EDGE</span><span class="n">Cloudflare<br>Worker</span></div>
+      <div class="link"></div>
+      <div class="node hi"><span class="k">OFFICE</span><span class="n">オフィス<br>中継機</span></div>
+      <div class="link"></div>
+      <div class="node"><span class="k">API</span><span class="n">Yahoo<br>注文API</span></div>
+    </div>
+    <div class="kv">
+      <span class="tag">要点</span><div>サーバー同士だけで完結する。使う人のスマホもPCもこの線の上にいないので、<b>社外にいても関係なく通る</b>。</div>
+      <span class="tag warn">弱点</span><div>中継機が落ちると回線Aごと不通になる。効くのは「人の居場所」ではなく<b>「中継機の稼働」</b>（夜間・休日に止まっていればエラー）。</div>
+    </div>
   </div>
 
-  <div class="card" style="padding:20px 16px">
-    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto" role="img"
-         aria-label="楽天は直接つながるがYahooの注文・問い合わせはオフィスの中継機を1本のWebSocketで経由する図">
-      <defs>
-        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
-        </marker>
-      </defs>
-      <g font-family="'Zen Kaku Gothic New',sans-serif" font-size="13" color="var(--sub)">
-
-        <!-- 上段: 楽天 / Yahoo直接 -->
-        <rect x="8" y="18" width="118" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
-        <text x="67" y="40" text-anchor="middle" fill="var(--ink)" font-weight="700">アーティファクト</text>
-        <text x="67" y="56" text-anchor="middle" fill="var(--sub)" font-size="11">（画面を開いた人）</text>
-
-        <rect x="214" y="18" width="112" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
-        <text x="270" y="47" text-anchor="middle" fill="var(--ink)" font-weight="700">Worker</text>
-
-        <rect x="420" y="8" width="132" height="30" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
-        <text x="486" y="28" text-anchor="middle" fill="var(--accent)" font-weight="700">楽天 RMS</text>
-        <rect x="420" y="44" width="132" height="30" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
-        <text x="486" y="64" text-anchor="middle" fill="var(--accent)" font-weight="700">Yahoo 商品・在庫</text>
-
-        <g stroke="currentColor" fill="none" marker-end="url(#ar)">
-          <path d="M128 41 H210"/>
-          <path d="M328 30 H416"/>
-          <path d="M328 55 H416"/>
-        </g>
-        <text x="576" y="28" fill="var(--ok)" font-size="12" font-weight="700">動く</text>
-        <text x="576" y="64" fill="var(--ok)" font-size="12" font-weight="700">動く</text>
-        <text x="168" y="33" text-anchor="middle" fill="var(--sub)" font-size="11">仲介</text>
-
-        <!-- 区切り -->
-        <path d="M8 96 H692" stroke="var(--line)" stroke-dasharray="4 4"/>
-        <text x="8" y="120" fill="var(--ink)" font-weight="700" font-size="13">Yahoo の 注文・問い合わせ（8本）だけ経路が違う</text>
-
-        <!-- 下段 -->
-        <rect x="8" y="140" width="118" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
-        <text x="67" y="169" text-anchor="middle" fill="var(--ink)" font-weight="700">アーティファクト</text>
-
-        <rect x="214" y="140" width="112" height="46" rx="8" fill="var(--card)" stroke="var(--line)"/>
-        <text x="270" y="169" text-anchor="middle" fill="var(--ink)" font-weight="700">Worker</text>
-
-        <rect x="214" y="212" width="112" height="42" rx="8" fill="var(--card)" stroke="var(--line)"/>
-        <text x="270" y="230" text-anchor="middle" fill="var(--ink)" font-size="12" font-weight="700">中継ハブ</text>
-        <text x="270" y="246" text-anchor="middle" fill="var(--sub)" font-size="11">順番待ちの列</text>
-
-        <rect x="396" y="206" width="150" height="54" rx="8" fill="var(--warn-bg)" stroke="var(--warn-line)"/>
-        <text x="471" y="226" text-anchor="middle" fill="var(--warn-ink)" font-size="12" font-weight="700">オフィスのパソコン</text>
-        <text x="471" y="242" text-anchor="middle" fill="var(--warn-ink)" font-size="11">D400-000（社内IP）</text>
-        <text x="471" y="255" text-anchor="middle" fill="var(--warn-ink)" font-size="11">これが止まると全滅</text>
-
-        <rect x="600" y="212" width="92" height="42" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
-        <text x="646" y="238" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="700">Yahoo 注文</text>
-
-        <g stroke="currentColor" fill="none" marker-end="url(#ar)">
-          <path d="M128 163 H210"/>
-          <path d="M270 190 V208"/>
-          <path d="M552 233 H596"/>
-        </g>
-        <!-- WebSocket 1本を太線で -->
-        <path d="M328 233 H392" stroke="var(--warn-line)" stroke-width="4" fill="none" marker-end="url(#ar)" color="var(--warn-line)"/>
-        <text x="360" y="224" text-anchor="middle" fill="var(--warn-ink)" font-size="11" font-weight="700">1本だけ</text>
-
-        <!-- 業務からの流入 -->
-        <rect x="8" y="212" width="118" height="42" rx="8" fill="var(--card)" stroke="var(--line)" stroke-dasharray="3 3"/>
-        <text x="67" y="230" text-anchor="middle" fill="var(--sub)" font-size="12" font-weight="700">ふだんの業務</text>
-        <text x="67" y="246" text-anchor="middle" fill="var(--sub)" font-size="11">出荷登録・返信</text>
-        <path d="M128 233 H206" stroke="currentColor" fill="none" marker-end="url(#ar)" stroke-dasharray="3 3"/>
-
-        <text x="8" y="292" fill="var(--danger-ink)" font-size="12" font-weight="700">画面を開いた人の数だけ、この1本の通り道に通信が並ぶ</text>
-        <text x="8" y="310" fill="var(--danger-ink)" font-size="12" font-weight="700">＝ 画面はなかなか表示されず、ふだんの出荷登録や返信まで待たされる</text>
-        <text x="8" y="330" fill="var(--sub)" font-size="11">※ オフィスのパソコンが止まっている時間帯（夜間・休日）は、画面を開いてもエラーになります。</text>
-      </g>
-    </svg>
+  <div class="lane down">
+    <div class="lane-head"><span class="no">回線 B</span><h3>アーティファクトから呼ぶ</h3><span class="st">不通</span></div>
+    <div class="route">
+      <div class="node"><span class="k">BROWSER</span><span class="n">アーティファクト<br>（サンドボックス）</span></div>
+      <div class="link"></div>
+      <div class="node"><span class="k">API</span><span class="n">Anthropic API<br>mcp_servers</span></div>
+      <div class="cut"><span>✕</span></div>
+      <div class="node dim"><span class="k">EDGE</span><span class="n">Cloudflare<br>Worker</span></div>
+      <div class="link dash"></div>
+      <div class="node dim"><span class="k">API</span><span class="n">Yahoo<br>注文API</span></div>
+    </div>
+    <div class="kv">
+      <span class="tag bad">断線</span><div>アーティファクトはブラウザ内の箱で、自分で外に接続できない。APIに代理で繋いでもらう形になり、そこで<b>見る人ごとのMCPログイン</b>が必要になる。</div>
+      <span class="tag">原因候補</span><div>① WorkerがOAuth方式のログインに未対応　② 組織設定でアーティファクトのMCPがオフ　③ ウェブ版・デスクトップ版以外で試している</div>
+    </div>
   </div>
 
-  <div class="warn" style="margin-top:14px">
-    <b>うまくいかない理由を3つにまとめると</b>
-    <ul class="plain" style="margin:8px 0 0">
-      <li><b>時間帯で動かない</b> — オフィスのパソコンが動いている時間しか使えません。夜間・休日に画面を開くとエラーになります</li>
-      <li><b>遅くなる・止まる</b> — 通り道が1本しかないので、何人かが画面を開くと表示が遅れます。同時に、その裏でスタッフがやっている出荷登録や問い合わせ返信も順番待ちになります。<b>画面を見る人が業務の邪魔をしてしまう</b>のが一番の問題です</li>
-      <li><b>ミスの歯止めが消える</b> — チャットならAIが「これを実行します、いいですか」と確認してくれますが、画面の中ではその確認がありません。しかも操作の記録は<b>画面を開いた人の名前で残ります</b></li>
-    </ul>
-  </div>
-
-  <div class="info" style="margin-top:12px">
+  <div class="info" style="margin-top:14px">
     <b>ではどうすればいいか</b><br>
-    Yahooの注文や問い合わせを見たいときは、アーティファクトではなく<b>ふだんどおりチャットでClaudeに聞いてください</b>。それが正しい使い方です。<br>
-    アーティファクトで画面を作るなら、<b>楽天</b>か、Yahooの<b>商品・在庫・価格（読み取りだけ）</b>にしてください。
-    それ以外を画面に入れたいときは、先に市倉さんに相談してください。
+    Yahooの注文や問い合わせを見たいときは、アーティファクトではなく<b>ふだんどおりチャットでClaudeに聞いてください</b>。<br>
+    アーティファクトで画面を作りたいときは、先に市倉さんに相談してください。
   </div>
-
 
   <h2>困ったとき</h2>
   <ul class="plain">
