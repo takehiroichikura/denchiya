@@ -54,7 +54,18 @@
   .cwmock .note { font-size: 11px; color: #6b6b6b; margin-top: 6px; }
  padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--sub); }
   footer a { color: var(--sub); }
+  .info { background: var(--blue-soft); border: 1px solid #b9e3f2; color: #0b4f66; border-radius: 14px; padding: 12px 16px; font-size: 14px; margin: 0 0 16px; }
+  .matrixwrap { overflow-x: auto; margin-top: 10px; }
+  table.matrix { border-collapse: separate; border-spacing: 0; width: 100%; background: #fff; border-radius: 12px; overflow: hidden; font-size: 13px; min-width: 620px; }
+  table.matrix th, table.matrix td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: center; }
+  table.matrix thead th { background: #f4fbfd; font-weight: 700; line-height: 1.3; font-size: 12px; }
+  table.matrix th.role { text-align: left; white-space: nowrap; background: #f4fbfd; font-size: 13px; padding-left: 12px; }
+  table.matrix td.ok { color: var(--accent); font-weight: 900; font-size: 16px; background: #fff7f7; }
+  table.matrix td.ng { color: #c0c0c0; }
+  table.matrix tbody tr:last-child th, table.matrix tbody tr:last-child td { border-bottom: 0; }
+  .legend { font-size: 12px; color: #0b4f66; margin-top: 6px; }
 </style>
+
 </head>
 <body>
 <div class="wrap">
@@ -97,12 +108,17 @@
   </div>
   <div class="info">
     <b>使えるコネクタは役割ごとに決まっています。</b>招待コードは共通ですが、役割に含まれないコネクタは、つなごうとすると「このコネクタの利用権限がありません」と表示されます。役割の変更・追加は市倉まで。
-    <table>
-      <tr><th>管理者</th><td>すべてのコネクタ</td></tr>
-      <tr><th>ウェブチーム</th><td>楽天 ／ Yahoo!ショッピング ／ Amazonセラー ／ Amazonベンダー ／ Amazon Pay ／ 価格.com ／ Chatwork</td></tr>
-      <tr><th>一般</th><td>Chatwork</td></tr>
-      <tr><th>担当者限定</th><td>UiPath、サイボウズ ユーザー管理（管理者のみ）</td></tr>
-    </table>
+    <div class="matrixwrap">
+      <table class="matrix">
+        <thead><tr><th class="role">役割</th><th>楽天</th><th>Yahoo!</th><th>Amazon<br>セラー</th><th>Amazon<br>ベンダー</th><th>Amazon<br>Pay</th><th>価格.com</th><th>Chatwork</th><th>UiPath</th><th>サイボウズ</th></tr></thead>
+        <tbody>
+        <tr><th class="role">管理者</th><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td></tr>
+        <tr><th class="role">ウェブチーム</th><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ok">●</td><td class="ng">－</td><td class="ng">－</td></tr>
+        <tr><th class="role">一般</th><td class="ng">－</td><td class="ng">－</td><td class="ng">－</td><td class="ng">－</td><td class="ng">－</td><td class="ng">－</td><td class="ok">●</td><td class="ng">－</td><td class="ng">－</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">● 使える　－ 使えない（自分の役割が分からないときは市倉まで）</div>
   </div>
   <div class="grid">
     <a class="card" href="./rakuten-mcp-guide.html"><div class="name">楽天MCP <span class="tag write">書き込みあり</span></div><div class="desc">楽天RMS の受注・問い合わせ・商品・在庫・クーポン等</div></a>
