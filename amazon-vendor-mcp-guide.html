@@ -188,9 +188,9 @@
         <tr><td><code>submit_vendor_invoice</code> <b>書</b></td><td>請求書の提出（下記「管理者向け」）</td></tr>
         <tr><td><code>whoami</code></td><td>接続状態と4アカウントの認証状態</td></tr>
         <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">今は使えないもの（権限）</td></tr>
-        <tr><td><code>get_vendor_shipments</code> / <code>get_shipment_labels</code></td><td>出荷通知(ASN)・配送ラベルの照会。<b>Amazon側の権限が無く認証エラーになります</b>（2026-09-02 確認。再認可でも直らず）</td></tr>
-        <tr><td><code>submit_vendor_shipments</code> / <code>submit_shipment_confirmations</code> <b>書</b></td><td>輸送依頼・出荷確認(ASN)の送信。同上の権限で使えず、また<b>ASNはUiPathが送る</b>ので使う想定なし</td></tr>
-        <tr><td><code>list_df_orders</code> / <code>get_df_order</code></td><td>直送（DF）注文。Amazonの追加審査（制限ロール）が未申請で使えません</td></tr>
+        <tr><td><code>get_vendor_shipments</code> / <code>get_shipment_labels</code></td><td>出荷通知(ASN)・配送ラベルの照会。<b>API権限が現状なく使えません</b></td></tr>
+        <tr><td><code>submit_vendor_shipments</code> / <code>submit_shipment_confirmations</code> <b>書</b></td><td>輸送依頼・出荷確認(ASN)の送信。API権限が現状なく使えません。<b>ASNはUiPathが送る</b>ので使う想定もなし</td></tr>
+        <tr><td><code>list_df_orders</code> / <code>get_df_order</code></td><td>直送（DF）注文。API権限が現状なく使えません</td></tr>
       </tbody>
     </table>
   </div>
@@ -210,11 +210,11 @@
     <table>
       <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
       <tbody>
-        <tr><td>出荷通知(ASN)・配送ラベルの照会</td><td>Amazon側でこの取引先コードにAPI利用の権限が付いていない（認証エラー）。トークンを作り直しても変わらず、アカウント権限の問題と確定（2026-09-02）。必要なら Vendor Central サポートへ「Vendor Shipments API の有効化」を依頼</td></tr>
-        <tr><td>輸送依頼・出荷確認(ASN)の送信</td><td>同上の権限が無いうえ、ASNは UiPath が送っているので使う想定なし。道具は権限が付いたとき用に用意してある</td></tr>
-        <tr><td>直送（DF）注文の参照・出荷・請求</td><td>個人情報を扱うため Amazon の追加審査（制限ロール「購入者への直接配送」）が必要。2026-08-25 に申請見送り。DF注文の状況は NetSuite に夜間反映されるのでそちらで見る</td></tr>
-        <tr><td>直送（DF）の在庫更新</td><td>同上（DF系は制限ロールが前提）</td></tr>
-        <tr><td>カタログ分類の一覧（旧版API）</td><td>Amazonが旧版と位置づけている。今の検索（分類名つき）で足りる</td></tr>
+        <tr><td>出荷通知(ASN)・配送ラベルの照会</td><td>API権限が現状なく、認証エラーになる</td></tr>
+        <tr><td>輸送依頼・出荷確認(ASN)の送信</td><td>API権限が現状なく使えない。ASNはUiPathが送っている</td></tr>
+        <tr><td>直送（DF）注文の参照・出荷・請求</td><td>API権限が現状ない（Amazonの追加審査が必要）。DF注文の状況はNetSuiteで見る</td></tr>
+        <tr><td>直送（DF）の在庫更新</td><td>同上</td></tr>
+        <tr><td>カタログ分類の一覧（旧版API）</td><td>旧版のため作っていない。今の検索で足りる</td></tr>
       </tbody>
     </table>
   </div>
