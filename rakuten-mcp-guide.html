@@ -196,7 +196,7 @@
     <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
   </div>
 
-  <h2>ツール一覧（89本）</h2>
+  <h2>ツール一覧（87本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。ふだんは意識しなくて構いませんが、<b>「これは頼めるのか」</b>を確かめたいときに見てください。<b>楽天はすべて直接つながる</b>ので、時間帯や社内の機器に左右されません。</p>
 
   <div class="tablewrap">
@@ -278,21 +278,20 @@
         <tr><td><code>rakuten_upload_inquiry_attachment</code> <b>書</b></td><td>問い合わせ返信用の添付ファイル登録（返信に付ける操作は未対応）</td></tr>
 
         <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">2026-09-02 追加：店舗の設定・店舗ページ</td></tr>
-        <tr><td><code>rakuten_get_shop_settings</code>（kind 26種）</td><td>店舗基本情報・<b>営業日カレンダー（休業日の本体）</b>・出荷/配送リードタイム・地域別送料・置き配・看板・ヘッダーフッター・ナビボタン・共通説明文・目玉商品・スマホ用バナーなどの<b>参照</b></td></tr>
+        <tr><td><code>rakuten_get_shop_settings</code>（kind 21種）</td><td>店舗基本情報・地域別送料・看板・ヘッダーフッター・ナビボタン・共通説明文・目玉商品・スマホ用バナーなどの<b>参照</b>（休業日カレンダー・出荷/配送リードタイム・置き配は楽天との契約が無く取れません）</td></tr>
         <tr><td><code>rakuten_update_shop_notice</code> <b>書</b></td><td>「ショップからの重要なお知らせ」（長期休暇・遅延の告知）の更新</td></tr>
-        <tr><td><code>rakuten_update_business_calendar</code> <b>書</b></td><td>休業日（発送/問い合わせ/受注）・対応時間・問い合わせ回答期限の更新</td></tr>
         <tr><td><code>rakuten_save_area_shipping</code> <b>書</b></td><td>地域別個別送料（13地域の料金表）の登録・更新</td></tr>
         <tr><td><code>rakuten_save_navi_buttons</code> / <code>rakuten_update_navi_button_layout</code> <b>書</b></td><td>PC店舗ページのナビボタンの追加・更新・削除と並び</td></tr>
         <tr><td><code>rakuten_save_large_common_text</code> <b>書</b></td><td>商品ページ共通説明文（大）テンプレートの登録・更新</td></tr>
-        <tr><td><code>rakuten_update_signboard</code> / <code>rakuten_update_sp_banners</code> / <code>rakuten_update_sp_featured</code> <b>書</b></td><td>新トップページの看板、スマホ用バナー、スマホ用目玉商品・目玉カテゴリの置き換え</td></tr>
+        <tr><td><code>rakuten_update_sp_banners</code> / <code>rakuten_update_sp_featured</code> <b>書</b></td><td>スマホ用バナー、スマホ用目玉商品・目玉カテゴリの置き換え</td></tr>
         <tr><td><code>rakuten_get_shop_page</code></td><td>新店舗トップページの構成（レイアウト・ナビゲーション・パーツ）の参照</td></tr>
         <tr><td><code>rakuten_save_shop_page_navigation</code> / <code>rakuten_save_shop_page_widget</code> / <code>rakuten_delete_shop_page_widget</code> <b>書</b></td><td>店舗ページのナビゲーション・パーツの登録更新・削除（パーツは検証だけの dry_run あり）</td></tr>
         <tr><td><code>rakuten_save_shop_page_layout</code> / <code>rakuten_delete_shop_page_layout</code> <b>書</b></td><td>レイアウトの登録（下書き→公開）・削除。<b>初回の公開は不可逆</b>なので別途許可が要る</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note"><b>書</b>＝変更する操作（53本）。ほかは読み取りだけ（36本）。<br>
-  <b>2026-09-02 に追加した37本はまだ実際の呼び出しで確かめていません。</b>最初に使うときは市倉さんに声をかけてください。
+  <p class="note"><b>書</b>＝変更する操作（51本）。ほかは読み取りだけ（36本）。<br>
+  <b>2026-09-02 に追加した分は、読み取りは実際に呼んで確認済み。変更する操作はまだ実データで確かめていません。</b>最初に使うときは市倉さんに声をかけてください。
   変更する操作はすべて<b>確認画面（プレビュー）が先に出ます</b>。</p>
 
   <h2>まだできないこと</h2>
@@ -310,6 +309,7 @@
         <tr><td>ヘッダー・フッター・レフトナビの更新／旧トップ看板の更新</td><td>店舗全体の見た目が変わる（HTML本文の更新）。市倉さんの個別判断待ち。参照はできる</td></tr>
         <tr><td>スマホ用カテゴリページ・商品ページの共通パーツ更新</td><td>設定の入れ子が深く、AIに任せると事故りやすい。参照はできる。要望が出たら</td></tr>
         <tr><td>定期購入・頒布会・予約（ReserveAPI）</td><td>電池屋で使っていない</td></tr>
+        <tr><td>休業日カレンダー・出荷/配送リードタイム・置き配・新トップ看板の参照と更新</td><td>楽天との契約に含まれていない（呼ぶと認証エラー）。必要なら RMS で機能の利用申込が先</td></tr>
         <tr><td>システムイベント通知サービス</td><td>楽天から届く通知（プッシュ）で、呼び出すAPIではない。受け口を作る別の仕事</td></tr>
       </tbody>
     </table>
