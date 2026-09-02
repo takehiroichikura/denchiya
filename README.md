@@ -26,7 +26,7 @@
 
 | 資料 | URL |
 |---|---|
-| GitHubアカウント作成手順書（「Claude×業務自動化研修」の事前準備） | **https://takehiroichikura.github.io/denchiya/**（開くと自動で手順書に移動） |
+| GitHubアカウント作成手順書 | **https://takehiroichikura.github.io/denchiya/github-account-setup.html** |
 
 ### 業務資料
 
@@ -57,7 +57,7 @@
 
 | ファイル | 内容 |
 |---|---|
-| [GitHubアカウント作成手順書.html](./GitHubアカウント作成手順書.html) | 「Claude×業務自動化研修」の前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
+| [github-account-setup.html](./github-account-setup.html) | 「Claude×業務自動化研修」の前に済ませておくGitHubアカウントの作成手順（手順1〜5＋補足） |
 
 ### 業務資料
 
