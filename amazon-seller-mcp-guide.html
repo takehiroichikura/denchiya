@@ -161,6 +161,22 @@
         <td class="ex"><q>このASIN、カート（Buy Box）は取れてる？</q>／<q>競合はいくらで出してる？</q>／<q>この価格で売ったら手数料引いていくら残る？</q></td>
       </tr>
       <tr>
+        <td class="cat">入金・手数料</td>
+        <td class="ex"><q>直近の入金サイクル（決済期間）と入金額を一覧にして</q>／<q>注文◯◯の手数料の内訳は？</q>／<q>先月の取引明細を出して</q></td>
+      </tr>
+      <tr>
+        <td class="cat">FBA納品・MCF</td>
+        <td class="ex"><q>進行中のFBA納品プランは？</q>／<q>納品◯◯の受領状況を見せて</q>／<q>マルチチャネル（MCF）の注文と追跡番号は？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">フィード・自動処理</td>
+        <td class="ex"><q>今日送った価格フィードは処理された？エラー行はある？</q>（RPAが送った一括更新の結果確認）</td>
+      </tr>
+      <tr>
+        <td class="cat">レビュー・販促</td>
+        <td class="ex"><q>ASIN◯◯のレビューでよく出る話題は？</q>／<q>今走っているクーポン・セールの一覧は？</q>／<q>注文◯◯にレビュー依頼は送れる？</q></td>
+      </tr>
+      <tr>
         <td class="cat">カタログ・レポート</td>
         <td class="ex"><q>JAN◯◯の商品をAmazonで探して</q>／<q>全出品のレポートを出して</q></td>
       </tr>
@@ -171,14 +187,96 @@
 
   <div class="warn">⚠️ <b>件数や合計を聞くときの注意</b>（2026年8月30日に改善）。アクセス分析はSKUが数百〜数千件になるため（実測で1,623件）、<b>1回の取得では一部しか返りません</b>。以前は「200件だけ返っているのに全件のように見える」状態でしたが、いまは<q>これは全量ではありません</q>と表示され、AIが続きを取りに行けるようになっています。<b>「◯件あった」「合計は◯円」という答えが返ってきたら、全部見た結果かどうかを一度確認してください</b>。表示に「全量ではありません」と出ているうちは途中です。</div>
 
+  <h2>ツール一覧（53本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。「これは頼めるのか」を確かめたいときに見てください。<b>書</b>＝変更する操作（6本）。変更する操作はすべて<b>確認画面が先に出て、確認コードを付けた2回目でだけ実行</b>されます（2026年9月2日に追加。それまでは照会専用でした）。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">注文</td></tr>
+        <tr><td><code>list_orders</code> / <code>get_order</code> / <code>get_order_items</code></td><td>注文の一覧・1件・明細（購入者の氏名・住所は含まない）</td></tr>
+        <tr><td><code>get_order_metrics</code></td><td>期間ごとの売上・件数の推移</td></tr>
+        <tr><td><code>confirm_shipment</code> <b>書</b></td><td>自社出荷の注文に追跡番号を登録（出荷確認）。<b>通常はGoQ/RPAが行う</b>ので二重登録に注意</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">出品・価格</td></tr>
+        <tr><td><code>get_listing</code> / <code>search_listings</code></td><td>自社出品の価格・状態・出品エラー</td></tr>
+        <tr><td><code>get_pricing</code> / <code>get_listing_offers</code> / <code>get_item_offers</code> / <code>get_competitive_pricing</code></td><td>自社価格のまとめ取り、同じASINの他社オファー、カート（Buy Box）の状況</td></tr>
+        <tr><td><code>get_fees_estimate</code></td><td>この価格で売ったときの手数料見込み</td></tr>
+        <tr><td><code>check_listing_restrictions</code></td><td>ASINの出品制限チェック</td></tr>
+        <tr><td><code>search_product_types</code> / <code>get_product_type_definition</code></td><td>出品時に必要な属性（商品タイプ）の調べもの</td></tr>
+        <tr><td><code>update_listing</code> <b>書</b></td><td>出品情報の一部更新（価格・数量・状態など）。<b>お客様に見える</b>。Amazon側の事前検証を通してから実行</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">在庫・納品・配送</td></tr>
+        <tr><td><code>get_inventory_summaries</code></td><td>FBA在庫（Amazon倉庫）の一覧</td></tr>
+        <tr><td><code>get_inbound_shipments</code> / <code>get_inbound_shipment_items</code></td><td>FBA納品プランの一覧・明細（納品数と受領数）</td></tr>
+        <tr><td><code>list_fulfillment_orders</code> / <code>get_fulfillment_order</code> / <code>get_package_tracking</code></td><td>マルチチャネル（MCF）注文と荷物追跡</td></tr>
+        <tr><td><code>list_awd_inventory</code> / <code>list_awd_inbound_shipments</code></td><td>AWD（Amazon倉庫保管サービス）の在庫・納品。未利用なら0件</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">入金・手数料</td></tr>
+        <tr><td><code>list_financial_event_groups</code></td><td>入金サイクル（決済期間）ごとの入金額と状態</td></tr>
+        <tr><td><code>list_financial_events</code> / <code>get_order_financial_events</code> / <code>list_finance_transactions</code></td><td>売上・手数料・返金の明細（期間で／注文ごとに／取引単位で）</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">レポート・分析</td></tr>
+        <tr><td><code>run_report</code> / <code>create_report</code> / <code>list_reports</code> / <code>get_report</code> / <code>get_report_document</code></td><td>各種レポートを作って読む</td></tr>
+        <tr><td><code>run_analytics_query</code> / <code>get_analytics_query</code> / <code>get_analytics_document</code></td><td>アクセス数・転換率の集計（ビジネスレポート相当）</td></tr>
+        <tr><td><code>cancel_analytics_query</code> <b>書</b></td><td>実行中の集計の取り消し</td></tr>
+        <tr><td><code>get_item_review_insights</code></td><td>ASINのレビューでよく出る話題と星への影響、推移</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">フィード（一括更新ファイル）</td></tr>
+        <tr><td><code>list_feeds</code> / <code>get_feed</code></td><td>RPAなどが送った価格・在庫フィードの処理状況とエラー行</td></tr>
+        <tr><td><code>submit_feed</code> / <code>cancel_feed</code> <b>書</b></td><td>フィードの送信・取り消し。<b>RPAと同じ対象を二重に更新しない</b>こと</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">お客様とのやりとり・販促</td></tr>
+        <tr><td><code>get_messaging_actions</code> / <code>get_solicitation_actions</code></td><td>その注文に今送れるメッセージ種別／レビュー依頼が送れるか</td></tr>
+        <tr><td><code>request_review</code> <b>書</b></td><td>Amazon標準の「レビューのお願い」を送る（文面は固定・1注文1回・取り消し不可）</td></tr>
+        <tr><td><code>search_promotions</code></td><td>クーポン・タイムセール・価格割引の一覧</td></tr>
+        <tr><td><code>search_aplus_content</code> / <code>get_aplus_content</code></td><td>A+（商品紹介コンテンツ）の一覧と中身</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">その他</td></tr>
+        <tr><td><code>search_catalog_items</code> / <code>get_catalog_item</code></td><td>Amazonのカタログ（JAN・ASINから商品情報。自社価格は含まない）</td></tr>
+        <tr><td><code>get_marketplace_participations</code> / <code>get_notification_subscriptions</code> / <code>whoami</code></td><td>接続確認・参加マーケットプレイス・通知の購読設定</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>できないこと</h2>
   <ul class="plain">
-    <li><b>データの変更</b> — 価格改定・在庫変更・出品修正はできません（照会専用）。セラーセントラルから操作してください</li>
-    <li><b>購入者の氏名・住所</b> — API仕様上取得できません（Amazonの個人情報保護）</li>
-    <li><b>購入者からの問い合わせ・メッセージ</b> — 対象外です</li>
-    <li><b>入金・手数料の明細</b> — 準備中です（権限の検証待ち）。使えるようになった後も、<b>長い期間をまとめて聞くとAmazonがエラーではなく「0件」を返すことがあります</b>。0件は「手数料が無かった」ではないので、月ごとに分けて聞いてください（AIにも警告が出ます）</li>
-    <li><b>ベンダー（Vendor Central）のデータ</b> — 別のコネクタです（順次配布予定）</li>
+    <li><b>購入者の氏名・住所を見る</b> — 個人情報のため Amazon の追加審査（制限ロール）が必要で、申請していません。配送先は GoQ / NetSuite で確認してください</li>
+    <li><b>お客様にメッセージを書いて送る</b> — 送れる種別の確認まで。文面を作って送る操作は用意していません（送れるのは Amazon 固定文の「レビューのお願い」だけ）</li>
+    <li><b>出品の削除・まるごと置き換え、FBA納品プランの作成、MCF注文の作成</b> — 事故の幅が大きい／手順が多いのでセラーセントラルの画面で行ってください</li>
+    <li><b>ベンダー（Vendor Central）のデータ</b> — 別のコネクタ「Amazonベンダー MCP」です</li>
   </ul>
+
+  <h2>まだできないこと（Amazon側の制約）</h2>
+  <p class="lede" style="margin-bottom:14px">SP-API（Amazonの公開仕様）にある操作のうち、電池屋のコネクタで使えないものです。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
+      <tbody>
+        <tr><td>購入者の氏名・住所・電話番号</td><td>API権限が現状なく（制限ロール「購入者情報」未申請）、取れません</td></tr>
+        <tr><td>通知の送信先（destinations）の一覧・作成</td><td>アプリ単位の別トークンが必要で、このコネクタの認証経路では取れません</td></tr>
+        <tr><td>レビューの話題分析（ブランド分析）</td><td>ブランド登録のあるASINだけが対象の可能性。対象外なら権限エラーになります</td></tr>
+        <tr><td>入金・手数料の長期間まとめ取り</td><td>長い期間を一度に聞くと Amazon がエラーではなく「0件」を返すことがあります。月ごとに分けて聞いてください（AIにも警告が出ます）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn" style="margin-top:14px">
+    <b>2026年9月2日に追加した道具（30本）はまだ実データで一巡していません。</b>おかしな結果が出たら市倉さんへ。
+  </div>
+
+  <h2>変更する操作（実装済→管理者向け）</h2>
+  <p>変更する操作は6本ありますが、<b>通常業務で使うことはありません</b>。価格・在庫・出荷確認は GoQ / RPA が行っています。管理者以外は触らないでください。
+  どれも同じ流れで動きます：<b>1回目はプレビュー（送る内容の全体と確認コード）→ 内容を見て承認 → 確認コードを付けた2回目でだけ実行</b>。
+  確認後に内容を変えると確認コードが合わなくなり、実行されません（見せた内容と違うものが送られるのを防ぐため）。</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">操作</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td><code>update_listing</code><br><b>出品情報の一部更新</b></td><td><b>起きること</b>　価格・数量・出品状態などが変わり、数分でお客様に見える<br><b>取り消し</b>　プレビューに出る「変更前の値」を同じ形で戻す<br><b>安全装置</b>　プレビュー時に Amazon 側の事前検証を通し、問題（issues）があれば警告。変更前の値を保存して返す</td></tr>
+        <tr><td><code>confirm_shipment</code><br><b>出荷確認（追跡番号登録）</b></td><td><b>起きること</b>　注文が「出荷済み」になり、お客様に出荷メールが届く<br><b>取り消し</b>　不可（Amazonサポート）<br><b>安全装置</b>　FBA注文・出荷済み注文は拒否。注文に無い明細は止める。<b>GoQ/RPAとの二重登録に注意</b></td></tr>
+        <tr><td><code>request_review</code><br><b>レビュー依頼の送信</b></td><td><b>起きること</b>　Amazon からお客様へ「レビューのお願い」メールが届く<br><b>取り消し</b>　不可。1注文1回だけ<br><b>安全装置</b>　送れる状態か（配達後5〜30日等）を Amazon に先に確認し、送れなければ実行しない</td></tr>
+        <tr><td><code>submit_feed</code><br><b>フィードの送信</b></td><td><b>起きること</b>　内容次第で価格・在庫・出品が一括で変わる<br><b>取り消し</b>　処理開始前なら cancel_feed<br><b>安全装置</b>　JSONの妥当性・件数・本文の先頭とハッシュをプレビュー。<b>RPAと同じ対象を二重に更新しない</b></td></tr>
+        <tr><td><code>cancel_feed</code><br><b>フィードの取り消し</b></td><td><b>起きること</b>　待ち行列のフィードが処理されなくなる<br><b>取り消し</b>　送り直す<br><b>安全装置</b>　待ち行列（IN_QUEUE）以外は送らず「取り消せない」と返す</td></tr>
+        <tr><td><code>cancel_analytics_query</code><br><b>集計の取り消し</b></td><td><b>起きること</b>　実行中の Data Kiosk 集計が止まる<br><b>取り消し</b>　もう一度実行する<br><b>安全装置</b>　実行中以外は送らない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info">⚠️ 送信の途中で通信エラーになった場合は「送信したが受理されたか分からない」と表示されます。このときは<b>再送せず</b>、<code>get_listing</code>・<code>get_order</code>・<code>list_feeds</code> かセラーセントラルで結果を確認してください。確認せずに再実行すると二重更新・二重送信になります。</div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
@@ -187,7 +285,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 
