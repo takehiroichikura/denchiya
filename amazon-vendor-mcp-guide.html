@@ -230,15 +230,15 @@
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:26%">操作</th><th style="width:30%">Amazon側で何が起きるか</th><th style="width:18%">取り消し</th><th>付いている安全装置</th></tr></thead>
+      <thead><tr><th style="width:32%">操作</th><th>内容</th></tr></thead>
       <tbody>
-        <tr><td><code>submit_vendor_invoice</code><br>請求書の提出</td><td>Amazonの買掛処理に請求が載る（お金が動く）</td><td>不可。Amazonサポート経由</td><td>2段階確認／<b>同じ請求番号の二重提出を台帳で拒否</b>／送金先・明細・金額の形・合計の突き合わせを送信前に検査</td></tr>
-        <tr><td><code>acknowledge_purchase_order</code><br>発注確認</td><td>POに対して受注・辞退の数量を返す。Amazonはこれを前提に入庫を待つ</td><td>不可。数量を変えて再送する形</td><td>2段階確認／POを読み直して発注数量と合計が一致しないと送らない／すでに確認済みのPOは警告／<b>RPA・画面と二重にならないよう運用確認を促す</b></td></tr>
-        <tr><td><code>cancel_report</code><br>レポート要求の取消</td><td>待ち行列にあるレポート要求が取り消される</td><td>不可（作り直せばよい）</td><td>IN_QUEUE 以外は送らずに「取り消せない」と返す／取消後に読み直して状態を表示</td></tr>
-        <tr><td><code>create_report_schedule</code><br>定期レポートの作成</td><td>指定の周期でレポートが自動生成される。<b>同じ種類の既存スケジュールは置き換わる</b></td><td>cancel_report_schedule で取消</td><td>プレビューで既存スケジュールを表示／確認時は照会しない（このAPIは45秒に1回の制限）</td></tr>
-        <tr><td><code>cancel_report_schedule</code><br>定期レポートの取消</td><td>自動生成が止まる</td><td>create_report_schedule で作り直す</td><td>プレビューで対象の内容を表示</td></tr>
-        <tr><td><code>submit_vendor_shipments</code><br>輸送依頼</td><td>出荷の作成・キャンセルをAmazonへ通知</td><td>transactionType: Cancel で取消</td><td>2段階確認／必須項目と列挙値を送信前に検査／<b>Amazon側の権限が無く現状は使えない</b>。ASNはUiPathが送る</td></tr>
-        <tr><td><code>submit_shipment_confirmations</code><br>出荷確認(ASN)</td><td>出荷済みの明細・カートン情報をAmazonへ通知</td><td>Replace で訂正</td><td>同上。<b>Original の二重送信禁止</b>／権限が無く現状は使えない</td></tr>
+        <tr><td><code>submit_vendor_invoice</code><br><b>請求書の提出</b></td><td><b>起きること</b>　Amazonの買掛処理に請求が載る（お金が動く）<br><b>取り消し</b>　不可。Amazonサポート経由<br><b>安全装置</b>　同じ請求番号の二重提出を台帳で拒否。送金先・明細・金額を送信前に検査</td></tr>
+        <tr><td><code>acknowledge_purchase_order</code><br><b>発注確認</b></td><td><b>起きること</b>　POに受注・辞退の数量を返す<br><b>取り消し</b>　不可。数量を変えて再送する<br><b>安全装置</b>　数量が発注と合わないと送らない。確認済みPOは警告。RPAとの二重確認に注意</td></tr>
+        <tr><td><code>cancel_report</code><br><b>レポート要求の取消</b></td><td><b>起きること</b>　待ち行列のレポート要求が消える<br><b>取り消し</b>　不可（作り直せばよい）<br><b>安全装置</b>　待ち行列にないものは送らず「取り消せない」と返す</td></tr>
+        <tr><td><code>create_report_schedule</code><br><b>定期レポートの作成</b></td><td><b>起きること</b>　指定周期で自動生成。同じ種類の既存は置き換わる<br><b>取り消し</b>　cancel_report_schedule で取消<br><b>安全装置</b>　プレビューで既存スケジュールを表示</td></tr>
+        <tr><td><code>cancel_report_schedule</code><br><b>定期レポートの取消</b></td><td><b>起きること</b>　自動生成が止まる<br><b>取り消し</b>　作り直す<br><b>安全装置</b>　プレビューで対象を表示</td></tr>
+        <tr><td><code>submit_vendor_shipments</code><br><b>輸送依頼</b></td><td><b>起きること</b>　出荷の作成・キャンセルを通知<br><b>取り消し</b>　Cancel を送る<br><b>安全装置</b>　必須項目を送信前に検査。<b>API権限が現状なく使えない</b></td></tr>
+        <tr><td><code>submit_shipment_confirmations</code><br><b>出荷確認(ASN)</b></td><td><b>起きること</b>　出荷済みの明細・カートンを通知<br><b>取り消し</b>　Replace で訂正<br><b>安全装置</b>　Original の二重送信禁止。<b>API権限が現状なく使えない</b>。ASNはUiPathが送る</td></tr>
       </tbody>
     </table>
   </div>
