@@ -196,7 +196,7 @@
     <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
   </div>
 
-  <h2>ツール一覧（52本）</h2>
+  <h2>ツール一覧（89本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。ふだんは意識しなくて構いませんが、<b>「これは頼めるのか」</b>を確かめたいときに見てください。<b>楽天はすべて直接つながる</b>ので、時間帯や社内の機器に左右されません。</p>
 
   <div class="tablewrap">
@@ -258,46 +258,65 @@
         <tr><td><code>rakuten_issue_coupon</code> / <code>rakuten_delete_coupon</code> <b>書</b></td><td>クーポンの発行・削除</td></tr>
         <tr><td><code>rakuten_get_cabinet_usage</code> / <code>rakuten_get_cabinet_folders</code> / <code>rakuten_search_cabinet_files</code></td><td>R-Cabinetの利用状況・フォルダ・画像検索</td></tr>
         <tr><td><code>rakuten_upload_cabinet_image</code> / <code>rakuten_delete_cabinet_file</code> <b>書</b></td><td>画像の登録・削除（削除はゴミ箱へ移動）</td></tr>
+        <tr><td><code>rakuten_get_cabinet_trashbox</code> / <code>rakuten_restore_cabinet_file</code> <b>書</b></td><td>R-Cabinetのゴミ箱の一覧・<b>ゴミ箱からの復元</b></td></tr>
+        <tr><td><code>rakuten_update_cabinet_file</code> / <code>rakuten_create_cabinet_folder</code> <b>書</b></td><td>画像名・ファイル名の変更、フォルダ作成</td></tr>
         <tr><td><code>rakuten_get_license_expiry</code></td><td>APIキーの有効期限</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">2026-09-02 追加：受注・カテゴリ・ジャンル</td></tr>
+        <tr><td><code>rakuten_update_order_sub_status</code> <b>書</b></td><td>サブステータスを<b>複数注文まとめて</b>更新（例：保留を10件解除）</td></tr>
+        <tr><td><code>rakuten_update_order_orderer</code> <b>書</b></td><td>注文者（名前・住所・電話・メール）の変更。お客様の申し出を根拠に</td></tr>
+        <tr><td><code>rakuten_simulate_coupon_amount</code></td><td>明細や送料を変えたときの<b>クーポン再計算を試算</b>（注文は変わらない）</td></tr>
+        <tr><td><code>rakuten_update_order_sender_after_shipping</code> <b>書</b></td><td><b>発送後</b>の注文の明細・送料・送付先を変更（請求金額が動く）</td></tr>
+        <tr><td><code>rakuten_get_category</code></td><td>店舗内カテゴリ1件の設定</td></tr>
+        <tr><td><code>rakuten_save_shop_category</code> / <code>rakuten_update_category_tree</code> / <code>rakuten_remove_item_from_categories</code> <b>書</b></td><td>カテゴリの作成・更新、ツリー（階層と並び）の置き換え、商品を全カテゴリから外す</td></tr>
+        <tr><td><code>rakuten_get_genre_attributes</code> / <code>rakuten_get_navigation_version</code></td><td>ジャンル別の<b>商品属性（必須/任意）と推奨値</b>、定義のバージョン</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">2026-09-02 追加：クーポン・組み合わせ販売・問い合わせ</td></tr>
+        <tr><td><code>rakuten_update_coupon</code> <b>書</b></td><td>既存クーポンの名称・期間・回数上限を更新</td></tr>
+        <tr><td><code>rakuten_get_thanks_coupons</code> / <code>rakuten_save_thanks_coupon</code> / <code>rakuten_stop_thanks_coupon</code> <b>書</b></td><td>サンキュークーポン（購入後に自動配布）の参照・登録更新・停止</td></tr>
+        <tr><td><code>rakuten_get_bundles</code> / <code>rakuten_save_bundle</code> / <code>rakuten_delete_bundle</code> <b>書</b></td><td>組み合わせ販売（一緒に買う候補）の参照・登録更新・削除</td></tr>
+        <tr><td><code>rakuten_upload_inquiry_attachment</code> <b>書</b></td><td>問い合わせ返信用の添付ファイル登録（返信に付ける操作は未対応）</td></tr>
+
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">2026-09-02 追加：店舗の設定・店舗ページ</td></tr>
+        <tr><td><code>rakuten_get_shop_settings</code>（kind 26種）</td><td>店舗基本情報・<b>営業日カレンダー（休業日の本体）</b>・出荷/配送リードタイム・地域別送料・置き配・看板・ヘッダーフッター・ナビボタン・共通説明文・目玉商品・スマホ用バナーなどの<b>参照</b></td></tr>
+        <tr><td><code>rakuten_update_shop_notice</code> <b>書</b></td><td>「ショップからの重要なお知らせ」（長期休暇・遅延の告知）の更新</td></tr>
+        <tr><td><code>rakuten_update_business_calendar</code> <b>書</b></td><td>休業日（発送/問い合わせ/受注）・対応時間・問い合わせ回答期限の更新</td></tr>
+        <tr><td><code>rakuten_save_area_shipping</code> <b>書</b></td><td>地域別個別送料（13地域の料金表）の登録・更新</td></tr>
+        <tr><td><code>rakuten_save_navi_buttons</code> / <code>rakuten_update_navi_button_layout</code> <b>書</b></td><td>PC店舗ページのナビボタンの追加・更新・削除と並び</td></tr>
+        <tr><td><code>rakuten_save_large_common_text</code> <b>書</b></td><td>商品ページ共通説明文（大）テンプレートの登録・更新</td></tr>
+        <tr><td><code>rakuten_update_signboard</code> / <code>rakuten_update_sp_banners</code> / <code>rakuten_update_sp_featured</code> <b>書</b></td><td>新トップページの看板、スマホ用バナー、スマホ用目玉商品・目玉カテゴリの置き換え</td></tr>
+        <tr><td><code>rakuten_get_shop_page</code></td><td>新店舗トップページの構成（レイアウト・ナビゲーション・パーツ）の参照</td></tr>
+        <tr><td><code>rakuten_save_shop_page_navigation</code> / <code>rakuten_save_shop_page_widget</code> / <code>rakuten_delete_shop_page_widget</code> <b>書</b></td><td>店舗ページのナビゲーション・パーツの登録更新・削除（パーツは検証だけの dry_run あり）</td></tr>
+        <tr><td><code>rakuten_save_shop_page_layout</code> / <code>rakuten_delete_shop_page_layout</code> <b>書</b></td><td>レイアウトの登録（下書き→公開）・削除。<b>初回の公開は不可逆</b>なので別途許可が要る</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note"><b>書</b>＝変更する操作（24本）。ほかは読み取りだけ（28本）。
+  <p class="note"><b>書</b>＝変更する操作（53本）。ほかは読み取りだけ（36本）。<br>
+  <b>2026-09-02 に追加した37本はまだ実際の呼び出しで確かめていません。</b>最初に使うときは市倉さんに声をかけてください。
   変更する操作はすべて<b>確認画面（プレビュー）が先に出ます</b>。</p>
 
   <h2>まだできないこと</h2>
-  <p class="lede" style="margin-bottom:14px">楽天が提供している機能のうち、電池屋が契約していて<b>まだ道具にしていないものが82件</b>あります。
-  「できない」ではなく<b>「まだ作っていない」</b>ものが大半です。必要になったら言ってください。</p>
+  <p class="lede" style="margin-bottom:14px">楽天が提供している機能のうち、電池屋が契約していて<b>まだ道具にしていないものは十数件</b>まで減りました（2026-09-02）。
+  残りは「危ないので個別に判断する」ものと「使う場面が無い」ものです。</p>
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:40%">分野</th><th style="width:12%">未実装</th><th>中身</th></tr></thead>
+      <thead><tr><th style="width:40%">機能</th><th>作っていない理由</th></tr></thead>
       <tbody>
-        <tr><td>店舗の設定・ページ</td><td>31</td><td>看板・ヘッダー・フッター・ナビボタン・共通説明文・地域別送料・スマホ用レイアウトなど</td></tr>
-        <tr><td>店舗ページの構成</td><td>16</td><td>レイアウト・ナビゲーション・パーツの作成と差し替え</td></tr>
-        <tr><td>クーポン</td><td>6</td><td>クーポンの更新、サンキュークーポン一式</td></tr>
-        <tr><td>R-Cabinet</td><td>5</td><td><b>ゴミ箱からの復元</b>、画像情報の更新、フォルダ作成</td></tr>
-        <tr><td>カテゴリ</td><td>5</td><td>カテゴリ自体の作成・更新、カテゴリツリーの編集</td></tr>
-        <tr><td>組み合わせ販売</td><td>5</td><td>セット販売の作成・更新・削除</td></tr>
-        <tr><td>ジャンル・商品属性の検索</td><td>4</td><td>ジャンルIDに紐づく属性と推奨値の取得</td></tr>
-        <tr><td>受注</td><td>4</td><td>注文者情報の変更、サブステータス専用更新、クーポン試算、発送後の送り状変更</td></tr>
-        <tr><td>商品</td><td>2</td><td>商品の削除、商品の全項目置き換え</td></tr>
-        <tr><td>予約商品</td><td>2</td><td>予約の早期確定など</td></tr>
-        <tr><td>問い合わせ</td><td>1</td><td>返信への添付ファイル登録</td></tr>
-        <tr><td>在庫</td><td>1</td><td>在庫情報の削除</td></tr>
+        <tr><td>商品の削除</td><td>取り返しがつかない。RMS画面から操作するのが妥当。市倉さんの個別判断待ち</td></tr>
+        <tr><td>商品の全項目置き換え</td><td>送らなかった項目が消える仕組み。今の「指定した項目だけ変える」で足りている限り作らない</td></tr>
+        <tr><td>在庫情報の削除</td><td>業務上の必要が確認できていない</td></tr>
+        <tr><td>店舗ページの<b>公開中</b>レイアウト差し替え</td><td>お客様に見える表示が即座に変わる。下書きの作成・公開の登録までは作った</td></tr>
+        <tr><td>ヘッダー・フッター・レフトナビの更新／旧トップ看板の更新</td><td>店舗全体の見た目が変わる（HTML本文の更新）。市倉さんの個別判断待ち。参照はできる</td></tr>
+        <tr><td>スマホ用カテゴリページ・商品ページの共通パーツ更新</td><td>設定の入れ子が深く、AIに任せると事故りやすい。参照はできる。要望が出たら</td></tr>
+        <tr><td>定期購入・頒布会・予約（ReserveAPI）</td><td>電池屋で使っていない</td></tr>
+        <tr><td>システムイベント通知サービス</td><td>楽天から届く通知（プッシュ）で、呼び出すAPIではない。受け口を作る別の仕事</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="warn" style="margin-top:14px">
-    <b>あえて作っていないものもあります。</b>
-    <ul class="plain" style="margin:8px 0 0">
-      <li><b>商品の削除</b> — 取り返しがつかないので、RMS画面から操作するのが妥当と判断しています</li>
-      <li><b>商品の全項目置き換え</b> — 送らなかった項目が消える仕組みです。今の「指定した項目だけ変える」で足りている限り作りません</li>
-      <li><b>店舗ページの公開レイアウト差し替え</b> — お客様に見える表示が即座に変わるため、影響が大きすぎます</li>
-      <li><b>在庫情報の削除</b> — 業務上の必要が確認できていません</li>
-    </ul>
-    必要になったら市倉さんに言ってください。作らない判断も、作る判断もその都度します。
+    <b>作らない判断も、作る判断もその都度します。</b>必要になったら市倉さんに言ってください。
   </div>
 
   <h2>アーティファクトから楽天を使う</h2>
