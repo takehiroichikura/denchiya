@@ -34,7 +34,25 @@
   a.card .desc { color: var(--sub); font-size: 13px; margin-top: 4px; }
   .tag { display: block; width: max-content; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--blue-soft); color: #067ea0; margin: 6px 0 0; }
   .tag.write { background: var(--accent-soft); color: var(--accent); }
-  footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--sub); }
+  /* 招待コードのもらい方（Chatwork の見た目を模した説明） */
+  .howto { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; margin: 12px 0 4px; }
+  @media (max-width: 640px) { .howto { grid-template-columns: 1fr; } }
+  .howto ol { margin: 0; padding-left: 1.4em; font-size: 14px; }
+  .howto ol li { margin-bottom: 8px; }
+  .howto ol b { color: var(--accent); }
+  .cwmock { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: #222; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+  .cwmock .head { font-size: 12px; color: #6b6b6b; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed var(--line); }
+  .cwmock .msg { display: flex; gap: 10px; align-items: flex-start; }
+  .cwmock .avatar { width: 34px; height: 34px; border-radius: 50%; background: #d94a4a; color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none; }
+  .cwmock .who { font-weight: 700; font-size: 13px; }
+  .cwmock .who span { font-weight: 400; color: #6b6b6b; font-size: 12px; margin-left: 4px; }
+  .cwmock .to { display: inline-flex; align-items: center; gap: 4px; background: #e8f4ff; border: 1px solid #b9dcff; color: #0b5ed7; border-radius: 4px; padding: 1px 6px; font-size: 12px; font-weight: 700; margin: 4px 0; }
+  .cwmock .to .mini { width: 16px; height: 16px; border-radius: 50%; background: #3aa0ff; display: inline-block; }
+  .cwmock .body { font-size: 15px; margin-top: 2px; }
+  .cwmock .reply { margin-top: 10px; padding: 8px 10px; border-left: 4px solid var(--accent); background: #fafafa; font-size: 13px; }
+  .cwmock .reply .code { font-family: ui-monospace, Consolas, monospace; background: #f1f1f1; padding: 1px 6px; border-radius: 4px; }
+  .cwmock .note { font-size: 11px; color: #6b6b6b; margin-top: 6px; }
+ padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--sub); }
   footer a { color: var(--sub); }
 </style>
 </head>
@@ -49,9 +67,33 @@
   <h2>MCP 利用ガイド（Claude 用コネクタ）</h2>
   <div class="warn">
     <b>MCP は招待コードがないと使えません。</b>各コネクタを初めてつなぐとき、認可画面で招待コード（<code>INV-あなたの名前-…</code>）の入力を求められます。
-    招待コードは<b>全コネクタ共通</b>で、発行から30日有効です。<br>
-    <b>コードのもらい方：</b>Chatwork で <b>コダック（RPA用アカウント）</b>にダイレクトチャットを開き、<b>「To」を付けて「招待コードをください」</b>と送ると、数秒で自動返信されます（あなた専用のコードです。他の人に渡さないでください）。<br>
-    返ってこない場合・期限が切れた場合は市倉まで。
+    招待コードは<b>全コネクタ共通</b>で、発行から30日有効です。<b>もらい方は下の図のとおり</b>です。
+    <div class="howto">
+      <ol>
+        <li>Chatwork で <b>コダック</b>（RPA用アカウント）との<b>ダイレクトチャット</b>を開く</li>
+        <li>入力欄の <b>TO</b> ボタンでコダックを宛先に選ぶ（<b>TO が無いと返ってきません</b>）</li>
+        <li><b>「招待コードをください」</b>と送る</li>
+        <li>数秒で、あなた専用の招待コードが返ってくる。それを Claude の認可画面に貼る</li>
+      </ol>
+      <div class="cwmock" aria-label="Chatwork でコダックに TO 付きで送る例">
+        <div class="head">ダイレクトチャット ― コダック</div>
+        <div class="msg">
+          <div class="avatar">あなた</div>
+          <div>
+            <div class="who">あなたの名前 <span>株式会社電池屋</span></div>
+            <div class="to"><span class="mini"></span>TO コダック</div>
+            <div class="body">招待コードをください</div>
+          </div>
+        </div>
+        <div class="reply">
+          <b>コダック（自動応答）</b><br>
+          MCP 招待コード（あなた用）<br>
+          <span class="code">INV-your-name-xxxxxxxxxxxx</span><br>
+          全コネクタ共通・30日有効
+        </div>
+        <div class="note">コードは自分専用です。他の人に渡さないでください。返ってこない・期限が切れたときは市倉まで。</div>
+      </div>
+    </div>
   </div>
   <div class="grid">
     <a class="card" href="./rakuten-mcp-guide.html"><div class="name">楽天MCP <span class="tag write">書き込みあり</span></div><div class="desc">楽天RMS の受注・問い合わせ・商品・在庫・クーポン等</div></a>
