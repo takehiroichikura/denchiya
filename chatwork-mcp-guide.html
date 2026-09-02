@@ -122,6 +122,14 @@
     <p class="lede">Claude のチャットから、<b>自分の Chatwork</b> を読んだり、自分の名前で投稿・タスク登録ができる社内コネクタです。<b>あなた自身の Chatwork トークン</b>で動くので、見えるものも投稿の名義もあなた本人と同じです。</p>
   </header>
 
+  <div class="warn" style="margin:0 0 18px">
+    <b>【最初にやること】自分の Chatwork APIトークンを申請してください。</b><br>
+    このコネクタは<b>あなた自身の Chatwork トークン</b>で動きます。トークンの発行には<b>組織管理者の承認</b>が必要です（電池屋の設定）。<br>
+    手順：Chatwork 右上の<b>自分の名前 → サービス連携 → APIトークン</b> を開き、「APIトークンの利用を申請」を押す → 承認されたら同じ画面にトークンが表示されます。
+    承認は市倉さんが行うので、申請したら Chatwork かチャットで一声かけてください。<br>
+    <span style="font-size:13px">RPA用など2つ目のアカウントがある人は、そのアカウントでも同じ手順で申請します。</span>
+  </div>
+
   <h2>注意事項</h2>
   <ul class="plain">
     <li><b>これは正規の Chatwork コネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
@@ -155,8 +163,8 @@
 
   <div class="warn">⚠️ <b>投稿・タスク登録・完了・既読化は、あなたの名前で実行されます。</b>AIが確認画面を出すので、宛先のルーム名と本文を必ず読んでから「実行して」と言ってください。投稿の取り消しはできません（削除は Chatwork の画面で）。</div>
 
-  <h2>ツール一覧（17本）</h2>
-  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（4本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
+  <h2>ツール一覧（30本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（14本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
   <div class="tablewrap">
     <table>
       <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
@@ -175,6 +183,12 @@
         <tr><td><code>add_task</code> <b>書</b></td><td>タスク追加（担当者・期限）</td></tr>
         <tr><td><code>complete_task</code> <b>書</b></td><td>タスクの完了／未完了に戻す</td></tr>
         <tr><td><code>mark_read</code> <b>書</b></td><td>ルームの未読を既読にする（自分の表示だけ）</td></tr>
+        <tr><td><code>mark_unread</code> <b>書</b></td><td>指定メッセージ以降を未読に戻す（自分の表示だけ）</td></tr>
+        <tr><td><code>update_message</code> / <code>delete_message</code> <b>書</b></td><td>自分の投稿の編集・削除（他人の投稿は不可）</td></tr>
+        <tr><td><code>create_room</code> / <code>update_room</code> <b>書</b></td><td>グループチャットの作成／名前・概要の変更（管理者のみ）</td></tr>
+        <tr><td><code>update_members</code> <b>書</b></td><td>メンバーの一括変更（管理者のみ。退席になる人を確認画面で表示）</td></tr>
+        <tr><td><code>get_invite_link</code> / <code>create_invite_link</code> / <code>update_invite_link</code> / <code>delete_invite_link</code></td><td>招待リンクの参照・作成・変更・無効化（作成以降は <b>書</b>）</td></tr>
+        <tr><td><code>list_incoming_requests</code> / <code>approve_contact_request</code> / <code>reject_contact_request</code></td><td>コンタクト承認依頼の一覧・承認・拒否（承認・拒否は <b>書</b>）</td></tr>
       </tbody>
     </table>
   </div>
@@ -184,9 +198,9 @@
     <table>
       <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
       <tbody>
-        <tr><td><b>投稿の編集・削除</b></td><td>✕</td><td>誤投稿の被害を広げないため作っていません。Chatwork の画面で本人が行ってください</td></tr>
-        <tr><td><b>グループの作成・削除・メンバー変更・招待リンク</b></td><td>✕</td><td>元に戻せない操作なので対象外。Chatwork の画面で</td></tr>
-        <tr><td><b>ファイルのアップロード</b></td><td>✕</td><td>作っていません。ダウンロードURLの取得はできます</td></tr>
+        <tr><td><b>他人の投稿の編集・削除</b></td><td>✕</td><td>自分の投稿だけ編集・削除できます（確認画面あり）。他人の投稿は Chatwork の仕様上できません</td></tr>
+        <tr><td><b>グループの削除・退席</b></td><td>✕</td><td>削除するとメッセージ・タスク・ファイルが全部消えて戻せないため作っていません。Chatwork の画面で本人が行ってください（作成・名前変更・メンバー変更・招待リンクは確認画面つきでできます）</td></tr>
+        <tr><td><b>ファイルのアップロード</b></td><td>✕</td><td>チャット経由でファイル本体を渡せないため。ダウンロードURLの取得はできます</td></tr>
         <tr><td><b>他の人のアカウントとして読む・投稿する</b></td><td>✕</td><td>設計上できません。自分で登録したトークンの範囲だけです</td></tr>
         <tr><td><b>自分がメンバーでないルームを読む</b></td><td>✕</td><td>Chatwork 側で権限エラーになります（本人の権限と同じ）</td></tr>
         <tr><td><b>100件より前のメッセージ</b></td><td>✕</td><td>API が最新100件までしか返しません</td></tr>
