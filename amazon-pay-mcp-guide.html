@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Amazon Pay MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #24211c;
+    --sub: #6d675f;
+    --line: #e4dfd4;
+    --accent: #8f6400;
+    --accent-soft: #f7efdc;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --info-bg: #eef2f5;
+    --info-ink: #3d5468;
+    --chip-bg: #eee9de;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #181613;
+      --card: #211e19;
+      --ink: #ebe6dd;
+      --sub: #a89f92;
+      --line: #37322a;
+      --accent: #d9a83e;
+      --accent-soft: #382e1a;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --info-bg: #212a32;
+      --info-ink: #9db8cd;
+      --chip-bg: #2d2921;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  .info {
+    background: var(--info-bg); color: var(--info-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
+    <h1>Amazon Pay MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、本館（自社サイト）の <b>Amazon Pay 決済</b>の状態（売上確定・返金・入金）と決済レポートを調べられる社内コネクタです。<b>照会専用</b>で、決済を動かす機能はありません。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li><b>これは正規のAmazonコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li>決済データ（金額・入金・手数料）を扱います。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
+    <li>購入者の氏名・住所・メールは<b>ふだんは表示しません</b>。業務上どうしても必要なときだけ「購入者情報も出して」と明示して聞いてください（その操作は記録に残ります）</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-AmazonPayMCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>（<code>INV-あなたの名前-…</code>）を入力する。<b>楽天MCP・Amazonセラー MCP などと同じコード</b>です</li>
+    <li>「接続を許可する」を押して完了。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <p class="note">招待コードの有効期限は発行から30日（約1か月）です。期限切れ・紛失のときは市倉さんに再発行を依頼してください。</p>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">注文の決済状態</td>
+        <td class="ex"><q>本館の注文55503のAmazon Pay、売上確定になってる？</q>／<q>この決済ID（P03-…）の状態は？</q>／<q>返金は完了した？</q>（決済IDは本館の受注画面に載っています。注文番号だけ分かる場合は決済レポートから探します）</td>
+      </tr>
+      <tr>
+        <td class="cat">入金</td>
+        <td class="ex"><q>先月 Amazon Pay からいくら入金された？</q>／<q>8月21日の入金の内訳を見せて</q>（入金は2週間ごと。期間は1か月以内で聞く）</td>
+      </tr>
+      <tr>
+        <td class="cat">手数料・明細</td>
+        <td class="ex"><q>直近の決済レポートで手数料の合計は？</q>／<q>注文番号ごとの入金額と手数料を一覧にして</q></td>
+      </tr>
+      <tr>
+        <td class="cat">レポート</td>
+        <td class="ex"><q>8月分の返金レポートを作って読んで</q>／<q>先月の注文（Order Reference）レポートを出して</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info">💡 <b>よくある誤解に注意</b>：ここで見えるのは<b>本館（自社サイト）の Amazon Pay 決済だけ</b>です。Amazon.co.jp のモール注文（セラーセントラル）は別のコネクタ「Amazonセラー MCP」で、楽天・Yahoo の決済も対象外です。</div>
+
+  <div class="warn">⚠️ <b>件数や合計を聞くときの注意</b>。決済レポートは1回の取得で先頭500行まで返します。行数が多いと<q>先頭500行だけ返しています</q>と表示されるので、<b>「合計は◯円」と返ってきたら全部読んだ結果かどうか一度確認してください</b>。入金一覧は<b>期間1か月以内</b>でしか聞けません（Amazon側の制約）。</div>
+
+  <h2>ツール一覧（11本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>すべて照会専用</b>で、決済を動かす道具はありません。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">決済の状態</td></tr>
+        <tr><td><code>get_charge_permission</code></td><td>支払い許可（1注文に1つ）。状態・上限額・本館の注文番号。購入者情報は既定で非表示</td></tr>
+        <tr><td><code>get_charge</code></td><td>与信・売上確定の1件。Authorized（与信）／Captured（売上確定）／Canceled と金額・返金済み額</td></tr>
+        <tr><td><code>get_refund</code></td><td>返金の1件と状態</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">入金・レポート</td></tr>
+        <tr><td><code>list_disbursements</code></td><td>Amazon Pay からの入金（振込）一覧。期間は1か月以内</td></tr>
+        <tr><td><code>list_reports</code> / <code>get_report</code></td><td>決済レポート（入金ごとに自動生成）などの一覧・状態</td></tr>
+        <tr><td><code>get_report_document</code></td><td>レポートの中身を表にして読む（注文番号・金額・手数料・純額）</td></tr>
+        <tr><td><code>create_report</code> / <code>run_report</code></td><td>期間を指定してレポートを作る（注文・与信・返金・決済）。Amazon側に作成ジョブができるだけで、データは変わりません</td></tr>
+        <tr><td><code>list_report_schedules</code></td><td>レポートの定期生成設定の参照</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">その他</td></tr>
+        <tr><td><code>whoami</code></td><td>接続状態（鍵の設定と署名が通るか）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>できないこと</h2>
+  <ul class="plain">
+    <li><b>決済を動かす操作</b> — 売上確定・取消・返金の実行はできません。本館（EC-CUBE）の管理画面かセラーセントラルの Amazon Pay 画面から行ってください</li>
+    <li><b>決済IDが分からない注文を1発で探す</b> — Amazon Pay に検索APIがありません。注文番号だけ分かるときは、その期間の決済レポートや注文レポートを読んで探します（少し時間がかかります）</li>
+    <li><b>モール（Amazon.co.jp）の注文</b> — 別のコネクタ「Amazonセラー MCP」です</li>
+  </ul>
+
+  <h2>まだできないこと（Amazon側の制約）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
+      <tbody>
+        <tr><td>入金一覧を1か月より長い期間でまとめて</td><td>Amazon Pay API が31日以内しか受け付けません。月ごとに分けて聞いてください</td></tr>
+        <tr><td>レポート定期生成の作成・取り消し</td><td>道具を用意していません（必要になれば追加できます）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn" style="margin-top:14px">
+    <b>2026年9月2日に作った新しいコネクタです。</b>返金の照会とレポート作成は実データでまだ試していません。おかしな結果が出たら市倉さんへ。
+  </div>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
+    <li>招待コードの再発行、「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
+  </footer>
+</div>
+
+</body>
+</html>
