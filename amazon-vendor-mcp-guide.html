@@ -123,14 +123,14 @@
   <header class="top">
     <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
     <h1>Amazonベンダー MCP 利用ガイド</h1>
-    <p class="lede">Claude のチャットから、Amazonベンダーセントラル（Amazonへの卸取引）のデータ——発注書(PO)・出荷売上・閲覧数・Amazon側の在庫——を調べられる社内コネクタです。電池屋・電池屋 BISS/M・誠和商工 HPC/R の3アカウントに対応しています。</p>
+    <p class="lede">Claude のチャットから、Amazonベンダーセントラル（Amazonへの卸取引）のデータ——発注書(PO)・出荷売上・閲覧数・Amazon側の在庫——を調べられる社内コネクタです。電池屋・電池屋 BISS/M・誠和商工 HPC/R・Counterculture Co., Ltd. の<b>4アカウント</b>に対応しています。</p>
   </header>
 
   <h2>注意事項</h2>
   <ul class="plain">
     <li><b>これは正規のAmazonコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。正規のコネクタではないので、<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
     <li>卸取引のデータ（発注・原価・売上）を扱います。回答や画面の内容を<b>社外へ共有しない</b>でください</li>
-    <li><b>アカウントが3つあります</b>（電池屋／電池屋 BISS/M／誠和商工 HPC/R）。AIがどのアカウントの数字かを必ず添えて答えますが、読むときも「どの会社の話か」を確認してください</li>
+    <li><b>アカウントが4つあります</b>（電池屋／電池屋 BISS/M／誠和商工 HPC/R／Counterculture Co., Ltd.）。AIがどのアカウントの数字かを必ず添えて答えますが、読むときも「どの会社の話か」を確認してください</li>
   </ul>
 
   <h2>はじめる（初回だけ・3分）</h2>
@@ -166,15 +166,44 @@
 
   <div class="info">💡 セラー（自社出品・マーケットプレイス販売）のデータは<b>別のコネクタ「Amazonセラー MCP」</b>です。「電池屋のAmazonの数字」と聞くとAIがどちらか確認するので、「ベンダーの」「セラーの」を付けると速いです。</div>
 
+  <h2>ツール一覧（28本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。「これは頼めるのか」を確かめたいときに見てください。<b>書</b>＝変更する操作（7本）。変更する操作はすべて<b>確認画面が先に出て、確認コードを付けた2回目でだけ実行</b>されます。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">発注（PO）</td></tr>
+        <tr><td><code>list_purchase_orders</code> / <code>get_purchase_order</code></td><td>発注書の一覧・1件の明細</td></tr>
+        <tr><td><code>get_purchase_orders_status</code></td><td>発注ごとの受注・入庫の状況</td></tr>
+        <tr><td><code>acknowledge_purchase_order</code> <b>書</b></td><td>発注確認（受注数量・辞退数量をAmazonへ返す）。<b>RPAと二重にならないよう運用確認が先</b></td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">レポート・分析</td></tr>
+        <tr><td><code>run_report</code> / <code>create_report</code> / <code>list_reports</code> / <code>get_report</code> / <code>get_report_document</code></td><td>売上・在庫・閲覧数などのレポートを作って読む</td></tr>
+        <tr><td><code>cancel_report</code> <b>書</b></td><td>待ち行列にあるレポート要求の取り消し</td></tr>
+        <tr><td><code>list_report_schedules</code> / <code>get_report_schedule</code></td><td>レポートの定期実行スケジュールの参照</td></tr>
+        <tr><td><code>create_report_schedule</code> / <code>cancel_report_schedule</code> <b>書</b></td><td>定期実行の作成・取り消し（同じ種類は置き換わる）</td></tr>
+        <tr><td><code>run_analytics_query</code> / <code>get_analytics_query</code> / <code>get_analytics_document</code></td><td>Data Kiosk（ブランド分析）の集計</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">カタログ・取引・その他</td></tr>
+        <tr><td><code>search_catalog_items</code> / <code>get_catalog_item</code></td><td>Amazonのカタログ（JAN・ASINから商品情報）</td></tr>
+        <tr><td><code>get_transaction</code></td><td>送信した請求・確認がAmazonに受理されたか</td></tr>
+        <tr><td><code>submit_vendor_invoice</code> <b>書</b></td><td>請求書の提出（下記「管理者向け」）</td></tr>
+        <tr><td><code>whoami</code></td><td>接続状態と4アカウントの認証状態</td></tr>
+        <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">今は使えないもの（権限）</td></tr>
+        <tr><td><code>get_vendor_shipments</code> / <code>get_shipment_labels</code></td><td>出荷通知(ASN)・配送ラベルの照会。<b>Amazon側の権限が無く認証エラーになります</b>（2026-09-02 確認。再認可でも直らず）</td></tr>
+        <tr><td><code>submit_vendor_shipments</code> / <code>submit_shipment_confirmations</code> <b>書</b></td><td>輸送依頼・出荷確認(ASN)の送信。同上の権限で使えず、また<b>ASNはUiPathが送る</b>ので使う想定なし</td></tr>
+        <tr><td><code>list_df_orders</code> / <code>get_df_order</code></td><td>直送（DF）注文。Amazonの追加審査（制限ロール）が未申請で使えません</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>できないこと</h2>
   <ul class="plain">
-    <li><b>直送（DF）関連</b> — Amazonの追加審査が必要なため未対応です</li>
-    <li><b>出荷通知(ASN)の照会</b> — 準備中です（権限の追加待ち）</li>
-    <li><b>発注への回答・出荷通知の送信</b> — UiPath（RPA）の担当領域です</li>
+    <li><b>直送（DF）関連</b> — Amazonの追加審査（制限ロール）が必要なため未対応です</li>
+    <li><b>出荷通知(ASN)・配送ラベルの照会と送信</b> — Amazon側のアカウント権限が無く、認証エラーになります。ASNはUiPath（RPA）が送っています</li>
+    <li><b>Amazonが決める小売価格</b> — ベンダー取引では売価はAmazonが決めるため、こちらから見えるのは卸原価だけです</li>
   </ul>
 
-  <h2>請求書の提出（管理者向け）</h2>
-  <p>このコネクタで唯一の「変更する操作」として、Amazonへの請求書(インボイス)提出があります。<b>通常業務で使うことはありません</b>。誤って提出した場合の取り消しはAmazonサポート経由になるため、経理・管理者以外は触らないでください。</p>
+  <h2>変更する操作（管理者向け）</h2>
+  <p>変更する操作は7本ありますが、<b>通常業務で使うことはありません</b>。代表は Amazonへの請求書(インボイス)提出で、ほかに発注確認・レポート取消・定期実行の作成/取消があります（輸送依頼・出荷確認の2本は権限が無く使えません）。いずれも同じ2段階の確認が働きます。誤って提出した場合の取り消しはAmazonサポート経由になるため、経理・管理者以外は触らないでください。</p>
   <p>安全側に倒すため、次の3つが必ず働きます（2026年8月30日に強化）。</p>
   <ul class="plain">
     <li><b>2段階の確認</b> — 1回目の呼び出しでは提出せず、送信する内容の全体（送金先・明細・金額）と<b>確認コード</b>を表示します。内容を確認したうえで、その確認コードを付けて2回目を実行したときだけ提出されます。<b>確認後に金額や明細を変えると確認コードが合わなくなり、提出されません</b>（見せた内容と違う請求が立つのを防ぐため）</li>
@@ -190,7 +219,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年8月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
   </footer>
 </div>
 
