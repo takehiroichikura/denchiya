@@ -187,11 +187,16 @@
   </div>
 
   <h2>できないこと</h2>
-  <ul class="plain">
-    <li><b>決済を動かす操作</b> — 売上確定・取消・返金の実行はできません。本館（EC-CUBE）の管理画面かセラーセントラルの Amazon Pay 画面から行ってください</li>
-    <li><b>決済IDが分からない注文を1発で探す</b> — Amazon Pay に検索APIがありません。注文番号だけ分かるときは、その期間の決済レポートや注文レポートを読んで探します（少し時間がかかります）</li>
-    <li><b>モール（Amazon.co.jp）の注文</b> — 別のコネクタ「Amazonセラー MCP」です</li>
-  </ul>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
+      <tbody>
+        <tr><td><b>決済を動かす操作</b></td><td>✕</td><td>売上確定・取消・返金の実行はできません。本館（EC-CUBE）の管理画面かセラーセントラルの Amazon Pay 画面から行ってください</td></tr>
+        <tr><td><b>決済IDが分からない注文を1発で探す</b></td><td>✕</td><td>Amazon Pay に検索APIがありません。注文番号だけ分かるときは、その期間の決済レポートや注文レポートを読んで探します（少し時間がかかります）</td></tr>
+        <tr><td><b>モール（Amazon.co.jp）の注文</b></td><td>✕</td><td>別のコネクタ「Amazonセラー MCP」です</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <h2>まだできないこと（Amazon側の制約）</h2>
   <div class="tablewrap">

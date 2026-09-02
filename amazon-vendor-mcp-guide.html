@@ -196,11 +196,16 @@
   </div>
 
   <h2>できないこと</h2>
-  <ul class="plain">
-    <li><b>Amazonの小売価格を見る・変える</b> — ベンダー取引では売価はAmazonが決めます。こちらから見えるのは卸原価（レポートの shippedCogs など）だけです</li>
-    <li><b>セラー（自社出品）の注文・在庫</b> — 別のコネクタ「Amazonセラー MCP」の領域です</li>
-    <li><b>出荷通知(ASN)を送る</b> — 道具はありますが、UiPath（RPA）が送っているので使いません（下の表も参照）</li>
-  </ul>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
+      <tbody>
+        <tr><td><b>Amazonの小売価格を見る・変える</b></td><td>△</td><td>ベンダー取引では売価はAmazonが決めます。こちらから見えるのは卸原価（レポートの shippedCogs など）だけです</td></tr>
+        <tr><td><b>セラー（自社出品）の注文・在庫</b></td><td>✕</td><td>別のコネクタ「Amazonセラー MCP」の領域です</td></tr>
+        <tr><td><b>出荷通知(ASN)を送る</b></td><td>✕</td><td>道具はありますが、UiPath（RPA）が送っているので使いません（下の表も参照）</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <h2>まだできないこと（Amazon側の制約）</h2>
   <p class="lede" style="margin-bottom:14px">SP-API（Amazonの公開仕様）にある操作のうち、電池屋のコネクタで使えないものです。
