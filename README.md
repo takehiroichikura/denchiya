@@ -15,6 +15,7 @@
 | [yahoo-mcp-guide.html](./yahoo-mcp-guide.html) | Yahoo!ショッピング MCP（Claudeから受注・問い合わせ・在庫・価格を扱う社内コネクタ）の利用ガイド |
 | [amazon-pay-mcp-guide.html](./amazon-pay-mcp-guide.html) | Amazon Pay MCP（Claudeから本館の Amazon Pay 決済状態・入金・決済レポートを照会する社内コネクタ）の利用ガイド |
 | [kakaku-mcp-guide.html](./kakaku-mcp-guide.html) | 価格.com MCP（Claudeから価格.comの他店価格・自店順位を照会する社内コネクタ）の利用ガイド |
+| [chatwork-mcp-guide.html](./chatwork-mcp-guide.html) | Chatwork MCP（Claudeから自分の Chatwork を読み、自分の名前で投稿・タスク登録する社内コネクタ）の利用ガイド |
 | [gyomu-map.html](./gyomu-map.html) | 電池屋 全業務マップ。従業員23名の「業務詳細」Excel（2026年8月）を統合し、5つの商流・仕事の流れ・部門別の業務と工数・使用システム・改善の種をまとめた資料 |
 | [skill-map.html](./skill-map.html) | スキル化候補マップ。全業務マップからClaudeスキル化できそうな業務を個人別に82件抽出し、着手しやすさ（A/B/C）と横断6テーマで整理した資料 |
 
@@ -33,6 +34,7 @@
 | Yahoo!ショッピング MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/yahoo-mcp-guide.html** |
 | Amazon Pay MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/amazon-pay-mcp-guide.html** |
 | 価格.com MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/kakaku-mcp-guide.html** |
+| Chatwork MCP 利用ガイド | **https://takehiroichikura.github.io/denchiya/chatwork-mcp-guide.html** |
 | 電池屋 全業務マップ | **https://takehiroichikura.github.io/denchiya/gyomu-map.html** |
 | スキル化候補マップ | **https://takehiroichikura.github.io/denchiya/skill-map.html** |
 
