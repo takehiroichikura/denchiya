@@ -165,8 +165,8 @@
 
   <div class="warn">⚠️ <b>投稿・タスク登録・完了・既読化は、あなたの名前で実行されます。</b>AIが確認画面を出すので、宛先のルーム名と本文を必ず読んでから「実行して」と言ってください。投稿の取り消しはできません（削除は Chatwork の画面で）。</div>
 
-  <h2>ツール一覧（30本）</h2>
-  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（14本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
+  <h2>ツール一覧（31本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（15本）。変更する操作はすべて<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
   <div class="tablewrap">
     <table>
       <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
@@ -182,6 +182,7 @@
         <tr><td><code>list_contacts</code></td><td>コンタクト一覧（Toやタスク担当者の account_id を調べる）</td></tr>
         <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">変更する（確認画面あり）</td></tr>
         <tr><td><code>post_message</code> <b>書</b></td><td>メッセージ投稿（To・返信記法・[info] などの記法対応）</td></tr>
+        <tr><td><code>upload_file</code> <b>書</b></td><td>ファイルをアップロード。<b>Claude が書き出した中身</b>（CSV・テキスト）をファイルにして送る。上限5MB</td></tr>
         <tr><td><code>add_task</code> <b>書</b></td><td>タスク追加（担当者・期限）</td></tr>
         <tr><td><code>complete_task</code> <b>書</b></td><td>タスクの完了／未完了に戻す</td></tr>
         <tr><td><code>mark_read</code> <b>書</b></td><td>ルームの未読を既読にする（自分の表示だけ）</td></tr>
@@ -200,6 +201,7 @@
     <table>
       <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
       <tbody>
+        <tr><td><b>パソコンにあるファイルを送る</b></td><td>✕</td><td>コネクタは自分のパソコンの中を見られません。Claude が作った表やテキストなら <code>upload_file</code> でファイルにして送れます。手元のExcelや画像はChatworkの画面から送ってください</td></tr>
         <tr><td><b>他人の投稿の編集・削除</b></td><td>✕</td><td>自分の投稿だけ編集・削除できます（確認画面あり）。他人の投稿は Chatwork の仕様上できません</td></tr>
         <tr><td><b>グループの削除・退席</b></td><td>✕</td><td>削除するとメッセージ・タスク・ファイルが全部消えて戻せないため作っていません。Chatwork の画面で本人が行ってください（作成・名前変更・メンバー変更・招待リンクは確認画面つきでできます）</td></tr>
         <tr><td><b>ファイルのアップロード</b></td><td>✕</td><td>チャット経由でファイル本体を渡せないため。ダウンロードURLの取得はできます</td></tr>
