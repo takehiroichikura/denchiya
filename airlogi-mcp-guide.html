@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>エアロジ MCP 利用ガイド</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #24211c;
+    --sub: #6d675f;
+    --line: #e4dfd4;
+    --accent: #8f6400;
+    --accent-soft: #f7efdc;
+    --warn-bg: #fdf3e4;
+    --warn-line: #e0b36a;
+    --warn-ink: #7a5416;
+    --info-bg: #eef2f5;
+    --info-ink: #3d5468;
+    --chip-bg: #eee9de;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #181613;
+      --card: #211e19;
+      --ink: #ebe6dd;
+      --sub: #a89f92;
+      --line: #37322a;
+      --accent: #d9a83e;
+      --accent-soft: #382e1a;
+      --warn-bg: #322818;
+      --warn-line: #8a6c33;
+      --warn-ink: #e3bd7a;
+      --info-bg: #212a32;
+      --info-ink: #9db8cd;
+      --chip-bg: #2d2921;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    margin: 0;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 72px; }
+  header.top { border-bottom: 3px solid var(--accent); padding-bottom: 20px; margin-bottom: 36px; }
+  .kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  h1 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 900; font-size: 30px; line-height: 1.3; margin: 0 0 10px; text-wrap: balance;
+  }
+  .lede { color: var(--sub); margin: 0; }
+  h2 {
+    font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight: 700; font-size: 19px; margin: 44px 0 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); border-radius: 3px; flex: none; }
+  p { margin: 0 0 12px; }
+  .steps { list-style: none; counter-reset: st; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .steps li {
+    counter-increment: st;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px 14px 54px; position: relative;
+  }
+  .steps li::before {
+    content: counter(st);
+    position: absolute; left: 14px; top: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { font-weight: 700; }
+  .note { font-size: 13px; color: var(--sub); margin-top: 8px; }
+  code {
+    background: var(--chip-bg); border-radius: 5px; padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace; font-size: 13px;
+  }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left; font-size: 12px; letter-spacing: 0.08em; color: var(--sub);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.cat { font-weight: 700; white-space: nowrap; width: 7em; }
+  .ex { color: var(--sub); }
+  .ex q { quotes: "「" "」"; color: var(--ink); }
+  ul.plain { margin: 0; padding-left: 1.3em; }
+  ul.plain li { margin-bottom: 6px; }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  .info {
+    background: var(--info-bg); color: var(--info-ink);
+    border-radius: 10px; padding: 12px 16px; font-size: 14px; margin-top: 12px;
+  }
+  footer {
+    margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 13px; color: var(--sub);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
+    <h1>エアロジ MCP 利用ガイド</h1>
+    <p class="lede">Claude のチャットから、倉庫管理システム「エアロジ（AiR Logi）」の<b>在庫数・出荷実績・入荷実績</b>を調べられる社内コネクタです。<b>照会専用</b>で、エアロジの内容を変える機能はありません。</p>
+  </header>
+
+  <h2>注意事項</h2>
+  <ul class="plain">
+    <li><b>これは正規のエアロジコネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。<b>不具合が入っている可能性があります</b>。おかしな動きに気づいたら、そのまま使い続けずに市倉さんへ知らせてください</li>
+    <li><b>数字はリアルタイムではありません。</b>エアロジには外から直接つなぐ口が無いため、エアロジが社内サーバに書き出したCSVの写しを見ています。在庫は<b>毎日 0時過ぎ時点</b>、出荷実績は<b>前日21時までの分</b>、入荷実績は<b>数時間おき</b>に更新されます。回答には必ず「いつ時点か（as_of）」が付くので、そこを確認してください</li>
+    <li>いま入っているデータは<b>山梨倉庫だけ</b>です。柏（センコー）は品番と商品名しかエアロジから出ていないため、在庫・実績は見られません</li>
+  </ul>
+
+  <h2>はじめる（初回だけ・3分）</h2>
+  <ol class="steps">
+    <li><b>招待コードを手に入れる。</b>Chatwork で <b>コダック（RPA用アカウント）</b>とのダイレクトチャットを開き、<b>To を付けて「招待コードをください」</b>と送ると、数秒で自分専用のコード（<code>INV-あなたの名前-…</code>）が返ってきます。<b>全コネクタ共通・30日有効</b>。すでに持っていればこの手順は不要です</li>
+    <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-エアロジMCP</b> をオンにする</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>を貼り付けて「接続を許可する」を押す。<b>以後、コードの入力は二度と不要</b>です</li>
+  </ol>
+  <div class="warn">このコネクタを使えるのは、いまのところ <b>管理者</b> です（ウェブチームや物流部への開放は準備中）。役割に含まれない人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。自分の役割が分からないとき・権限の相談は市倉さんへ。</div>
+
+  <h2>できること（聞き方の例）</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>分野</th><th>こんなふうに聞く</th></tr>
+      <tr>
+        <td class="cat">在庫を調べる</td>
+        <td class="ex"><q>NPL1001 の山梨在庫は？</q>／<q>この5品番の在庫と出荷待機数をまとめて</q>／<q>「誘導灯」で商品名検索して在庫があるものだけ</q></td>
+      </tr>
+      <tr>
+        <td class="cat">出荷を確認する</td>
+        <td class="ex"><q>注文番号 244970-2026… はいつ出荷した？伝票番号は？</q>／<q>9月2日にヤマトで出した件数は？</q>／<q>伝票番号 3031… はどの注文？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">入荷を確認する</td>
+        <td class="ex"><q>発注 OR938479ZX はもう入った？</q>／<q>今日、山善から入荷したものを一覧で</q>／<q>品番 TF3890B20 の直近の入荷はいつ？</q></td>
+      </tr>
+      <tr>
+        <td class="cat">補充の当たりをつける</td>
+        <td class="ex"><q>発注点を下回っている品番を出して</q>／<q>在庫3以下でサンテレホンから仕入れているもの</q></td>
+      </tr>
+      <tr>
+        <td class="cat">データの鮮度</td>
+        <td class="ex"><q>この在庫はいつ時点の数字？</q>／<q>エアロジの取り込みは動いてる？</q></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="info">💡 <b>読み方のコツ</b>：「<b>引当可能</b>」＝在庫数 − 出荷待機数 です。在庫数が<b>空欄</b>の品番は、エアロジで「在庫管理しない」設定になっているもの（無限在庫）の可能性があります。実数が必要なときはエアロジの画面で確認してください。</div>
+
+  <div class="warn">⚠️ <b>当日の動きは載っていません。</b>在庫は毎日 0時過ぎの全件、出荷実績は毎日21時の1日分です。「今出荷したか」「今の在庫」を確認したいときはエアロジの画面を見てください。</div>
+
+  <h2>ツール一覧（7本）</h2>
+  <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>すべて照会専用</b>です。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">道具</th><th>何をするか</th></tr></thead>
+      <tbody>
+        <tr><td><code>get_stock</code></td><td>品番を指定して在庫数・出荷待機数・引当可能数を返す（一度に100品番まで。見つからない品番は「該当なし」で返る）</td></tr>
+        <tr><td><code>search_items</code></td><td>商品名・品番の一部・バーコード・メーカー・仕入先で商品を探す。在庫ありだけに絞れる</td></tr>
+        <tr><td><code>list_low_stock</code></td><td>発注点を下回っている品番の一覧（しきい値の指定も可）</td></tr>
+        <tr><td><code>search_shipments</code></td><td>出荷実績。注文番号 → 送り状番号（お荷物伝票番号）・出荷日・配送業者</td></tr>
+        <tr><td><code>search_receipts</code></td><td>入荷実績。発注番号・品番・仕入先・日付で検索</td></tr>
+        <tr><td><code>data_status</code></td><td>各データがいつ時点か、取り込みが動いているか</td></tr>
+        <tr><td><code>whoami</code></td><td>接続の確認</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>できないこと</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
+      <tbody>
+        <tr><td><b>今この瞬間の在庫を見る</b></td><td>✕</td><td>エアロジには外から直接つなぐAPIがありません。見ているのは毎日0時過ぎに書き出された写しです。リアルタイムはエアロジの画面で</td></tr>
+        <tr><td><b>今日出荷した注文の伝票番号</b></td><td>✕</td><td>出荷実績は毎日21時に1日分まとめて出ます。翌日以降に聞いてください。急ぐときはエアロジの画面か送り状システムで</td></tr>
+        <tr><td><b>柏（センコー）の在庫・出荷・入荷</b></td><td>✕</td><td>柏のエアロジからは品番・商品名・バーコードしか出力されていません。出力設定を追加すれば対応できます（市倉さんへ）</td></tr>
+        <tr><td><b>在庫を直す・出荷指示を入れる・商品を登録する</b></td><td>✕</td><td>照会専用です。エアロジへの投入は従来どおり RPA と画面で行います</td></tr>
+        <tr><td><b>ロケーション別の在庫</b></td><td>✕</td><td>商品マスタの出力に無い列です。入荷実績のロケーション欄は見られます</td></tr>
+        <tr><td><b>2026年9月より前の出荷・入荷実績</b></td><td>✕</td><td>取り込みは 2026年9月3日から始めています。それ以前はエアロジの画面で</td></tr>
+        <tr><td><b>無限在庫（在庫管理しない）かどうかの判定</b></td><td>△</td><td>在庫数が空欄なら可能性が高いですが、出力に判定列が無いため断定できません。画面で確認してください</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>まだできないこと（エアロジ側の制約）</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:40%">機能</th><th>使えない理由</th></tr></thead>
+      <tbody>
+        <tr><td>外部からの直接接続</td><td>エアロジに顧客向けの Web API がありません。公式ヘルプ全記事を確認済みです。唯一の連携手段が CSV のファイル交換なので、この方式を採っています</td></tr>
+        <tr><td>更新間隔を細かくする</td><td>エアロジの自動出力は「毎日◯時」の定時実行しかありません。取り込み側は15分ごとに見ていますが、元の出力が日次です</td></tr>
+        <tr><td>Shift-JIS 以外の出力</td><td>エアロジは Shift-JIS の CSV しか出せません。取り込み時に変換しています</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="warn" style="margin-top:14px">
+    <b>2026年9月3日に作った新しいコネクタです。</b>数字が画面と食い違うと感じたら、まず <q>この在庫はいつ時点？</q> と聞いて as_of を確認し、それでも変なら市倉さんへ。
+  </div>
+
+  <h2>困ったとき</h2>
+  <ul class="plain">
+    <li>エラーが出たら、まずエラー文を読んでください。<b>「次に何をすればいいか」まで書いてあります</b></li>
+    <li>「まだ取り込まれていません」「取込日時が古い」と出るときは、社内サーバの取り込みが止まっている可能性があります → <b>市倉さん</b>へ</li>
+    <li>招待コードはコダックへ To 付きで「招待コードをください」（期限切れも同じ）。「こういうことも聞けるようにしてほしい」という要望 → <b>市倉さん（システム担当）</b>へ</li>
+  </ul>
+
+  <footer>
+    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
+  </footer>
+</div>
+
+</body>
+</html>
