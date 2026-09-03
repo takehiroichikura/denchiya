@@ -34,6 +34,7 @@ MCP は招待コードがないと使えません。コードのもらい方と�
 
 | ファイル | 内容 |
 |---|---|
+| [mcp-shikumi.html](./mcp-shikumi.html) | 電池屋MCPのしくみ（一般社員向け・技術の説明） |
 | [gyomu-map.html](./gyomu-map.html) | 電池屋 全業務マップ |
 | [skill-map.html](./skill-map.html) | スキル化候補マップ |
 

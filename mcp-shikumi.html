@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>電池屋MCPのしくみ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --bg: #f3f3f3; --card: #ffffff; --ink: #222222; --sub: #6b6b6b; --line: #e3e3e3;
+    --accent: #e60012; --accent-soft: #fde8ea; --warn-bg: #fff6d9; --warn-line: #f0c94a; --warn-ink: #6e5200; --chip-bg: #eeeeee;
+    --blue: #0ab9e6; --blue-soft: #e3f6fb; --blue-ink: #0b4f66; --green-soft: #e6f6ea; --green-ink: #1f6b3a; --orange-soft: #fff0e0; --orange-ink: #8a4b00;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto Sans JP", "Hiragino Sans", sans-serif; font-size: 15px; line-height: 1.8; }
+  body::before { content: ""; display: block; height: 6px; background: var(--accent); }
+  main { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+  .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); }
+  h1 { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 30px; margin: 6px 0 8px; text-wrap: balance; line-height: 1.3; }
+  .lede { color: var(--sub); margin: 0 0 8px; max-width: 40em; }
+  h2 { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 20px; margin: 40px 0 12px; display: flex; align-items: center; gap: 10px; text-wrap: balance; }
+  h2::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); flex: none; }
+  h3 { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 16px; margin: 22px 0 6px; }
+  p { margin: 0 0 12px; max-width: 42em; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+  .big { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 22px; font-weight: 700; line-height: 1.5; margin: 0 0 6px; text-wrap: balance; }
+  .info { background: var(--blue-soft); border: 1px solid #b9e3f2; color: var(--blue-ink); border-radius: 14px; padding: 12px 16px; font-size: 14px; margin: 0 0 16px; }
+  .warn { background: var(--warn-bg); border: 1px solid var(--warn-line); color: var(--warn-ink); border-radius: 14px; padding: 12px 16px; font-size: 14px; margin: 0 0 16px; }
+  .terms { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .terms li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+  .terms .word { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .terms .word small { font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--chip-bg); color: var(--sub); letter-spacing: .04em; }
+  .terms .yaku { font-size: 13px; color: var(--sub); margin-top: 4px; }
+  .terms .body { font-size: 14px; margin-top: 6px; }
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 14px; overflow-x: auto; }
+  .diagram svg { display: block; min-width: 720px; width: 100%; height: auto; font-family: "Noto Sans JP", sans-serif; }
+  .diagram .cap { font-size: 13px; color: var(--sub); margin: 10px 4px 0; }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .steps li { position: relative; padding: 12px 16px 12px 52px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; font-size: 14px; }
+  .steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 900; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps b { color: var(--accent); }
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: separate; border-spacing: 0; width: 100%; background: var(--card); border-radius: 12px; overflow: hidden; font-size: 13.5px; min-width: 600px; border: 1px solid var(--line); }
+  th, td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { background: var(--chip-bg); font-weight: 700; font-size: 12.5px; letter-spacing: .04em; }
+  tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--blue-soft); color: #067ea0; white-space: nowrap; }
+  .pill.ftp { background: var(--orange-soft); color: var(--orange-ink); }
+  .pill.write { background: var(--accent-soft); color: var(--accent); }
+  .faq { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .faq li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; font-size: 14px; }
+  .faq .q { font-weight: 700; display: flex; gap: 8px; }
+  .faq .q::before { content: "Q"; color: var(--accent); font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; }
+  .faq .a { margin-top: 4px; color: #333; display: flex; gap: 8px; }
+  .faq .a::before { content: "A"; color: var(--blue); font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; flex: none; }
+  .safe { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .safe li { background: var(--green-soft); border: 1px solid #c4e6cd; color: var(--green-ink); border-radius: 14px; padding: 12px 14px; font-size: 14px; }
+  .safe li b { display: block; font-size: 15px; margin-bottom: 2px; }
+  footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--sub); }
+  footer a { color: var(--sub); }
+  code { font-family: ui-monospace, Consolas, monospace; background: var(--chip-bg); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+  a { color: #0b5ed7; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">電池屋 社内資料 ／ 一般社員向け</div>
+  <h1>電池屋MCPのしくみ</h1>
+  <p class="lede">Claude に「楽天の受注を見て」「エアロジの在庫は？」と聞くと答えが返る。その裏で何が動いているかを、専門用語をほどきながら説明します。読む時間は10分ほどです。</p>
+
+  <div class="card" style="margin-top:18px">
+    <p class="big">ひとことで言うと、<span style="color:var(--accent)">Claude に電池屋専用の「道具」を持たせている</span>仕組みです。</p>
+    <p style="margin:0">Claude（AI）自身は、楽天やエアロジの中身を知りません。そこで、電池屋が自分で作った小さなプログラムを「道具」として Claude に渡しています。Claude は質問に応じてその道具を使い、結果を読んで、日本語で答えます。道具の実体は Cloudflare というクラウド上で動いています。</p>
+  </div>
+
+  <h2>登場する言葉</h2>
+  <ul class="terms">
+    <li>
+      <div class="word">Claude <small>クロード</small></div>
+      <div class="yaku">AIアシスタント。Anthropic 社が提供</div>
+      <div class="body">私たちが会話している相手です。文章を読んで理解し、必要なら「道具」を使って調べ、答えを組み立てます。電池屋は Anthropic のサービス（Claude.ai）を利用しています。</div>
+    </li>
+    <li>
+      <div class="word">MCP <small>エムシーピー</small></div>
+      <div class="yaku">Model Context Protocol。AIに道具を渡すための共通ルール</div>
+      <div class="body">「AIから外のシステムを呼ぶときの決まり事」です。この決まりに沿って作れば、どんなシステムでも Claude の道具になります。電池屋の10本のコネクタはすべて MCP の決まりで作ってあります。</div>
+    </li>
+    <li>
+      <div class="word">コネクタ <small>Claude の画面での呼び名</small></div>
+      <div class="yaku">Claude の「設定 → コネクタ」に並ぶもの</div>
+      <div class="body">MCP サーバーを Claude 側から見た名前です。「電池屋用-楽天MCP」をオンにする、というのは、楽天の道具を Claude に持たせる操作です。</div>
+    </li>
+    <li>
+      <div class="word">Cloudflare <small>クラウドフレア</small></div>
+      <div class="yaku">道具を動かしているクラウド。Workers という仕組みを使う</div>
+      <div class="body">電池屋の道具（プログラム）はここで動いています。サーバー機を買わず、世界中のデータセンターで小さなプログラムを動かせるサービスで、10本合わせて月5ドル程度です。</div>
+    </li>
+    <li>
+      <div class="word">API <small>エーピーアイ</small></div>
+      <div class="yaku">システム同士が話すための窓口</div>
+      <div class="body">楽天RMS・Yahoo!・Amazon・Chatwork などは、画面を開かずにデータをやりとりする窓口（API）を用意しています。電池屋の道具はこの窓口を叩いてデータを取ってきます。</div>
+    </li>
+    <li>
+      <div class="word">招待コード <small>OAuth 認可</small></div>
+      <div class="yaku">道具を使える人を決める鍵</div>
+      <div class="body">初めてコネクタをつなぐときに1回だけ入れるコードです。「この Claude を使っているのは電池屋の誰か」を道具側が確認する仕組みで、コードを持たない人には道具が動きません。</div>
+    </li>
+  </ul>
+
+  <h2>質問してから答えが返るまで</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 760 330" role="img" aria-label="社員が Claude に質問し、Claude が Cloudflare 上の電池屋の道具を呼び、道具が各システムのAPIからデータを取り、Claude が日本語で答える流れ">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6b6b6b"/></marker>
+      </defs>
+      <!-- 社員 -->
+      <rect x="10" y="110" width="130" height="90" rx="16" fill="#ffffff" stroke="#e3e3e3"/>
+      <text x="75" y="145" text-anchor="middle" font-size="15" font-weight="700" fill="#222">社員</text>
+      <text x="75" y="168" text-anchor="middle" font-size="12" fill="#6b6b6b">「NPL1001 の</text>
+      <text x="75" y="185" text-anchor="middle" font-size="12" fill="#6b6b6b">在庫は？」</text>
+      <!-- Claude -->
+      <rect x="190" y="95" width="160" height="120" rx="16" fill="#fde8ea" stroke="#e60012"/>
+      <text x="270" y="128" text-anchor="middle" font-size="15" font-weight="700" fill="#222">Claude</text>
+      <text x="270" y="148" text-anchor="middle" font-size="12" fill="#6b6b6b">Anthropic のAI</text>
+      <text x="270" y="176" text-anchor="middle" font-size="12" fill="#222">質問を読み、使う道具と</text>
+      <text x="270" y="194" text-anchor="middle" font-size="12" fill="#222">品番を決める</text>
+      <!-- Worker -->
+      <rect x="400" y="80" width="170" height="150" rx="16" fill="#e3f6fb" stroke="#0ab9e6"/>
+      <text x="485" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#222">電池屋の道具</text>
+      <text x="485" y="130" text-anchor="middle" font-size="12" fill="#6b6b6b">MCPサーバー（10本）</text>
+      <text x="485" y="150" text-anchor="middle" font-size="12" fill="#6b6b6b">Cloudflare 上で動く</text>
+      <text x="485" y="178" text-anchor="middle" font-size="12" fill="#222">招待コードを確認し、</text>
+      <text x="485" y="196" text-anchor="middle" font-size="12" fill="#222">相手のAPIを呼ぶ</text>
+      <text x="485" y="214" text-anchor="middle" font-size="12" fill="#222">鍵はここで預かる</text>
+      <!-- Systems -->
+      <rect x="620" y="20" width="130" height="44" rx="12" fill="#ffffff" stroke="#e3e3e3"/><text x="685" y="47" text-anchor="middle" font-size="13" fill="#222">楽天RMS</text>
+      <rect x="620" y="72" width="130" height="44" rx="12" fill="#ffffff" stroke="#e3e3e3"/><text x="685" y="99" text-anchor="middle" font-size="13" fill="#222">Yahoo! / Amazon</text>
+      <rect x="620" y="124" width="130" height="44" rx="12" fill="#ffffff" stroke="#e3e3e3"/><text x="685" y="151" text-anchor="middle" font-size="13" fill="#222">Chatwork / UiPath</text>
+      <rect x="620" y="176" width="130" height="44" rx="12" fill="#ffffff" stroke="#e3e3e3"/><text x="685" y="203" text-anchor="middle" font-size="13" fill="#222">価格.com / Amazon Pay</text>
+      <rect x="620" y="228" width="130" height="44" rx="12" fill="#fff0e0" stroke="#f0b070"/><text x="685" y="248" text-anchor="middle" font-size="13" fill="#222">エアロジ</text><text x="685" y="264" text-anchor="middle" font-size="10" fill="#8a4b00">CSV → 写しを保管</text>
+      <!-- arrows forward -->
+      <line x1="140" y1="145" x2="188" y2="145" stroke="#6b6b6b" stroke-width="2" marker-end="url(#ar)"/>
+      <line x1="350" y1="145" x2="398" y2="145" stroke="#6b6b6b" stroke-width="2" marker-end="url(#ar)"/>
+      <line x1="570" y1="120" x2="618" y2="45" stroke="#6b6b6b" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="570" y1="135" x2="618" y2="95" stroke="#6b6b6b" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="570" y1="150" x2="618" y2="147" stroke="#6b6b6b" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="570" y1="165" x2="618" y2="198" stroke="#6b6b6b" stroke-width="1.5" marker-end="url(#ar)"/>
+      <line x1="570" y1="180" x2="618" y2="250" stroke="#6b6b6b" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- arrows back -->
+      <path d="M 398 165 L 350 165" stroke="#0ab9e6" stroke-width="2" marker-end="url(#ar)" fill="none"/>
+      <path d="M 188 165 L 140 165" stroke="#e60012" stroke-width="2" marker-end="url(#ar)" fill="none"/>
+      <text x="270" y="240" text-anchor="middle" font-size="12" fill="#6b6b6b">③ 結果を読んで日本語で答える</text>
+      <text x="75" y="240" text-anchor="middle" font-size="12" fill="#6b6b6b">「山梨に 77個（0時時点）」</text>
+      <text x="485" y="255" text-anchor="middle" font-size="12" fill="#6b6b6b">② データを取って返す</text>
+      <text x="270" y="80" text-anchor="middle" font-size="12" fill="#6b6b6b">① 道具を呼ぶ（MCP）</text>
+      <text x="380" y="310" text-anchor="middle" font-size="12" fill="#6b6b6b">赤＝Claude、水色＝電池屋が作って Cloudflare で動かしている部分、白＝相手先のシステム</text>
+    </svg>
+    <div class="cap">たとえば「NPL1001 の在庫は？」と聞いたとき。Claude が品番を読み取り、エアロジの道具を選び、道具がデータを返し、Claude が文章にします。</div>
+  </div>
+
+  <ol class="steps" style="margin-top:14px">
+    <li><b>社員が Claude に日本語で聞く。</b>「楽天の未出荷は何件？」「発注 OR938479ZX は入荷した？」。話し言葉でかまいません。</li>
+    <li><b>Claude が使う道具を選ぶ。</b>コネクタごとに「何ができる道具か」の説明が付いていて、Claude はそれを読んで選びます。人が「楽天MCPを使って」と指示する必要はありません。</li>
+    <li><b>Cloudflare 上の道具が動く。</b>その社員が招待コードで認可済みか、役割にそのコネクタが含まれるかを確かめてから、相手のAPIを呼びます。ID・パスワード・APIキーは道具の中に暗号化して保管してあり、Claude には渡りません。</li>
+    <li><b>相手のシステムがデータを返す。</b>楽天や Chatwork は API で直接。エアロジだけは API が無いため、エアロジがFTPに毎時出力するCSVの写しを Cloudflare に保管して、そこから答えます。</li>
+    <li><b>Claude が結果を読んで答える。</b>数字の意味づけや要約は Claude の仕事です。いつ時点のデータかも一緒に返るので、Claude はそれを添えて答えます。</li>
+  </ol>
+
+  <h2>10本のコネクタと、そのつながり先</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>コネクタ</th><th>つながり先</th><th>取り方</th><th>できること（代表）</th></tr></thead>
+      <tbody>
+        <tr><td>楽天MCP</td><td>楽天RMS</td><td><span class="pill">API</span></td><td>受注・在庫・商品・問い合わせの照会。一部は更新も <span class="pill write">書</span></td></tr>
+        <tr><td>Yahoo!ショッピングMCP</td><td>Yahoo! ストアクリエイター</td><td><span class="pill">API</span> 本社経由</td><td>受注・在庫・商品・問い合わせ <span class="pill write">書</span></td></tr>
+        <tr><td>AmazonセラーMCP</td><td>セラーセントラル（SP-API）</td><td><span class="pill">API</span></td><td>注文・FBA在庫・出品・レポート</td></tr>
+        <tr><td>AmazonベンダーMCP</td><td>ベンダーセントラル（SP-API）</td><td><span class="pill">API</span></td><td>発注PO・出荷・請求・レポート <span class="pill write">書</span></td></tr>
+        <tr><td>Amazon Pay MCP</td><td>Amazon Pay</td><td><span class="pill">API</span></td><td>決済・返金・入金レポートの照会</td></tr>
+        <tr><td>価格.com MCP</td><td>価格.com 店舗向けAPI</td><td><span class="pill">API</span> 本社経由</td><td>掲載商品・価格・順位の照会</td></tr>
+        <tr><td>Chatwork MCP</td><td>Chatwork</td><td><span class="pill">API</span> 各自のトークン</td><td>メッセージ・タスク・ファイル。投稿も <span class="pill write">書</span></td></tr>
+        <tr><td>UiPath MCP</td><td>UiPath Orchestrator（RPA）</td><td><span class="pill">API</span></td><td>ジョブの状況確認・起動 <span class="pill write">書</span></td></tr>
+        <tr><td>サイボウズMCP</td><td>cybozu.com ユーザー管理</td><td><span class="pill">API</span></td><td>ユーザー・組織の管理（管理者のみ）<span class="pill write">書</span></td></tr>
+        <tr><td>エアロジMCP</td><td>エアロジ（倉庫管理）</td><td><span class="pill ftp">CSV</span> FTP → 写し</td><td>在庫・出荷実績・入荷実績の照会（参照のみ）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="info" style="margin-top:12px">「本社経由」とあるものは、相手先が本社のIPアドレスからしか受け付けないため、本社のパソコンを中継しています。「各自のトークン」の Chatwork は、社員それぞれが自分の名義で登録したトークンで動くので、投稿は本人の名前で出ます。</p>
+
+  <h2>安全のために入れている仕組み</h2>
+  <ul class="safe">
+    <li><b>招待コードと役割</b>コードを持つ電池屋の社員だけが使えます。さらに役割（管理者・ウェブチーム・一般）で、使えるコネクタが決まります。</li>
+    <li><b>鍵は道具の中に</b>楽天やAmazonのAPIキーは Cloudflare 上の道具が暗号化して保管します。Claude にも社員にも渡りません。</li>
+    <li><b>変更は2段階で確認</b>投稿・更新など「変える」操作は、まず内容を表示し、確認の合図があったときだけ実行します。確認の合図は15分で無効になり、1回しか使えません。</li>
+    <li><b>ほとんどが参照専用</b>10本のうち大半は見るだけの道具です。エアロジ・Amazon Pay・価格.com は変更する道具を持ちません。</li>
+    <li><b>記録が残る</b>誰がどの道具をいつ使ったかは記録されます（入力した品番や本文の中身は記録しません）。</li>
+    <li><b>個人情報は伏せる</b>購入者の氏名・住所を返す道具は作っていません。Amazon Pay は既定で購入者情報を隠します。</li>
+  </ul>
+
+  <h2>よくある質問</h2>
+  <ul class="faq">
+    <li><div class="q">電池屋のデータは外に出るの？</div><div class="a">Claude が答えを作るために、取得したデータは Anthropic の Claude に送られます（会話に貼り付けたのと同じ扱い）。電池屋の契約では会話内容は AI の学習に使われません。道具そのものは電池屋の Cloudflare アカウント上で動き、他社と共有していません。</div></li>
+    <li><div class="q">「Claude API」と何が違う？</div><div class="a">Claude API は、プログラムから Claude を直接呼ぶための窓口です。今の仕組みは逆向きで、Claude.ai の会話の中から電池屋の道具を呼んでいます。将来「毎朝自動で楽天の問い合わせをまとめて Chatwork に出す」のような無人処理を作るときは、Claude API を使って道具を呼ぶ側になります。</div></li>
+    <li><div class="q">数字はリアルタイム？</div><div class="a">API でつながっている楽天・Yahoo!・Amazon・Chatwork などは、聞いた時点の値です。エアロジだけは「エアロジがCSVを書き出した時点」で、在庫は毎日0時、出荷・入荷は1時間おきです。答えに「いつ時点か」が付きます。</div></li>
+    <li><div class="q">Claude が勝手に注文を変えたりしない？</div><div class="a">変える操作は、内容を表示して確認の合図を待ちます。合図なしに実行されることはありません。また、注文キャンセルなど影響の大きい操作は道具として作っていません。</div></li>
+    <li><div class="q">誰が作って、誰が直すの？</div><div class="a">Eコマース部システム課（市倉）が作り、保守しています。コードの置き場所と設計メモは社内 Git に残してあり、外部のAIによるコードレビューも通しています。不具合や要望は市倉まで。</div></li>
+    <li><div class="q">壊れたらどうなる？</div><div class="a">道具が止まっても、楽天やエアロジの本体には影響しません。道具は「見る・API越しに操作する」だけで、相手のシステムの中身を直接いじる立場にないからです。Claude は「エラーで取れませんでした」と答えます。</div></li>
+    <li><div class="q">費用は？</div><div class="a">Cloudflare は10本合計で月5ドル（約750円）です。Claude の利用料は会社の契約に含まれます。相手先のAPIは各サービスの契約に含まれていて追加費用はありません。</div></li>
+  </ul>
+
+  <h2>用語の対応表</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>技術の言葉</th><th>この資料での言い方</th><th>ひとこと</th></tr></thead>
+      <tbody>
+        <tr><td>MCP サーバー</td><td>道具・コネクタ</td><td>Claude に渡す道具。1本＝1つのつながり先</td></tr>
+        <tr><td>ツール</td><td>道具の中の1機能</td><td>「在庫を調べる」「注文を検索する」など。10本で約250個</td></tr>
+        <tr><td>Cloudflare Workers</td><td>道具を動かす場所</td><td>サーバー機いらずのクラウド</td></tr>
+        <tr><td>D1 / KV</td><td>道具が持つ保管庫</td><td>エアロジの写し、招待コードの台帳、暗号化したトークン</td></tr>
+        <tr><td>OAuth</td><td>招待コードでの認可</td><td>「電池屋の誰か」を確認する手続き。初回だけ</td></tr>
+        <tr><td>API キー／トークン</td><td>相手先の鍵</td><td>道具の中に暗号化して保管。人は見ない</td></tr>
+        <tr><td>RPA（UiPath）</td><td>ロボット</td><td>従来からある自動処理。MCP から状況確認や起動ができる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn" style="margin-top:28px">この資料は仕組みの説明です。実際の使い方は、入口ページからそれぞれのコネクタの利用ガイドを開いてください。</p>
+
+  <footer>株式会社電池屋 Eコマース部 システム課 ／ 2026年9月 ／ <a href="./index.html">入口ページへ戻る</a></footer>
+</main>
+</body>
+</html>
