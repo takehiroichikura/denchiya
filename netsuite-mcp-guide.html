@@ -147,7 +147,7 @@
     <li>NetSuite で自分の<b>アクセストークン</b>を発行する：<a href="https://5292524.app.netsuite.com/app/setup/useraccesstoken.nl" target="_blank" rel="noopener"><b>「新しいマイアクセストークン」</b></a>。アプリケーション名「<b>電池屋 Claude MCP</b>」、ロールは普段のもの、トークン名は自動で入る名前のまま → <b>保存</b>。<br>
       <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>ここが重要：保存後の画面の下部「トークンID/シークレット」に2つの値が出ます。この画面を閉じると二度と表示されません。</b>閉じる前に、次の手順5で Claude に登録してください（控え忘れたら作り直し）。</span></li>
     <li>4で発行した「トークンID/シークレット」を Claude に渡してください。Claude に <q>NetSuite の MCP でトークンIDは ◯◯◯、シークレットは ◯◯◯ です</q> と伝えてください。「登録しました」と返れば完了です。<br>
-      <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>この作業をしないと使えません。</b>接続時にトークンは聞かれないので、必ず自分から伝えてください。</span></li>
+      <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>この作業をしないと使えません。</b></span></li>
   </ol>
   <p class="note">トークンをなくしたら、同じトークンのページで古いものを取り消し、「新しいマイアクセストークン」で作り直してもう一度登録してください。</p>
   <div class="warn">このコネクタを使えるのは、いまのところ <b>管理者</b> です（ウェブチームへの開放は準備中）。役割に含まれない人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。自分の役割が分からないとき・権限の相談は市倉さんへ。</div>
