@@ -21,6 +21,7 @@ MCP は招待コードがないと使えません。コードのもらい方と�
 | [kakaku-mcp-guide.html](./kakaku-mcp-guide.html) | 価格.com MCP の利用ガイド |
 | [airlogi-mcp-guide.html](./airlogi-mcp-guide.html) | エアロジ（倉庫管理）MCP の利用ガイド（照会専用・山梨の在庫・出荷・入荷） |
 | [chatwork-mcp-guide.html](./chatwork-mcp-guide.html) | Chatwork MCP の利用ガイド（APIトークンの申請・登録手順を含む） |
+| [netsuite-mcp-guide.html](./netsuite-mcp-guide.html) | NetSuite MCP の利用ガイド（アクセストークンの発行・登録手順を含む） |
 | [uipath-mcp-guide.html](./uipath-mcp-guide.html) | UiPath MCP の利用ガイド |
 | [cybozu-mcp-guide.html](./cybozu-mcp-guide.html) | サイボウズ ユーザー管理 MCP（管理者限定）の利用ガイド |
 
