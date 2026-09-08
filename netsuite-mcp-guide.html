@@ -161,7 +161,8 @@
       <tr><td class="cat">この商品の動き</td><td class="ex"><q>NPL1001 を最近どこに売った？</q>／<q>この品番の直近の仕入れは？</q></td></tr>
       <tr><td class="cat">保存検索</td><td class="ex"><q>「倉庫別 在庫検索」の保存検索を実行して</q>／<q>DN_ で始まる保存検索の一覧</q>／<q>全アイテム確保済の結果を見せて</q>（普段 NetSuite の画面で使っている保存検索がそのまま使えます）</td></tr>
       <tr><td class="cat">自由な集計</td><td class="ex"><q>SuiteQL で今月の楽天受注の合計金額を出して</q>／<q>ステータス別に受注件数を集計</q>（Claude が SuiteQL を書いて実行します）</td></tr>
-      <tr><td class="cat">項目の更新</td><td class="ex"><q>受注 YD1739530 のメモに「9/8 出荷予定に変更」と書いて</q>／<q>YD1739530 の納期を 9/10 に</q>／<q>担当者を市倉に変えて</q>／<q>配送方法を YAMATO に</q>（すべて確認画面あり。担当者・配送方法は名前で指定できます）</td></tr>
+      <tr><td class="cat">注文の流れ</td><td class="ex"><q>楽天注文 244970-20260831-0306501290 は今どこまで進んだ？</q>／<q>YD1739530 の請求と入金は済んでる？</q>／<q>SA1791517 の元の受注と出荷を見せて</q></td></tr>
+      <tr><td class="cat">項目の更新</td><td class="ex"><q>受注 YD1739530 のメモに「9/8 出荷予定に変更」と書いて</q>／<q>YD1739530 の納期を 9/10 に</q>／<q>担当者を市倉に変えて</q>／<q>配送方法を YAMATO に</q>／<q>お届け時間帯を「16:00～18:00」に</q>（すべて確認画面あり。担当者・配送方法・選択リスト項目は表示名で指定できます。表示名は完全一致でないと止まります）</td></tr>
     </table>
   </div>
 
@@ -169,7 +170,7 @@
 
   <div class="warn">⚠️ <b>メモや項目の変更は、あなたの名前で NetSuite に記録されます。</b>確認画面で対象の伝票番号・現在の値・変更後の値を必ず読んでから「実行して」と言ってください。金額・数量・ステータスは変更できない作りです。</div>
 
-  <h2>ツール一覧（28本）</h2>
+  <h2>ツール一覧（30本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（1本）。変更する操作は<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
   <div class="tablewrap">
     <table>
@@ -198,6 +199,8 @@
         <tr><td><code>run_suiteql</code></td><td>SuiteQL（SELECT のみ）を実行。集計や複雑な検索はこれで</td></tr>
         <tr><td><code>get_record</code></td><td>レコード1件を内部IDで取得（受注・発注・請求・出荷・得意先・仕入先・品目など14種）</td></tr>
         <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">変更する（確認画面あり）</td></tr>
+        <tr><td><code>get_order_timeline</code></td><td><b>注文の流れを1発で</b>。注文番号・伝票番号・内部IDのどれかで、受注→出荷→請求書→入金（返品・クレジットも）を時系列に並べて「今どこまで進んだか」を要約</td></tr>
+        <tr><td><code>list_field_options</code></td><td>配達希望・お届け時間帯などの<b>選択リスト項目の選択肢</b>（内部IDと表示名）を一覧。update_record で名前指定するときの確認用</td></tr>
         <tr><td><code>list_reference_values</code></td><td>担当者（従業員）・配送方法の候補と内部IDを引く（update_record で名前指定するときの確認用）</td></tr>
         <tr><td><code>update_record</code> <b>書</b></td><td>メモ・外部ID・カスタム項目に加え、取引（受注・見積・発注書・請求書・返品承認）の<b>納期（出荷日）・期日・発注書/小切手番号・営業担当・配送方法</b>を更新。金額・数量・ステータス・明細・取引先は不可</td></tr>
       </tbody>
