@@ -124,6 +124,7 @@
 
   <h2>注意事項</h2>
   <ul class="plain">
+    <li><b>利用は Claude デスクトップアプリの「Code」タブで行ってください。</b>ブラウザ版の通常チャットではなく、Code の画面で質問・操作します</li>
     <li><b>これは正規の NetSuite コネクタではありません。</b>生成AIで作成した電池屋用のコネクタです。<b>不具合が入っている可能性があります</b>。数字がおかしいと感じたら NetSuite の画面で確かめてください</li>
     <li><b>見える範囲・できることは、あなたの NetSuite のロールと同じです。</b>Claude 経由で見えないものは、画面でも見えないものです</li>
     <li><b>変更できるのはメモ・外部ID・カスタム項目だけ</b>で、金額・数量・ステータス・明細は変更できません。変更は必ず確認画面が先に出て、NetSuite の変更履歴にはあなたの名前で残ります</li>
@@ -137,6 +138,7 @@
     <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-NetSuiteMCP</b> をオンにする</li>
     <li>初めて使うときに認可画面が開くので、<b>招待コード</b>を貼り付けて「接続を許可する」を押す。<b>以後、コードの入力は二度と不要</b>です。<br>
       <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>コネクタをつないだだけでは NetSuite は読めません。4〜5の手続きをしてください。</b></span></li>
+    <li><b>作業は Claude デスクトップアプリの「Code」タブで行います。</b>アプリを開き、上部の <b>Code</b> を選んで新しいセッションを始めてください。コネクタは設定で一度オンにすれば Code 側でもそのまま使えます（以後の手順・質問はすべて Code の画面で）</li>
     <li>NetSuite で自分の<b>アクセストークン</b>を発行する：<a href="https://5292524.app.netsuite.com/app/setup/useraccesstoken.nl" target="_blank" rel="noopener"><b>「新しいマイアクセストークン」</b></a>。アプリケーション名「<b>電池屋 Claude MCP</b>」、ロールは普段のもの、トークン名は自動で入る名前のまま → <b>保存</b>。<br>
       <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>ここが重要：保存後の画面の下部「トークンID/シークレット」に2つの値が出ます。この画面を閉じると二度と表示されません。</b>閉じる前に、次の手順5で Claude に登録してください（控え忘れたら作り直し）。</span></li>
     <li>4で発行した「トークンID/シークレット」を Claude に渡してください。Claude に <q>NetSuite の MCP でトークンIDは ◯◯◯、シークレットは ◯◯◯ です</q> と伝えてください。「登録しました」と返れば完了です。<br>
