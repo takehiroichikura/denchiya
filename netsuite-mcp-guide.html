@@ -154,6 +154,7 @@
       <tr><td class="cat">在庫</td><td class="ex"><q>NPL1001 の在庫は？</q>（既定は 1.本社（ネット用））／<q>全ロケーションで見て</q>／<q>FBA の在庫だけ</q></td></tr>
       <tr><td class="cat">品目・取引先</td><td class="ex"><q>雷ガードという商品名の品番を探して</q>／<q>ELPA の商品一覧</q>／<q>仕入先 坂謙 の内部IDは？</q></td></tr>
       <tr><td class="cat">この商品の動き</td><td class="ex"><q>NPL1001 を最近どこに売った？</q>／<q>この品番の直近の仕入れは？</q></td></tr>
+      <tr><td class="cat">保存検索</td><td class="ex"><q>「倉庫別 在庫検索」の保存検索を実行して</q>／<q>DN_ で始まる保存検索の一覧</q>／<q>全アイテム確保済の結果を見せて</q>（普段 NetSuite の画面で使っている保存検索がそのまま使えます）</td></tr>
       <tr><td class="cat">自由な集計</td><td class="ex"><q>SuiteQL で今月の楽天受注の合計金額を出して</q>／<q>ステータス別に受注件数を集計</q>（Claude が SuiteQL を書いて実行します）</td></tr>
       <tr><td class="cat">メモの更新</td><td class="ex"><q>受注 YD1739530 のメモに「9/8 出荷予定に変更」と書いて</q>（確認画面あり）</td></tr>
     </table>
@@ -163,7 +164,7 @@
 
   <div class="warn">⚠️ <b>メモや項目の変更は、あなたの名前で NetSuite に記録されます。</b>確認画面で対象の伝票番号・現在の値・変更後の値を必ず読んでから「実行して」と言ってください。金額・数量・ステータスは変更できない作りです。</div>
 
-  <h2>ツール一覧（16本）</h2>
+  <h2>ツール一覧（19本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（1本）。変更する操作は<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
   <div class="tablewrap">
     <table>
@@ -181,6 +182,8 @@
         <tr><td><code>find_entity</code></td><td>顧客・仕入先を名前・コード・メール・電話で探す</td></tr>
         <tr><td><code>list_recent_transactions</code></td><td>種別×日数で最近の取引を一覧（チャネル・ステータス・取引先で絞る）</td></tr>
         <tr><td><code>search_transactions_by_item</code></td><td>品番から、その品目を含む最近の取引を探す</td></tr>
+        <tr><td><code>list_saved_searches</code> / <code>run_saved_search</code></td><td>NetSuite の<b>保存検索</b>を名前で探して、そのまま実行（画面と同じ列・同じ絞り込み。200行ずつ）</td></tr>
+        <tr><td><code>describe_record</code></td><td>レコード種別の項目一覧（項目ID・表示名・型・必須）</td></tr>
         <tr><td><code>run_suiteql</code></td><td>SuiteQL（SELECT のみ）を実行。集計や複雑な検索はこれで</td></tr>
         <tr><td><code>get_record</code></td><td>レコード1件を内部IDで取得（受注・発注・請求・出荷・得意先・仕入先・品目など14種）</td></tr>
         <tr><td colspan="2" style="background:var(--chip-bg);font-weight:700">変更する（確認画面あり）</td></tr>
@@ -196,7 +199,7 @@
       <tbody>
         <tr><td><b>受注・請求書などの新規作成</b></td><td>✕</td><td>作っていません。必須項目の推測や二重登録の事故を避けるため。作成は NetSuite の画面か RPA で</td></tr>
         <tr><td><b>金額・数量・ステータスの変更</b></td><td>✕</td><td>影響が大きいため対象外。変更できるのはメモ・外部ID・カスタム項目だけ</td></tr>
-        <tr><td><b>保存検索の実行</b></td><td>✕</td><td>REST 経由では保存検索を直接実行できません。同じ条件を SuiteQL で書いて実行します（「◯◯という保存検索と同じものを SuiteQL で」と言えば Claude が組みます）</td></tr>
+        <tr><td><b>保存検索の結果を編集・保存する</b></td><td>✕</td><td>保存検索は「実行して結果を見る」だけです。条件や列の変更は NetSuite の画面で</td></tr>
         <tr><td><b>レポート（財務レポート等）の実行</b></td><td>✕</td><td>REST に無い機能。純正 NetSuite コネクタか画面で</td></tr>
         <tr><td><b>自分のロールで見えないデータ</b></td><td>✕</td><td>NetSuite 側で権限エラーになります（本人の権限と同じ）</td></tr>
         <tr><td><b>倉庫の実在庫・棚番</b></td><td>✕</td><td>NetSuite は帳簿在庫です。倉庫の実数・ロケーションはエアロジ MCP で</td></tr>
@@ -206,7 +209,7 @@
   </div>
 
   <div class="warn" style="margin-top:14px">
-    <b>2026年9月7日に作った新しいコネクタです。</b>照会16本は実データで動作確認済み、メモの更新は確認画面まで確認済みです。おかしな結果が出たら市倉さんへ。
+    <b>2026年9月7日に作った新しいコネクタです。</b>照会18本と、メモ・社内コメントの更新（往復）を実データで動作確認済みです。おかしな結果が出たら市倉さんへ。
   </div>
 
   <h2>困ったとき</h2>
