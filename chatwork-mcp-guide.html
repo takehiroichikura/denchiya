@@ -122,14 +122,6 @@
     <p class="lede">Claude のチャットから、<b>自分の Chatwork</b> を読んだり、自分の名前で投稿・タスク登録ができる社内コネクタです。<b>あなた自身の Chatwork トークン</b>で動くので、見えるものも投稿の名義もあなた本人と同じです。</p>
   </header>
 
-  <div class="warn" style="margin:0 0 18px">
-    <b>【最初にやること】自分の Chatwork APIトークンを申請してください。</b><br>
-    このコネクタは<b>あなた自身の Chatwork トークン</b>で動きます。トークンの発行には<b>組織管理者の承認</b>が必要です（電池屋の設定）。<br>
-    手順：Chatwork 右上の<b>自分の名前 → サービス連携 → APIトークン</b> を開き、「APIトークンの利用を申請」を押す → 承認されたら同じ画面にトークンが表示されます。
-    承認は市倉さんが行うので、申請したら Chatwork かチャットで一声かけてください。<br>
-    <span style="font-size:13px">RPA用など2つ目のアカウントがある人は、そのアカウントでも同じ手順で申請します。</span>
-  </div>
-
   <h2>注意事項</h2>
   <ul class="plain">
     <li><b>利用は Claude デスクトップアプリの「Code」タブで行ってください。</b>ブラウザ版の通常チャットではなく、Code の画面で質問・操作します</li>
@@ -142,12 +134,15 @@
   <ol class="steps">
     <li><b>招待コードを手に入れる。</b>Chatwork で <b>コダック（RPA用アカウント）</b>とのダイレクトチャットを開き、<b>To を付けて「招待コードをください」</b>と送ると、数秒で自分専用のコード（<code>INV-あなたの名前-…</code>）が返ってきます。<b>全コネクタ共通・30日有効</b>。すでに持っていればこの手順は不要です</li>
     <li><b>Claude の「設定 → コネクタ」</b>を開き、一覧の <b>電池屋用-ChatworkMCP</b> をオンにする</li>
-    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>を貼り付けて「接続を許可する」を押す。<b>以後、コードの入力は二度と不要</b>です</li>
+    <li>初めて使うときに認可画面が開くので、<b>招待コード</b>を貼り付けて「接続を許可する」を押す。<b>以後、コードの入力は二度と不要</b>です<br>
+      <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>コネクタをつないだだけでは Chatwork は読めません。5〜6の手続きをしてください。</b></span></li>
     <li><b>作業は Claude デスクトップアプリの「Code」タブで行います。</b>アプリを開き、上部の <b>Code</b> を選んで新しいセッションを始めてください。コネクタは設定で一度オンにすれば Code 側でもそのまま使えます（以後の手順・質問はすべて Code の画面で）</li>
-    <li>Chatwork で自分の <b>APIトークン</b>を発行する：Chatwork 右上の<b>自分の名前 → サービス連携 → APIトークン</b>。組織管理者（市倉さん）の承認が要るので、申請したら一声かけてください</li>
-    <li><b>【ここが忘れやすい】コネクタをつないだだけでは Chatwork は読めません。</b>Claude に <q>Chatwork のトークンを登録して。呼び名は たなか（自分の呼び名）、トークンは ◯◯◯</q> と伝えてください。Chatwork 上のあなたの名前が返ってくれば完了です。<b>接続時にトークンは聞かれないので、必ずこの一言を送ってください</b></li>
+    <li>Chatwork で自分の <b>APIトークン</b>を発行する：Chatwork 右上の<b>自分の名前 → サービス連携 → APIトークン</b> を開き、<b>「APIトークンの利用を申請」</b>を押す。承認は市倉さんが行うので、申請したら Chatwork かチャットで一声かけてください。承認されると同じ画面に<b>トークン</b>が表示されます<br>
+      <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>承認されるまでトークンは表示されません。申請したら一声かけてください。</b></span></li>
+    <li>表示されたトークンを Claude に渡してください。Claude に <q>Chatwork の MCP でトークンは ◯◯◯ です</q> と伝えてください。「登録しました」と返れば完了です<br>
+      <span style="display:inline-block;margin-top:6px;padding:8px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;color:var(--warn-ink)">⚠️ <b>この作業をしないと使えません。</b></span></li>
   </ol>
-  <p class="note">RPA用などアカウントを2つ持っている人は、呼び名を変えて（例 <code>たなか</code> と <code>rpa</code>）2回登録できます。以後は「rpa のアカウントで…」のように呼び分けます。</p>
+  <p class="note">RPA用など2つ目のアカウントがある人は、そのアカウントでも同じ手順で申請・発行し、<q>Chatwork の MCP で呼び名 rpa のトークンは ◯◯◯ です</q> のように呼び名を付けて登録します。以後は「rpa のアカウントで…」と呼び分けます（1つだけの人は呼び名不要）。</p>
   <div class="warn">このコネクタを使えるのは <b>全員（管理者・ウェブチーム・一般）</b> です。役割に含まれない人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。自分の役割が分からないとき・権限の相談は市倉さんへ。</div>
 
   <h2>できること（聞き方の例）</h2>
