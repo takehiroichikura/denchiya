@@ -155,6 +155,9 @@
       <tr><td class="cat">発注・入荷</td><td class="ex"><q>発注 OR939144DK は入荷した？</q>（PO確認）／<q>外山電気への直近の発注を出して</q>／<q>今週入荷した発注書は？</q></td></tr>
       <tr><td class="cat">在庫</td><td class="ex"><q>NPL1001 の在庫は？</q>（既定は 1.本社（ネット用））／<q>全ロケーションで見て</q>／<q>FBA の在庫だけ</q></td></tr>
       <tr><td class="cat">品目・取引先</td><td class="ex"><q>雷ガードという商品名の品番を探して</q>／<q>ELPA の商品一覧</q>／<q>仕入先 坂謙 の内部IDは？</q></td></tr>
+      <tr><td class="cat">入荷予定・入金</td><td class="ex"><q>今週入ってくる発注は？</q>／<q>オーデリックの入荷待ちは？</q>／<q>請求書 SA1781395 は入金済み？</q></td></tr>
+      <tr><td class="cat">得意先・セット・価格</td><td class="ex"><q>DMY003（楽天ユーザ）の直近30日の受注件数と合計</q>／<q>GRYGD19204AMZ の構成品は？</q>／<q>NPL1001 の価格レベル別の単価</q></td></tr>
+      <tr><td class="cat">PDF</td><td class="ex"><q>請求書 SA1781395 の PDF を出して</q>（10分有効のリンクが返ります。Chatwork に貼って共有できます）</td></tr>
       <tr><td class="cat">この商品の動き</td><td class="ex"><q>NPL1001 を最近どこに売った？</q>／<q>この品番の直近の仕入れは？</q></td></tr>
       <tr><td class="cat">保存検索</td><td class="ex"><q>「倉庫別 在庫検索」の保存検索を実行して</q>／<q>DN_ で始まる保存検索の一覧</q>／<q>全アイテム確保済の結果を見せて</q>（普段 NetSuite の画面で使っている保存検索がそのまま使えます）</td></tr>
       <tr><td class="cat">自由な集計</td><td class="ex"><q>SuiteQL で今月の楽天受注の合計金額を出して</q>／<q>ステータス別に受注件数を集計</q>（Claude が SuiteQL を書いて実行します）</td></tr>
@@ -166,7 +169,7 @@
 
   <div class="warn">⚠️ <b>メモや項目の変更は、あなたの名前で NetSuite に記録されます。</b>確認画面で対象の伝票番号・現在の値・変更後の値を必ず読んでから「実行して」と言ってください。金額・数量・ステータスは変更できない作りです。</div>
 
-  <h2>ツール一覧（19本）</h2>
+  <h2>ツール一覧（27本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>書</b>＝変更する操作（1本）。変更する操作は<b>確認画面が先に出て、承認した2回目でだけ実行</b>されます。</p>
   <div class="tablewrap">
     <table>
@@ -184,7 +187,13 @@
         <tr><td><code>find_entity</code></td><td>顧客・仕入先を名前・コード・メール・電話で探す</td></tr>
         <tr><td><code>list_recent_transactions</code></td><td>種別×日数で最近の取引を一覧（チャネル・ステータス・取引先で絞る）</td></tr>
         <tr><td><code>search_transactions_by_item</code></td><td>品番から、その品目を含む最近の取引を探す</td></tr>
-        <tr><td><code>list_saved_searches</code> / <code>run_saved_search</code></td><td>NetSuite の<b>保存検索</b>を名前で探して、そのまま実行（画面と同じ列・同じ絞り込み。200行ずつ）</td></tr>
+        <tr><td><code>list_expected_receipts</code></td><td>入荷予定の一覧（受領待ちの発注書を、明細ごとの残数と入荷予定日付きで）</td></tr>
+        <tr><td><code>get_invoice_status</code></td><td>請求書の入金状況（請求額・入金済・未収残高・紐づく入金）</td></tr>
+        <tr><td><code>get_customer_summary</code></td><td>得意先1件の取引まとめ（直近の受注・請求の件数と合計、最近の取引）</td></tr>
+        <tr><td><code>get_kit_components</code> / <code>get_item_prices</code></td><td>セット品の構成品と数量／価格レベル別の販売価格</td></tr>
+        <tr><td><code>list_unfulfilled_orders</code></td><td>出荷できていない受注（チャネル・日数で絞る）</td></tr>
+        <tr><td><code>get_transaction_pdf</code></td><td>見積書・請求書・納品書などの PDF を作り、<b>10分有効のダウンロードURL</b>を返す</td></tr>
+        <tr><td><code>list_saved_searches</code> / <code>run_saved_search</code></td><td>NetSuite の<b>保存検索</b>を名前で探して、そのまま実行（画面と同じ列・同じ絞り込み。200行ずつ）。「メーカーが ELPA だけ」のように<b>条件を足して実行</b>もできる</td></tr>
         <tr><td><code>describe_record</code></td><td>レコード種別の項目一覧（項目ID・表示名・型・必須）</td></tr>
         <tr><td><code>run_suiteql</code></td><td>SuiteQL（SELECT のみ）を実行。集計や複雑な検索はこれで</td></tr>
         <tr><td><code>get_record</code></td><td>レコード1件を内部IDで取得（受注・発注・請求・出荷・得意先・仕入先・品目など14種）</td></tr>
@@ -202,16 +211,22 @@
         <tr><td><b>受注・請求書などの新規作成</b></td><td>✕</td><td>作っていません。必須項目の推測や二重登録の事故を避けるため。作成は NetSuite の画面か RPA で</td></tr>
         <tr><td><b>金額・数量・ステータスの変更</b></td><td>✕</td><td>影響が大きいため対象外。変更できるのはメモ・外部ID・カスタム項目だけ</td></tr>
         <tr><td><b>保存検索の結果を編集・保存する</b></td><td>✕</td><td>保存検索は「実行して結果を見る」だけです。条件や列の変更は NetSuite の画面で</td></tr>
-        <tr><td><b>レポート（財務レポート等）の実行</b></td><td>✕</td><td>REST に無い機能。純正 NetSuite コネクタか画面で</td></tr>
         <tr><td><b>自分のロールで見えないデータ</b></td><td>✕</td><td>NetSuite 側で権限エラーになります（本人の権限と同じ）</td></tr>
         <tr><td><b>倉庫の実在庫・棚番</b></td><td>✕</td><td>NetSuite は帳簿在庫です。倉庫の実数・ロケーションはエアロジ MCP で</td></tr>
         <tr><td><b>大量の全件取得</b></td><td>△</td><td>1回 1,000 行まで。続きがあるときは Claude が「まだ続きがある」と伝え、必要なら次ページを取ります</td></tr>
-      </tbody>
+              <tr><td colspan="3" style="background:var(--chip-bg);font-weight:700">作れるが、意図して作っていない操作（要望があれば項目単位で追加を検討）</td></tr>
+        <tr><td><b>受注・発注・顧客の新規作成</b></td><td>✕</td><td>必須項目の推測ミスと二重登録が実害になるため。GoQ・RPA の流れとも競合する。作るなら影響の小さい「見積書の作成」が候補</td></tr>
+        <tr><td><b>数量・金額・ステータスの変更、受注のクローズ</b></td><td>✕</td><td>在庫・売上に直結し、復旧が難しい。作らない方針</td></tr>
+        <tr><td><b>出荷（Item Fulfillment）の作成</b></td><td>✕</td><td>エアロジ→RPA の流れがあり、二重化するため作らない</td></tr>
+        <tr><td><b>メモ以外の項目の更新（納期・担当者・配送方法など）</b></td><td>△</td><td>技術的には低リスク。業務ルールを決めて、項目を1つずつ指名して許可リストに足す形で対応できる（市倉さんへ）</td></tr>
+        <tr><td><b>ノート（コミュニケーション履歴）の追加</b></td><td>△</td><td>取引本体を変えずに記録できる安全側の書き込み。需要があれば追加できる</td></tr>
+        <tr><td><b>レポート（財務レポート等）の実行</b></td><td>✕</td><td>REST にも SuiteScript にも無い機能。NetSuite の画面で</td></tr>
+</tbody>
     </table>
   </div>
 
   <div class="warn" style="margin-top:14px">
-    <b>2026年9月7日に作った新しいコネクタです。</b>照会18本と、メモ・社内コメントの更新（往復）を実データで動作確認済みです。おかしな結果が出たら市倉さんへ。
+    <b>2026年9月7日に作った新しいコネクタです。</b>照会26本と、メモ・社内コメントの更新（往復）を実データで動作確認済みです。おかしな結果が出たら市倉さんへ。
   </div>
 
   <h2>困ったとき</h2>
