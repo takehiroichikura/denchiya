@@ -200,6 +200,18 @@
     </table>
   </div>
 
+  <h2>作れるが作っていないこと</h2>
+  <p>API はあるので技術的には作れますが、<b>事故の幅や既存の流れ（RPA・画面運用）との衝突を考えて意図的に作っていない</b>ものです。必要になったら市倉さんへ。確認画面付きで検討します。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:14%">状態</th><th>作っていない理由・作るならこうなる</th></tr></thead>
+      <tbody>
+        <tr><td><b>決済の売上確定・取消・返金を Claude から実行する</b></td><td>△<br><small>作れるが作っていない</small></td><td>Amazon Pay の API にはあります。本館（EC-CUBE）の注文状態と食い違うと経理が合わなくなるため、実行系は作っていません。作るなら EC-CUBE 側の状態を先に確認してからの確認画面付き</td></tr>
+        <tr><td><b>注文番号から決済を1発で探す</b></td><td>△<br><small>作れるが作っていない</small></td><td>検索 API が無いので、日次の決済レポートを自動で取り込んで注文番号で引ける表を作れば可能です。問い合わせ頻度が上がったら</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>まだできないこと（Amazon側の制約）</h2>
   <div class="tablewrap">
     <table>

@@ -247,6 +247,19 @@
     </table>
   </div>
 
+  <h2>作れるが作っていないこと</h2>
+  <p>API はあるので技術的には作れますが、<b>事故の幅や既存の流れ（RPA・画面運用）との衝突を考えて意図的に作っていない</b>ものです。必要になったら市倉さんへ。確認画面付きで検討します。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:14%">状態</th><th>作っていない理由・作るならこうなる</th></tr></thead>
+      <tbody>
+        <tr><td><b>購入者にメッセージを送る（文面を作って送信）</b></td><td>△<br><small>作れるが作っていない</small></td><td>メッセージ API で送れます。Amazon の規約（送れる種別・文面の制限）違反がアカウント健全性に響くため、送信は作っていません。今は「レビューのお願い」の固定文だけ</td></tr>
+        <tr><td><b>出品の削除・まるごと置き換え</b></td><td>△<br><small>作れるが作っていない</small></td><td>リスティング API にあります。誤って消すと復旧に時間がかかるため、部分更新（update_listing）までにしています</td></tr>
+        <tr><td><b>FBA 納品プランの作成、MCF（マルチチャネル）注文の作成</b></td><td>△<br><small>作れるが作っていない</small></td><td>API はありますが手順が多く、途中で止まると中途半端な納品プランが残ります。セラーセントラルの画面で</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>まだできないこと（Amazon側の制約）</h2>
   <p class="lede" style="margin-bottom:14px">SP-API（Amazonの公開仕様）にある操作のうち、電池屋のコネクタで使えないものです。</p>
   <div class="tablewrap">

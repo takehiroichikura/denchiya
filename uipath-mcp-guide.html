@@ -208,6 +208,18 @@
     </table>
   </div>
 
+  <h2>作れるが作っていないこと</h2>
+  <p>API はあるので技術的には作れますが、<b>事故の幅や既存の流れ（RPA・画面運用）との衝突を考えて意図的に作っていない</b>ものです。必要になったら市倉さんへ。確認画面付きで検討します。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:14%">状態</th><th>作っていない理由・作るならこうなる</th></tr></thead>
+      <tbody>
+        <tr><td><b>スケジュール（トリガー）の新規作成・削除</b></td><td>△<br><small>作れるが作っていない</small></td><td>Orchestrator API にあります。誤って消すと夜間バッチが止まるため、有効／無効の切り替えだけにしています</td></tr>
+        <tr><td><b>パッケージのアップロード・デプロイ、ロボット・マシンの追加</b></td><td>△<br><small>作れるが作っていない</small></td><td>API はありますが Studio からの公開手順と重複します。Orchestrator の画面で</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>まだできないこと（UiPath側の制約）</h2>
   <div class="tablewrap">
     <table>

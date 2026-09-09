@@ -209,6 +209,18 @@
     </table>
   </div>
 
+  <h2>作れるが作っていないこと</h2>
+  <p>API はあるので技術的には作れますが、<b>事故の幅や既存の流れ（RPA・画面運用）との衝突を考えて意図的に作っていない</b>ものです。必要になったら市倉さんへ。確認画面付きで検討します。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:32%">やりたいこと</th><th style="width:14%">状態</th><th>作っていない理由・作るならこうなる</th></tr></thead>
+      <tbody>
+        <tr><td><b>ダイレクトフルフィルメント（DF）注文の出荷確認・請求</b></td><td>△<br><small>作れるが作っていない</small></td><td>DF 系 API はありますが未実装です。NetSuite の夜間バッチと RPA が処理しており、残るギャップ（請求処理）を確認してから</td></tr>
+        <tr><td><b>出荷通知（ASN）の送信</b></td><td>△<br><small>作れるが作っていない</small></td><td>道具はできていますが、UiPath が送っているので Claude からは使いません（二重送信の防止）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h2>まだできないこと（Amazon側の制約）</h2>
   <p class="lede" style="margin-bottom:14px">SP-API（Amazonの公開仕様）にある操作のうち、電池屋のコネクタで使えないものです。
   ほとんどは<b>Amazon側の権限が無い</b>もので、こちらの作り込み不足ではありません。</p>
