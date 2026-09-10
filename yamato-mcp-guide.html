@@ -188,7 +188,7 @@
       </tbody>
     </table>
   </div>
-  <div class="info">発行では account の指定が<b>必須</b>です（運賃の請求先が変わるため）。追跡では省略でき、配達状況はどの契約で聞いても同じ結果です。お届け先情報付きの追跡や条件検索だけは、その荷物を出した契約で聞く必要があります。</div>
+  <div class="info">発行では account の指定が<b>必須</b>です（運賃の請求先が変わるため）。追跡では省略でき、配達状況はどの契約で聞いても同じ結果です。条件検索（電話番号・名前などから探す）は出した契約でしか見つからないため、拠点を言わなければ 3 契約を順に探します。</div>
 
   <h2>送り状発行の流れ</h2>
   <ol class="steps">
@@ -207,7 +207,7 @@
       <tbody>
         <tr><td><code>track_shipments</code></td><td>伝票番号（20 件まで）で最新状態・発送店・到着店・作業履歴</td></tr>
         <tr><td><code>track_by_order</code></td><td>注文番号（20 件まで）→ エアロジの出荷実績で送り状番号を引く → 配達状況を 1 発で</td></tr>
-        <tr><td><code>search_tracking</code></td><td>電話番号・お届け先名・注文番号・発送日から荷物を探す（7〜23 時・30 件まで）</td></tr>
+        <tr><td><code>search_tracking</code></td><td>電話番号・お届け先名・注文番号・発送日から荷物を探す（7〜23 時・30 件まで）。拠点を言わなければ 3 契約を順に探す（約 15 秒）</td></tr>
         <tr><td><code>start_bulk_trace</code></td><td>大量追跡をバックグラウンドで開始（伝票番号一覧か、エアロジの出荷日範囲。最大 5,000 件）</td></tr>
         <tr><td><code>get_bulk_trace_result</code></td><td>進捗と集計。要対応（持戻・保管中・調査中）だけの一覧、未配達すべて、全件</td></tr>
         <tr><td><code>list_bulk_traces</code> / <code>cancel_bulk_trace</code> <b>書</b></td><td>ジョブの一覧・中止（中止は開始した本人か管理者）</td></tr>
