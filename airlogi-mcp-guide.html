@@ -170,7 +170,7 @@
 
   <div class="warn">⚠️ <b>当日の動きは載っていません。</b>在庫は 0時と 8〜18時の毎時の全件、出荷実績は毎時（いずれも最大1時間強の遅れ）です。「今の在庫」を確認したいときはエアロジの画面を見てください。</div>
 
-  <h2>ツール一覧（8本）</h2>
+  <h2>ツール一覧（7本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。<b>すべて照会専用</b>です。</p>
   <div class="tablewrap">
     <table>
@@ -181,8 +181,7 @@
         <tr><td><code>list_low_stock</code></td><td>発注点を下回っている品番の一覧（しきい値の指定も可）</td></tr>
         <tr><td><code>search_shipments</code></td><td>出荷実績。注文番号 → 送り状番号（お荷物伝票番号）・出荷日・配送業者</td></tr>
         <tr><td><code>search_receipts</code></td><td>入荷実績。発注番号・品番・仕入先・日付で検索</td></tr>
-        <tr><td><code>search_honkan_orders</code></td><td><b>本館（EC-CUBE）のまだ入金処理されていない受注</b>を、金額・注文者カナ・注文番号の末尾で探す。入金チェック（振込名義と金額から 44-xxxxx を当てる）用。エアロジのデータではなく、EC-CUBE→GoQ 取込の RPA が同じ FTP に置く CSV を取り込んだもの（2026-09-11〜）。<b>売上転記されるまで載り続けるので、載っていても入金済みのことがあります</b>。入金済みかは NetSuite に同じ注文番号の受注があるかで確認</td></tr>
-        <tr><td><code>data_status</code></td><td>各データがいつ時点か、取り込みが動いているか（本館の受注も含む）</td></tr>
+        <tr><td><code>data_status</code></td><td>各データがいつ時点か、取り込みが動いているか</td></tr>
         <tr><td><code>whoami</code></td><td>接続の確認</td></tr>
       </tbody>
     </table>
