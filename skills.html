@@ -118,36 +118,35 @@
 <div class="wrap">
   <header class="top">
     <div class="kicker">株式会社電池屋 ・ 社内ツール</div>
-    <h1>Claude スキル一覧（社内配備済み）</h1>
+    <h1>Claude スキル一覧（社内配備済み・13本）</h1>
     <p class="lede"><b>スキルは設定が要りません。</b>全員の Claude に配ってあるので、下の「こう呼ぶ」のように聞けば自動で立ち上がります。コネクタ（MCP）と違って、オンにする操作も招待コードも不要です。</p>
   </header>
 
   <h2>スキルとコネクタの違い</h2>
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:20%"></th><th style="width:40%">スキル</th><th>コネクタ（MCP）</th></tr></thead>
+      <thead><tr><th style="width:16%"></th><th style="width:42%">スキル</th><th>コネクタ（MCP）</th></tr></thead>
       <tbody>
         <tr><td><b>中身</b></td><td>電池屋のやり方をまとめた<b>手順書</b>。Claude が読んでその通りに動く</td><td>楽天や NetSuite など<b>システムへの接続口</b>。データを取ってくる</td></tr>
         <tr><td><b>準備</b></td><td><b>不要</b>。配備済みで、聞けば自動で使われる</td><td>設定でオンにして、招待コードを入れる</td></tr>
-        <tr><td><b>組み合わせ</b></td><td colspan="2">多くのスキルはコネクタと一緒に動きます。下の表の「使うコネクタ」が必要なものは、先にそのコネクタをつないでください（<a href="./index.html">コネクタ一覧</a>）</td></tr>
+        <tr><td><b>組み合わせ</b></td><td colspan="2">多くのスキルはコネクタと一緒に動きます。表の「使うコネクタ」に名前があるものは、先にそのコネクタをつないでください（<a href="./index.html">コネクタ一覧</a>）</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="warn"><b>スキルは「そう聞かれたら自動で立ち上がる」仕組みです。</b>「スキルを使って」と言う必要はありません。うまく立ち上がらないときは、下の「こう呼ぶ」の言い方に寄せてみてください。</div>
+  <div class="warn"><b>スキルは「そう聞かれたら自動で立ち上がる」仕組みです。</b>「スキルを使って」と言う必要はありません。うまく立ち上がらないときは、<b>スキル名（<code>nyukin-shogo</code> のような英字）を直接言う</b>か、「こう呼ぶ」の言い方に寄せてみてください。</div>
 
   <h2>日々の業務</h2>
   <p>受注から出荷・入金までの実務を手伝うものです。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:18%">スキル</th><th style="width:36%">何をしてくれるか</th><th style="width:32%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
+      <thead><tr><th style="width:22%">スキル</th><th style="width:34%">何をしてくれるか</th><th style="width:30%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
       <tbody>
-        <tr><td><b>業務の流れを知る</b></td><td>受注→出荷→請求の流れ、GoQ・NetSuite・エアロジ・RPA がそれぞれ何をしているか、どのジョブが何を動かすか。新人説明や引き継ぎに</td><td class="ex"><q>受注から出荷までの流れを教えて</q> <q>1_注文取込 のジョブは何をする？</q> <q>在庫連携の仕組みは？</q></td><td>—</td></tr>
-        <tr><td><b>ネット分の発注</b></td><td>仕入先ごとの発注方法（FAX・ネット・メール）・送料条件・直送可否・発注画面の入力レベル。注文番号の見分け方（OR=取り寄せ、ZX/Z=在庫、AMZ、A/H=営業分）。廃番・手配不可のときの処理</td><td class="ex"><q>ミツワ電機への発注方法は？</q> <q>OR939479A ってどういう注文？</q> <q>直送できる仕入先？</q></td><td>NetSuite</td></tr>
-        <tr><td><b>納期管理</b></td><td>FAX で届いた納期回答を画像・PDF から読み取って NetSuite 取込用の CSV にする。保存検索から「今日催促すべき発注書」を除外ルール込みで抽出する</td><td class="ex"><q>このFAXの納期を入力したい</q> <q>催促リストを出して</q> <q>入荷予定日が空白の発注を整理して</q></td><td>NetSuite</td></tr>
-        <tr><td><b>入金チェック</b></td><td>振込名義と金額から「どの注文・請求の入金か」の候補を出す。台帳の D列を埋める下書き。合算・振込手数料込みの照合も。<b>記入と登録は人が行います</b></td><td class="ex"><q>これどの注文？（台帳の行を貼る）</q> <q>202609 の未記入行をまとめて</q> <q>〇〇商事から入金あった？</q></td><td>本館受注・NetSuite・Yahoo</td></tr>
-        <tr><td><b>棚卸の差異抽出</b></td><td>エアロジの棚卸結果 CSV から、品番単位でロケーションをまたいで合計し、<b>プラスマイナスゼロで相殺する品番を除いて</b>本当に増減している品番だけ残す</td><td class="ex"><q>棚卸結果のCSVを渡すので差異を出して</q> <q>相殺ゼロを除いて差異品番だけに</q></td><td>—</td></tr>
-        <tr><td><b>楽天の受注照会</b></td><td>楽天の注文・受注ステータス・出荷状況。NetSuite 側との突き合わせルール（矛盾しない組み合わせ）つき</td><td class="ex"><q>楽天の発送待ち何件？</q> <q>244970-… の状況は？</q> <q>楽天とNetSuiteのステータスを突き合わせて</q></td><td>楽天・NetSuite</td></tr>
-        <tr><td><b>エアロジの操作・CSV</b></td><td>エアロジの仕様・画面操作・CSV フォーマット・エラー対処を、公式ヘルプ全 373 記事とテンプレ CSV を根拠に答える。一括削除の落とし穴など実地のノウハウも</td><td class="ex"><q>商品マスタを一括削除したい</q> <q>在庫調整CSVの形式は？</q> <q>出荷指示の取込エラーの原因</q></td><td>エアロジ</td></tr>
+        <tr><td><b>業務の流れを知る</b><br><code>ec-gyomu-flow</code></td><td>受注→出荷→請求の流れ、GoQ・NetSuite・エアロジ・RPA がそれぞれ何をしているか、どのジョブが何を動かすか。新人説明や引き継ぎに</td><td class="ex"><q>受注から出荷までの流れを教えて</q> <q>1_注文取込 のジョブは何をする？</q> <q>在庫連携の仕組みは？</q></td><td>—</td></tr>
+        <tr><td><b>ネット分の発注</b><br><code>net-hatchu-chuiten</code></td><td>仕入先ごとの発注方法（FAX・ネット・メール）・送料条件・直送可否・発注画面の入力レベル。注文番号の見分け方（OR＝取り寄せ、ZX/Z＝在庫、AMZ、A/H＝営業分）。廃番・手配不可のときの処理</td><td class="ex"><q>ミツワ電機への発注方法は？</q> <q>OR939479A ってどういう注文？</q> <q>直送できる仕入先？</q></td><td>NetSuite</td></tr>
+        <tr><td><b>納期管理</b><br><code>nouki-kanri</code></td><td>FAX で届いた納期回答を画像・PDF から読み取って NetSuite 取込用の CSV にする。保存検索から「今日催促すべき発注書」を除外ルール込みで抽出する</td><td class="ex"><q>このFAXの納期を入力したい</q> <q>催促リストを出して</q> <q>入荷予定日が空白の発注を整理して</q></td><td>NetSuite</td></tr>
+        <tr><td><b>入金チェック</b><br><code>nyukin-shogo</code></td><td>振込名義と金額から「どの注文・請求の入金か」の候補を出す。台帳の D列を埋める下書き。合算や振込手数料込みの照合も。<b>記入と登録は人が行います</b></td><td class="ex"><q>これどの注文？（台帳の行を貼る）</q> <q>202609 の未記入行をまとめて</q> <q>〇〇商事から入金あった？</q></td><td>本館受注・NetSuite・Yahoo</td></tr>
+        <tr><td><b>棚卸の差異抽出</b><br><code>tanaoroshi-sai-chushutsu</code></td><td>エアロジの棚卸結果 CSV から、品番単位でロケーションをまたいで合計し、<b>プラスマイナスゼロで相殺する品番を除いて</b>本当に増減している品番だけ残す</td><td class="ex"><q>棚卸結果のCSVを渡すので差異を出して</q> <q>相殺ゼロを除いて差異品番だけにして</q></td><td>—</td></tr>
+        <tr><td><b>エアロジの操作・CSV</b><br><code>airlogi-manual</code></td><td>エアロジの仕様・画面操作・CSV フォーマット・エラー対処を、公式ヘルプ全 373 記事とテンプレ CSV を根拠に答える。一括削除の落とし穴など実地のノウハウも</td><td class="ex"><q>商品マスタを一括削除したい</q> <q>在庫調整CSVの形式は？</q> <q>出荷指示の取込エラーの原因</q></td><td>エアロジ</td></tr>
       </tbody>
     </table>
   </div>
@@ -156,10 +155,10 @@
   <p>送る前・出す前に見てもらうものです。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:18%">スキル</th><th style="width:36%">何をしてくれるか</th><th style="width:32%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
+      <thead><tr><th style="width:22%">スキル</th><th style="width:34%">何をしてくれるか</th><th style="width:30%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
       <tbody>
-        <tr><td><b>社内文書の添削</b></td><td>メール・Chatwork・引き継ぎメモ・上長宛の文章を、敬語と表記を整えて直す。話し言葉→書き言葉、誤変換、製品名の表記ゆれ、文末の統一</td><td class="ex"><q>このメール添削して</q> <q>敬語おかしくない？</q> <q>送る前に見て</q></td><td>—</td></tr>
-        <tr><td><b>稟議書の作成</b></td><td>稟議書の新規作成・添削・体裁整え。PC や OA 機器・リース資産の購入申請、AI サービス等の契約申請、月額やリース料の概算計算まで</td><td class="ex"><q>設備購入の稟議書を作って</q> <q>この稟議の内容を添削して</q></td><td>—</td></tr>
+        <tr><td><b>社内文書の添削</b><br><code>shanai-bunsho-tensaku</code></td><td>メール・Chatwork・引き継ぎメモ・上長宛の文章を、敬語と表記を整えて直す。話し言葉→書き言葉、誤変換、製品名の表記ゆれ、文末の統一</td><td class="ex"><q>このメール添削して</q> <q>敬語おかしくない？</q> <q>送る前に見て</q></td><td>—</td></tr>
+        <tr><td><b>稟議書の作成</b><br><code>ringisho-sakusei</code></td><td>稟議書の新規作成・添削・体裁整え。PC や OA 機器・リース資産の購入申請、AI サービス等の契約申請、月額やリース料の概算計算まで</td><td class="ex"><q>設備購入の稟議書を作って</q> <q>この稟議の内容を添削して</q></td><td>—</td></tr>
       </tbody>
     </table>
   </div>
@@ -168,11 +167,11 @@
   <p>つなぐとき、調べるときに。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:18%">スキル</th><th style="width:36%">何をしてくれるか</th><th style="width:32%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
+      <thead><tr><th style="width:22%">スキル</th><th style="width:34%">何をしてくれるか</th><th style="width:30%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
       <tbody>
-        <tr><td><b>MCP コネクタの導入</b></td><td>自社コネクタを使い始めるときの設定・招待コード・権限・トークン登録と、つながらないときの切り分け。「どのコネクタを入れればいい」にも答える</td><td class="ex"><q>MCP を使いたい</q> <q>招待コードって何？</q> <q>権限がありませんと出る</q> <q>NetSuite が読めない</q></td><td>—</td></tr>
-        <tr><td><b>NetSuite を調べる</b></td><td>受注・請求・発注・在庫・取引先の照会、保存検索、SuiteQL、レポート。伝票番号の種別（YD/SA/PU…）やモール別の外部注文IDからの検索ルールつき</td><td class="ex"><q>この受注を見せて</q> <q>在庫を確認して</q> <q>外部注文IDで検索して</q></td><td>NetSuite</td></tr>
-        <tr><td><b>RSL の活用検討</b></td><td>楽天スーパーロジスティクス（外部倉庫）に預けるかの判断・費用試算・向いている品番の選び方・連休前のスポット預託。<b>契約済みで未稼働</b>の前提</td><td class="ex"><q>RSLに預けるか判断したい</q> <q>RSLの費用を試算して</q> <q>この商品はRSL向き？</q></td><td>—</td></tr>
+        <tr><td><b>MCP コネクタの導入</b><br><code>denchiya-mcp-donyu</code></td><td>自社コネクタを使い始めるときの設定・招待コード・権限・トークン登録と、つながらないときの切り分け。「どのコネクタを入れればいい」にも答える</td><td class="ex"><q>MCP を使いたい</q> <q>招待コードって何？</q> <q>権限がありませんと出る</q> <q>NetSuite が読めない</q></td><td>—</td></tr>
+        <tr><td><b>NetSuite を調べる</b><br><code>netsuite-sousa</code></td><td>受注・請求・発注・在庫・取引先の照会、保存検索、SuiteQL、レポート。伝票番号の種別（YD/SA/PU…）やモール別の外部注文IDからの検索ルールつき</td><td class="ex"><q>この受注を見せて</q> <q>在庫を確認して</q> <q>外部注文IDで検索して</q></td><td>NetSuite</td></tr>
+        <tr><td><b>RSL の活用検討</b><br><code>rsl-katsuyo</code></td><td>楽天スーパーロジスティクス（外部倉庫）に預けるかの判断・費用試算・向いている品番の選び方・連休前のスポット預託。<b>契約済みで未稼働</b>の前提</td><td class="ex"><q>RSLに預けるか判断したい</q> <q>RSLの費用を試算して</q> <q>この商品はRSL向き？</q></td><td>—</td></tr>
       </tbody>
     </table>
   </div>
@@ -181,10 +180,10 @@
   <p>NetSuite の中身をさわる人だけ。</p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th style="width:18%">スキル</th><th style="width:36%">何をしてくれるか</th><th style="width:32%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
+      <thead><tr><th style="width:22%">スキル</th><th style="width:34%">何をしてくれるか</th><th style="width:30%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
       <tbody>
-        <tr><td><b>SuiteQL の書き方</b></td><td>電池屋の NetSuite で SuiteQL を書く・直すときの実証済みノウハウ。構文の癖、内部エラーになる書き方、数量の符号、重い集計の避け方</td><td class="ex"><q>SuiteQLでこれを集計したい</q> <q>このクエリがエラーになる</q></td><td>NetSuite</td></tr>
-        <tr><td><b>SuiteScript の開発</b></td><td>SuiteScript 2.1（Map/Reduce・Scheduled 等）を書く・直す・レビューする。ガバナンス超過、ページング、レコードAPIとSuiteQLの違い</td><td class="ex"><q>このスクリプトをレビューして</q> <q>ガバナンスで落ちる</q></td><td>NetSuite</td></tr>
+        <tr><td><b>SuiteQL の書き方</b><br><code>netsuite-suiteql</code></td><td>電池屋の NetSuite で SuiteQL を書く・直すときの実証済みノウハウ。構文の癖、内部エラーになる書き方、数量の符号、重い集計の避け方</td><td class="ex"><q>SuiteQLでこれを集計したい</q> <q>このクエリがエラーになる</q></td><td>NetSuite</td></tr>
+        <tr><td><b>SuiteScript の開発</b><br><code>netsuite-suitescript-dev</code></td><td>SuiteScript 2.1（Map/Reduce・Scheduled 等）を書く・直す・レビューする。ガバナンス超過、ページング、レコードAPI と SuiteQL の違い</td><td class="ex"><q>このスクリプトをレビューして</q> <q>ガバナンスで落ちる</q></td><td>NetSuite</td></tr>
       </tbody>
     </table>
   </div>
