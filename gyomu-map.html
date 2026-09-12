@@ -117,6 +117,11 @@
 
   /* pillars */
   .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .update { background: var(--card); border-radius: 16px; padding: 18px 20px 16px; margin: 20px 0 0; border-left: 5px solid var(--red); }
+  .update > b { display: block; font-size: 14px; color: var(--red-deep, var(--red)); }
+  .update p { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+  .update ul { margin: 10px 0 0; padding-left: 1.2em; }
+  .update li { font-size: 13.5px; color: var(--ink); line-height: 1.8; margin-bottom: 4px; }
   .pillar { background: var(--card); border-radius: 16px; padding: 20px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
   .pillar h4 { margin: 0 0 6px; font-family: var(--font-round); font-weight: 800; font-size: 16px; color: var(--ink); }
   .pillar h4 .num {
@@ -250,6 +255,17 @@
       <div class="kpi"><b>68<small>%</small></b><span>定型業務の割合（632/931件）</span></div>
       <div class="kpi"><b>1<small>名</small></b><span>「改善したい業務」に☑を付けた人</span></div>
     </div>
+    <div class="update">
+      <b>2026年9月12日 追記 — この調査のあとに動いたこと</b>
+      <p>下の「改善の種」で足りないと書いた道具のうち、いくつかは 9 月に用意できました。工数の数字は 8 月時点のままです。</p>
+      <ul>
+        <li><b>エアロジ・本館（EC-CUBE）の照会</b>… 倉庫の在庫・出荷実績・入荷実績と、本館の受注が Claude から引けるようになりました。「回答材料はシステム内にあるが取り出せない」という状態は解消しています</li>
+        <li><b>NetSuite の照会・更新が 42 本に</b>… 受注の流れを 1 回で出す、納期回答の材料をまとめて出す、発注書の受領・仕入請求書の作成まで（書き込みは確認画面つき）</li>
+        <li><b>入金照合</b>… 振込名義と金額から伝票番号の候補を出す仕組みができました（種 5「元書類と NetSuite の突合」と同じ型）</li>
+        <li><b>ヤマトの荷物追跡</b>… 検証済み。送り状発行は本番コード待ち</li>
+      </ul>
+      <p>いまも道具が無いのは <b>GoQ</b>（公開 API が無い）、<b>メールワイズ</b>（同）、スプレッドシートへの書き込みです。</p>
+    </div>
   </header>
 
   <nav class="toc" aria-label="目次">
@@ -269,27 +285,27 @@
     <p class="sec-lede">23名の業務を束ねると、売上をつくる流れは5本。それを業務課・システム課・経理総務・物流が下支えする構図です。</p>
     <div class="pillars">
       <div class="pillar">
-        <h4><span class="num">壱</span>モールEC・本館</h4>
+        <h4><span class="num">1</span>モールEC・本館</h4>
         <p>楽天・Yahoo!・Amazonセラー・本館（EC-CUBE）でのネット通販。商品登録、価格追従、広告、日々の受注処理と大量の顧客対応が回る、日次のメインライン。</p>
         <div class="who"><b>主担当:</b> 岩崎・上保・川島・池田・砥綿 ＋ 業務課（加藤・瀬能・福島）</div>
       </div>
       <div class="pillar">
-        <h4><span class="num">弐</span>Amazonベンダー</h4>
+        <h4><span class="num">2</span>Amazonベンダー</h4>
         <p>Amazonベンダーセントラル5アカウントの受注・商品・価格管理。日次で受注データを取得→加工→反映し、Claudeで利益・危険物を確認して登録可否を判断。</p>
         <div class="who"><b>主担当:</b> 横森隆政（＋福島がベンダー分発注 月22h）</div>
       </div>
       <div class="pillar">
-        <h4><span class="num">参</span>官公庁入札</h4>
+        <h4><span class="num">3</span>官公庁入札</h4>
         <p>自治体入札の公告収集（スクレイピング）→精査→参加申請・同等品申請→応札→落札後は中国工場調達・輸入通関・全国納品、納入後の訓練立会や不具合対応まで続く長い商流。</p>
         <div class="who"><b>主担当:</b> 篠本・工藤・横森真俊 ＋ 横森成子（契約・資金）</div>
       </div>
       <div class="pillar">
-        <h4><span class="num">肆</span>地場の電材卸営業</h4>
+        <h4><span class="num">4</span>地場の電材卸営業</h4>
         <p>メール・FAX・電話（fondesk）で届く注文と見積依頼に応える昔ながらの卸売。受注登録・見積作成・売上転記はランサーズへ委託し、社内は照合と判断に集中。配達も自社で。</p>
         <div class="who"><b>主担当:</b> 加賀美・奥田勝</div>
       </div>
       <div class="pillar">
-        <h4><span class="num">伍</span>電工試験キット製造</h4>
+        <h4><span class="num">5</span>電工試験キット製造</h4>
         <p>電気工事士実技試験の練習キットを自社製造。南甲府で電線切断・束取り、山梨事業所の4人チームが袋詰め・箱詰めし、エアロジに在庫登録してECで販売。</p>
         <div class="who"><b>主担当:</b> 横森英俊・田中（山梨4人体制）</div>
       </div>
@@ -428,7 +444,7 @@
           <span class="tag"><b>スクレイピング</b> 入札公告・商品情報</span>
           <span class="tag"><b>Excelマクロ</b> EC入金照合・会計移行</span>
           <span class="tag"><b>価格追従ツール</b></span>
-          <span class="tag"><b>リモートMCP（Cloudflare）</b></span>
+          <span class="tag hot"><b>リモートMCP（Cloudflare）</b> 13本（楽天・Yahoo・Amazon・価格.com・エアロジ・本館・NetSuite・UiPath・Chatwork ほか）</span>
         </div>
       </div>
       <div class="sysgroup">
@@ -509,37 +525,37 @@
       <table class="next-table">
         <tr><th></th><th>テーマ</th><th>関係する工数</th></tr>
         <tr>
-          <td class="n">壱</td>
+          <td class="n">1</td>
           <td><span class="t">納期問合せ・キャンセル可否の一次回答を自動化</span><br>
-          <span class="d">回答材料（入荷予定・請求保留・エアロジ登録状況）はすべてシステム内。瀬能・加藤の定型判定部分から着手できる。</span></td>
+          <span class="d">回答材料（入荷予定・請求保留・エアロジ登録状況）はすべてシステム内。<b>2026年9月に NetSuite・エアロジ・本館の照会が揃った</b>ので、瀬能・加藤の定型判定部分から着手できる状態になった。</span></td>
           <td class="w">月100h超<br>（瀬能・加藤）</td>
         </tr>
         <tr>
-          <td class="n">弐</td>
+          <td class="n">2</td>
           <td><span class="t">FAX納期回答のデジタル化（OCR/AI読取）</span><br>
-          <span class="d">スキャン→委託入力→照合の一連をAI読取＋自動突合に置き換えると、例外対応だけが人の仕事になる。</span></td>
+          <span class="d">スキャン→委託入力→照合の一連をAI読取＋自動突合に置き換えると、例外対応だけが人の仕事になる。<b>読み取って NetSuite 取込用 CSV にするところまでは手順化済み</b>（納期管理スキル）。残るのは受け取りから読み取りまでの自動化。</span></td>
           <td class="w">月128h<br>（青木）</td>
         </tr>
         <tr>
-          <td class="n">参</td>
+          <td class="n">3</td>
           <td><span class="t">入札の過去落札DBと公告精査の自動化拡大</span><br>
           <span class="d">横森真俊が☑した本人希望。応札価格算定49.5h/月・類似案件検索33h/月（篠本）に直結する。</span></td>
           <td class="w">月80h超<br>（篠本・工藤・真俊）</td>
         </tr>
         <tr>
-          <td class="n">肆</td>
+          <td class="n">4</td>
           <td><span class="t">中国工場・代理店の進捗確認の自動化</span><br>
           <span class="d">真俊が☑×3で希望。夜間に届く返信の要約・進捗表への自動反映・翻訳テンプレの整備。</span></td>
           <td class="w">月33h＋<br>（真俊）</td>
         </tr>
         <tr>
-          <td class="n">伍</td>
+          <td class="n">5</td>
           <td><span class="t">ランサーズ委託成果の自動照合</span><br>
-          <span class="d">受注登録・見積・売上転記の照合は「元書類とNetSuiteの突合」という機械向きの仕事。</span></td>
+          <span class="d">受注登録・見積・売上転記の照合は「元書類とNetSuiteの突合」という機械向きの仕事。<b>同じ型の入金照合は 2026年9月に実装済み</b>なので、そのまま横に広げられる。</span></td>
           <td class="w">月24h超<br>（加賀美）</td>
         </tr>
         <tr>
-          <td class="n">陸</td>
+          <td class="n">6</td>
           <td><span class="t">会議運営のAI支援（議事録・宿題追跡）</span><br>
           <span class="d">火曜EC・水曜システム・木曜役員・金曜倉庫の4定例。準備・参加・議事録・宿題確認・決定事項の実行まで運営全体で月89h。</span></td>
           <td class="w">月89h<br>（横森隆政）</td>
@@ -556,7 +572,9 @@
 
   <footer>
     出典: ヨコモリ電池屋 Dropbox「01_全社共有／04_共有資料／99_全社共有マニュアル／電池屋業務詳細」内の23ファイル（【氏名】業務詳細_2026-08-21〜31.xlsx）。<br>
-    集計方法: 各ファイルの「月あたり工数」列を単純合計。所属は記載の連携部署・業務内容からの推定を含みます。誤りがあれば市倉まで。
+    集計方法: 各ファイルの「月あたり工数」列を単純合計。所属は記載の連携部署・業務内容からの推定を含みます。誤りがあれば市倉まで。<br>
+    2026年9月12日 更新（冒頭に「この調査のあとに動いたこと」を追記）。<br>
+    関連資料: <a href="./skill-map.html">スキル化候補マップ</a>／<a href="./skills.html">配備済みスキル一覧</a>／<a href="./index.html">コネクタの利用ガイド</a>
   </footer>
 </div>
 
