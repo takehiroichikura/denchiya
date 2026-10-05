@@ -247,7 +247,12 @@
       </tbody>
     </table>
   </div>
-  <div class="info">⚠️ 送信の途中で通信エラーになった場合は「送信したが受理されたか分からない」と表示されます。このときは<b>再実行せず</b>、<code>list_jobs</code> か Orchestrator の画面で状態を確認してください。確認せずに再実行すると二重処理になります。</div>
+  <div class="info">⚠️ 送ったあとに失敗したときは、<b>「Orchestrator が受け付けなかった」</b>か<b>「結果不明」</b>のどちらかで表示されます（2026-10-05 から。送ったあとの失敗を「何も送っていません」と表示することはありません）。
+    <ul class="plain" style="margin:6px 0 0">
+      <li><b>受け付けなかった</b>：Orchestrator が断った状態です。通常は実行されていませんが、やり直す前に状態を確認してください</li>
+      <li><b>結果不明</b>：通信エラー・タイムアウトなどで、受理されたか分かりません。<b>再実行せず</b>、<code>list_jobs</code>・<code>get_queue_items</code>・<code>list_assets</code>・<code>list_triggers</code> か Orchestrator の画面で状態を確認してください。確認せずに再実行すると二重起動・二重投入になります</li>
+    </ul>
+  </div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
@@ -258,7 +263,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年10月版
   </footer>
 </div>
 

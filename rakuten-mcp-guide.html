@@ -241,7 +241,7 @@
         <tr><td><code>rakuten_search_coupons</code> / <code>rakuten_get_coupon</code></td><td>クーポンの検索・詳細</td></tr>
         <tr><td><code>rakuten_issue_coupon</code> / <code>rakuten_delete_coupon</code> <b>書</b></td><td>クーポンの発行・削除</td></tr>
         <tr><td><code>rakuten_get_cabinet_usage</code> / <code>rakuten_get_cabinet_folders</code> / <code>rakuten_search_cabinet_files</code></td><td>R-Cabinetの利用状況・フォルダ・画像検索</td></tr>
-        <tr><td><code>rakuten_upload_cabinet_image</code> / <code>rakuten_delete_cabinet_file</code> <b>書</b></td><td>画像の登録・削除（削除はゴミ箱へ移動）</td></tr>
+        <tr><td><code>rakuten_upload_cabinet_image</code> / <code>rakuten_delete_cabinet_file</code> <b>書</b></td><td>画像の登録・削除（削除はゴミ箱へ移動）。<b>上書き登録は削除しても元に戻りません</b>——上書きする前に旧画像を手元に保存しておくこと</td></tr>
         <tr><td><code>rakuten_get_cabinet_trashbox</code> / <code>rakuten_restore_cabinet_file</code> <b>書</b></td><td>R-Cabinetのゴミ箱の一覧・<b>ゴミ箱からの復元</b></td></tr>
         <tr><td><code>rakuten_update_cabinet_file</code> / <code>rakuten_create_cabinet_folder</code> <b>書</b></td><td>画像名・ファイル名の変更、フォルダ作成</td></tr>
         <tr><td><code>rakuten_get_license_expiry</code></td><td>APIキーの有効期限</td></tr>
@@ -396,12 +396,16 @@
     <div class="flow"><span>AIがプレビューを出す</span><em>→</em><span>自分の目で確認</span><em>→</em><span>OKなら実行を指示</span></div>
     <p>価格変更・返信送信などの「変更する操作」は、<b>いきなり実行されることはありません</b>。AIが必ず変更内容のプレビュー（宛先・金額・変更前→変更後）を見せてくるので、内容を確認してから実行を伝えてください。</p>
     <ul class="plain">
+      <li><b>2026-10-05 から、変更する操作（51本すべて）は「プレビュー → 確認トークン → 実行」の流れになりました。</b>プレビューのときに<b>1回限り・15分有効の確認トークン</b>が出て、実行にはそのトークンが要ります。トークンの受け渡しは Claude が行うので、<b>自分はプレビューを読んでから OK を伝えるだけ</b>です。15分を過ぎた・内容を変えたときは、プレビューからやり直しになります</li>
+      <li>Claude が<b>「確認トークンを渡せない」「confirmationToken という項目が無い」</b>と言うときは、古いツールリストのままです。<b>設定 → コネクタ → このコネクタの「切断する」の右側から「ツールリストを更新」</b>を押して、新しいセッションで頼み直してください</li>
+      <li>実行したときに<b>「確認トークンがすでに使われている（見つからない）」</b>や<b>「確認トークンを照合できない」</b>と出たら、今回は何も送っていませんが、<b>前回の実行が楽天に届いている可能性があります</b>。やり直す前に、<b>RMS 画面か読み取りの道具で今の状態を確認</b>し、反映されていないと分かったときだけプレビューからやり直してください（そのまま繰り返すと二重登録になることがあります）</li>
       <li>実行した記録（誰が・いつ・何を）はすべて残ります</li>
       <li>ほとんどの変更は、プレビューに表示される<b>「変更前」の値</b>を使って元に戻せます。大事な変更のときは控えておくと安心です</li>
       <li><b>実行後は「反映確認」まで見てください</b>（2026年8月30日から）。実行するとRMSから読み直して、期待どおりの値になっているかを突き合わせます。<q>OK（再取得で反映を確認）</q>なら反映済み、<q>⚠️ 期待値と違います</q>ならまだ反映されていないか、GoQやRPAと競合しています。この場合はRMS画面で確認してください</li>
       <li>問い合わせの<b>まとめて完了化・既読化</b>は、プレビューで1件ずつの現在の状態を出し、<b>すでにその状態のものは「変更不要」として分けて</b>表示します。状態の確認は先頭20件までなので、心配なときは20件以下に分けて指示してください</li>
     </ul>
-    <div class="danger">⚠ 「問い合わせへの返信送信」と「キャンセル申請」だけは取り消せません。お客様に直接届く操作です。プレビューを必ず読み合わせてから実行してください。</div>
+    <div class="danger">⚠ 「問い合わせへの返信送信」と「キャンセル申請」だけは取り消せません。お客様に直接届く操作です。プレビューを必ず読み合わせてから実行してください。<br>
+    ⚠ R-Cabinet の<b>画像の上書き</b>も、削除では元に戻りません（削除は今の画像をゴミ箱へ移すだけで、上書き前の画像は残りません）。上書きする前に<b>旧画像を手元に保存</b>しておいてください。</div>
     <div class="warn">変更系のツールは、会社の方針で最初は「ブロック」になっている場合があります。業務で必要なときは、コネクタ設定の「ツールの権限」で該当ツールを有効にしてください（判断に迷ったら市倉さんへ）。</div>
   </div>
 
@@ -426,7 +430,7 @@
   </ul>
 
   <footer>
-    管理：Eコマース部 システム課（市倉） ・ 2026年9月版
+    管理：Eコマース部 システム課（市倉） ・ 2026年10月版
   </footer>
 </div>
 
