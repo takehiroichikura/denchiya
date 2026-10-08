@@ -169,7 +169,7 @@
 
   <div class="info">💡 <b>商品 ID は本館の品番</b>（例 <code>2KR20CHS</code>・ハイフン無し）です。グループは 5 万件以上あり、数字だけの名前（分類コード）も多いので、<b>名前の一部で探す</b>よう頼むと早いです。</div>
 
-  <div class="warn">⚠️ <b>個人情報の表示</b>。レビューの<b>氏名・メールアドレス・顧客 ID・注文番号</b>と、Q&amp;A の<b>メールアドレス</b>は、普段は伏せて返ります。必要なときだけ「<b>氏名も出して</b>」と頼んでください（<code>includePersonal</code>）。表示した内容を社外の文章に貼らないこと。</div>
+  <div class="warn">⚠️ <b>個人情報の表示</b>。レビューの<b>氏名・メールアドレス・顧客 ID・注文番号</b>と、Q&amp;A の<b>質問者の氏名・メールアドレス</b>は、普段は伏せて返ります。必要なときだけ「<b>氏名も出して</b>」と頼んでください（<code>includePersonal</code>）。表示した内容を社外の文章に貼らないこと。</div>
 
   <h2>ツール一覧（16本）</h2>
   <p class="lede" style="margin-bottom:14px">AIが裏で使っている道具の一覧です。⚠️ は <b>U-KOMI を書き換える</b>道具で、必ず確認を挟みます。</p>
@@ -185,7 +185,7 @@
         <tr><td><code>get_group</code></td><td>グループに入っている商品</td></tr>
         <tr><td><code>search_reviews</code></td><td>レビューの検索（星・日付・商品・グループ・ラベル・投稿経路・非公開を含む）</td></tr>
         <tr><td><code>get_review</code> / <code>get_product_reviews</code></td><td>レビュー 1 件／商品のレビュー</td></tr>
-        <tr><td><code>list_reviews_with_orders</code></td><td>レビューと、もとになった注文（注文番号・注文日）の組</td></tr>
+        <tr><td><code>list_reviews_with_orders</code></td><td>レビューと、もとになった注文（注文日・商品。注文番号は「氏名も出して」のときだけ）の組</td></tr>
         <tr><td><code>get_review_summary</code></td><td>件数・平均点・星の内訳・AI 要約（全体／商品／グループ）</td></tr>
         <tr><td><code>list_questions</code></td><td>Q&amp;A の一覧（全体・商品別・未回答件数）</td></tr>
         <tr><td>⚠️ <code>upsert_products</code></td><td>商品の登録・更新（1 回 20 件まで）。保存後に読み直して、送った値と合っているか照合する</td></tr>
@@ -218,6 +218,25 @@
       </tbody>
     </table>
   </div>
+
+  <h2>作れるけど作っていないもの</h2>
+  <p class="lede" style="margin-bottom:14px">U-KOMI の API にはあるが、このコネクタには入れていない機能です。必要なら市倉さんへ（理由が「範囲の外」のものは足せます）。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th style="width:34%">機能</th><th style="width:14%">足せる？</th><th>入れていない理由</th></tr></thead>
+      <tbody>
+        <tr><td><b>ブラックリスト商品</b>の一覧・追加・削除（レビュー依頼メールを送らない商品）</td><td>○</td><td>今回の依頼（商品・グループ）の外なので保留。要るなら書き込みとして足します</td></tr>
+        <tr><td><b>いいね数</b>の取得（レビュー・Q&amp;A）</td><td>○</td><td>レビューのいいね数は search_reviews で返るので後回し</td></tr>
+        <tr><td><b>写真・動画のアルバム／ギャラリー</b>（Visual UGC）</td><td>○</td><td>契約しているか未確認。使っているなら照会として足せます</td></tr>
+        <tr><td>複数グループまとめての<b>レビュー概要</b>・細かい条件付きの概要</td><td>○</td><td>1 グループずつなら get_review_summary でできるので保留</td></tr>
+        <tr><td><b>顧客別</b>のレビュー概要</td><td>△</td><td>顧客 ID 単位の集計で個人情報寄り。用途がはっきりすれば検討</td></tr>
+        <tr><td><b>注文データ</b>の取得・作成・取り消し</td><td>△</td><td>本館から自動で連携されています。作成・取り消しを誤ると<b>レビュー依頼メールがお客様に飛ぶ／止まる</b>ため入れていません</td></tr>
+        <tr><td><b>レビューの投稿</b>・<b>いいね／低評価</b>を付ける</td><td>✕</td><td>お客様が行うもの。社員が代わりに行うと口コミの偽装になるため作りません</td></tr>
+        <tr><td>ストアバッジ・FAQ・商品ページ用のメタ情報</td><td>－</td><td>Web ページの表示用で、社内で使う場面が無いため</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="info">💡 レビューへの<b>返信・公開／非公開・ラベル・ピックアップ</b>は「作っていない」のではなく、U-KOMI の公開 API に無いので<b>作れません</b>。U-KOMI 公式 MCP で行ってください。</div>
 
   <h2>困ったとき</h2>
   <ul class="plain">
