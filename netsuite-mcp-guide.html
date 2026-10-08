@@ -111,6 +111,10 @@
     margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
     font-size: 13px; color: var(--sub);
   }
+  td.y { color: var(--accent); font-weight: 900; text-align: center; white-space: nowrap; }
+  td.n { color: var(--sub); text-align: center; white-space: nowrap; }
+  td.p { color: var(--warn-ink); font-weight: 700; text-align: center; white-space: nowrap; }
+  table.cmp th.c { text-align: center; }
 </style>
 </head>
 <body>
@@ -147,6 +151,45 @@
   </ol>
   <p class="note">トークンをなくしたら、同じトークンのページで古いものを取り消し、「新しいマイアクセストークン」で作り直してもう一度登録してください。</p>
   <div class="warn">このコネクタは <b>全員（管理者・ウェブチーム・一般）</b> が使えます。役割に含まれない人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。自分の役割が分からないとき・権限の相談は市倉さんへ。</div>
+
+  <h2>公式 MCP との使い分け</h2>
+  <p>NetSuite には、Oracle が出している<b>公式の MCP</b>（設定 → コネクタの <b>NetSuite</b>。中身は NetSuite の「MCP Standard Tools SuiteApp」）と、電池屋で作った<b>このコネクタ（電池屋用-NetSuiteMCP）</b>の 2 つがあります。どちらも<b>あなたの NetSuite のロールの範囲</b>でしか見えず、操作できません。</p>
+  <div class="tablewrap">
+    <table class="cmp">
+      <thead><tr><th style="width:50%">やりたいこと</th><th class="c">公式 MCP</th><th class="c">このコネクタ</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3"><b>つなぎ方</b></td></tr>
+        <tr><td>最初の設定</td><td class="p">NetSuite に<br><small>ログインして許可</small></td><td class="p">招待コード＋<br><small>自分のトークン登録</small></td></tr>
+        <tr><td colspan="3"><b>調べる</b></td></tr>
+        <tr><td>SuiteQL で自由に集計（読み取りだけ）</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td>保存検索を探す・実行する</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td>レコード 1 件を内部 ID で見る・項目の一覧</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td><b>レポート</b>（損益計算書・貸借対照表などの標準／カスタムレポート）を実行</td><td class="y">○</td><td class="n">✕</td></tr>
+        <tr><td><b>モールの注文番号</b>（楽天 244970-…・Amazon・Yahoo denchiya-…・本館 44-…）から受注を探す</td><td class="p">△<br><small>SuiteQL を書けば</small></td><td class="y">○</td></tr>
+        <tr><td><b>注文の流れを 1 発で</b>（受注→出荷→請求→入金）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>在庫・入荷予定・発注の入荷状況・請求書の入金状況・得意先のまとめ</td><td class="p">△<br><small>SuiteQL を書けば</small></td><td class="y">○</td></tr>
+        <tr><td><b>納期の問い合わせ</b>の材料・<b>在庫水準</b>の点検・<b>入金の消込候補</b></td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>見積書・請求書などの <b>PDF</b></td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td colspan="3"><b>作る・変える</b></td></tr>
+        <tr><td>受注から<b>配送・請求書</b>、発注書の<b>受領・仕入請求書</b>（画面のボタンと同じ「次の伝票を作る」操作）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>見積書・発注書・顧客・品目（在庫アイテム／キット）を作る</td><td class="p">△<br><small>汎用の作成</small></td><td class="y">○<br><small>相談しながら</small></td></tr>
+        <tr><td>見積書・注文書・発注書の明細（数量・単価・入荷予定日）を直す</td><td class="p">△<br><small>汎用の更新</small></td><td class="y">○</td></tr>
+        <tr><td>メモ・納期・担当者・配送方法・カスタム項目を変える</td><td class="p">△<br><small>汎用の更新</small></td><td class="y">○</td></tr>
+        <tr><td>在庫調整・購入価格の更新・古い発注書の終了</td><td class="p">△<br><small>汎用の作成・更新</small></td><td class="y">○</td></tr>
+        <tr><td>上のどれにも当たらない項目・レコードの作成／更新（REST で扱えるもの）</td><td class="y">○</td><td class="n">✕</td></tr>
+        <tr><td><b>確認画面</b>（実行前に「今の値 → 変える値」を見せ、承認した 2 回目だけ実行）</td><td class="n">✕<br><small>Claude 次第</small></td><td class="y">○</td></tr>
+        <tr><td><b>実行後の照合</b>（NetSuite から読み直して、変わったことを確かめてから「完了」と言う）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>削除</td><td class="n">✕</td><td class="n">✕</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="plain" style="margin-top:12px">
+    <li><b>ふだんの照会と作業はこのコネクタ</b>で。注文番号の読み替え、電池屋の伝票の流れ（受注→配送→請求、発注→受領→仕入請求）、納期回答・在庫点検など、社内の使い方に合わせた道具がそろっています</li>
+    <li><b>財務レポートを見たい</b>（損益・貸借・売上レポートなど）ときは<b>公式 MCP</b>。このコネクタにはレポートを実行する道具がありません</li>
+    <li>公式 MCP の「作成・更新」は<b>汎用の道具</b>で、確認画面も実行後の照合もありません。Claude に頼んだ内容がそのまま NetSuite に書き込まれます。<b>伝票や在庫を変える作業はこのコネクタを使ってください</b>。どうしても公式で書き換えるときは、先に Claude に「何をどう変えるか」を表で出させ、読んでから実行させてください</li>
+    <li>△「SuiteQL を書けば」は、公式 MCP でも Claude が SuiteQL を組めば答えは出せる、という意味です。このコネクタは同じことを決まった道具で確実に出します（電池屋の項目名・注文番号の形を知っている）</li>
+  </ul>
+  <div class="info">公式 MCP の道具（13 本）：SuiteQL（<code>ns_runCustomSuiteQL</code>・<code>ns_getSuiteQLMetadata</code>）、レポート（<code>ns_listAllReports</code>・<code>ns_runReport</code> と絞り込み用の帳簿・子会社など 4 本）、保存検索（<code>ns_listSavedSearches</code>・<code>ns_runSavedSearch</code>）、レコード（<code>ns_getRecord</code>・<code>ns_createRecord</code>・<code>ns_updateRecord</code>・<code>ns_getRecordTypeMetadata</code>）。出典：Oracle NetSuite ヘルプ「<a href="https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_0902023508.html" target="_blank" rel="noopener">Available Tools in the MCP Standard Tools SuiteApp</a>」（2026-10-08 確認）。公式の道具は Oracle が自動で更新するので、増えることがあります。</div>
 
   <h2>できること（聞き方の例）</h2>
   <div class="tablewrap">
@@ -265,7 +308,7 @@
         <tr><td><b>上記以外の項目の更新（取引先・ロケーション・支払条件など）</b></td><td>△</td><td>納期・期日・発注書番号・営業担当・配送方法は 2026-09-08 に開放済み。他の項目は業務ルールを決めて、項目を1つずつ指名して許可リストに足す形で対応できる（市倉さんへ）</td></tr>
         <tr><td><b>在庫調整・購入価格の更新</b></td><td>○</td><td>2026-09-30 に adjust_inventory / update_item_cost として開放。在庫調整は<b>数字が実棚か増減数かを必ず確認</b>してから。<b>「原価の記録がない」警告が出たら、まず発注書の受領漏れを疑う</b>（受領漏れの品目を在庫調整で入れると、あとで受領されたときに二重になる）。販売価格（価格レベル）の更新はまだ作っていません</td></tr>
         <tr><td><b>ノート（コミュニケーション履歴）の追加</b></td><td>△</td><td>取引本体を変えずに記録できる安全側の書き込み。需要があれば追加できる</td></tr>
-        <tr><td><b>レポート（財務レポート等）の実行</b></td><td>✕</td><td>REST にも SuiteScript にも無い機能。NetSuite の画面で</td></tr>
+        <tr><td><b>レポート（財務レポート等）の実行</b></td><td>✕</td><td>このコネクタには無い機能です。<b>公式 MCP</b>（上の「公式 MCP との使い分け」）か NetSuite の画面で</td></tr>
 </tbody>
     </table>
   </div>
