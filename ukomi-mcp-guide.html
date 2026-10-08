@@ -111,6 +111,10 @@
     margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line);
     font-size: 13px; color: var(--sub);
   }
+  td.y { color: var(--accent); font-weight: 900; text-align: center; white-space: nowrap; }
+  td.n { color: var(--sub); text-align: center; white-space: nowrap; }
+  td.p { color: var(--warn-ink); font-weight: 700; text-align: center; white-space: nowrap; }
+  table.cmp th.c { text-align: center; }
 </style>
 </head>
 <body>
@@ -139,6 +143,45 @@
     <li><b>作業は Claude デスクトップアプリの「Code」タブで行います。</b>最初の一言は「<b>U-KOMI に接続できてる？</b>」（whoami）でつながりを確かめてください</li>
   </ol>
   <div class="warn">このコネクタを使えるのは <b>管理者・ウェブチーム</b> です。役割に含まれない人は、正しい招待コードを入れても「このコネクタの利用権限がありません」と表示されます。必要なら市倉さんへ</div>
+
+  <h2>公式 MCP との使い分け</h2>
+  <p>U-KOMI には、U-KOMI 社が出している<b>公式の MCP</b>（設定 → コネクタの <b>U-KOMI</b>）と、電池屋で作った<b>このコネクタ（U-KOMI 商品 MCP）</b>の 2 つがあります。できることが違うので、両方オンにして使い分けてください。</p>
+  <div class="tablewrap">
+    <table class="cmp">
+      <thead><tr><th style="width:46%">やりたいこと</th><th class="c">公式 MCP</th><th class="c">このコネクタ</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3"><b>レビュー</b></td></tr>
+        <tr><td>レビューを探す（星・投稿日・商品・グループ・ラベル）</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td>レビューを<b>キーワード・画像／動画の有無・返信の有無・ピックアップの有無・注文番号</b>で探す</td><td class="y">○</td><td class="n">✕</td></tr>
+        <tr><td>レビューの詳細（本文・商品・画像・ラベル）</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td>レビューの詳細に<b>ショップの返信</b>も表示</td><td class="y">○</td><td class="n">✕</td></tr>
+        <tr><td>レビューと<b>もとの注文</b>（注文日・商品・注文番号）の組</td><td class="p">△<br><small>注文番号で検索</small></td><td class="y">○</td></tr>
+        <tr><td>レビューの<b>件数・平均点・星の内訳・AI 要約</b>（全体／商品／グループ）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>非公開のレビューも含めて見る</td><td class="y">○</td><td class="y">○</td></tr>
+        <tr><td><b>返信を書く</b>・返信を直す・返信を消す</td><td class="y">○<br><small>プロ以上</small></td><td class="n">✕</td></tr>
+        <tr><td>レビューを<b>公開／非公開</b>にする（1 回 100 件まで）</td><td class="y">○<br><small>プロ以上</small></td><td class="n">✕</td></tr>
+        <tr><td><b>ラベル</b>を探す・付ける</td><td class="y">○<br><small>付与はプロ以上</small></td><td class="p">△<br><small>ラベル名で絞るだけ</small></td></tr>
+        <tr><td><b>ピックアップ</b>を付ける・外す</td><td class="y">○<br><small>プロ以上</small></td><td class="n">✕</td></tr>
+        <tr><td colspan="3"><b>商品・グループ</b></td></tr>
+        <tr><td>U-KOMI の<b>商品</b>を探す・品番で見る（価格・画像・グループ・JAN）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>商品を<b>登録・更新</b>する（名前・URL・画像・価格・グループなど）</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td><b>グループ</b>を探す・中身を見る</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>グループを<b>作る・商品を入れる／外す・消す</b></td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td colspan="3"><b>そのほか</b></td></tr>
+        <tr><td><b>Q&amp;A</b>（商品への質問と回答・未回答の件数）を見る</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>U-KOMI のアカウント情報</td><td class="n">✕</td><td class="y">○</td></tr>
+        <tr><td>レビューの新規作成・削除、ラベルの新規作成、U-KOMI の設定変更</td><td class="n">✕</td><td class="n">✕</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="plain" style="margin-top:12px">
+    <li><b>レビューに返信したい・公開を切り替えたい</b> → 公式 MCP。公式で作った返信は、最初は<b>非表示の下書き</b>で保存されます（公開は U-KOMI の管理画面で確認してから）</li>
+    <li><b>条件を細かく付けてレビューを探したい</b>（「画像付きで未返信の星 1」など） → 公式 MCP</li>
+    <li><b>商品・グループを調べる／直したい、Q&amp;A を見たい、評価の平均や内訳を出したい</b> → このコネクタ</li>
+    <li>レビューは削除できません（どちらでも）。表示させたくないときは公式 MCP で<b>非公開</b>にします</li>
+    <li>個人情報（氏名・メール・注文番号）は、このコネクタでは普段は伏せて返ります。公式 MCP の表示の仕方は U-KOMI 側の仕様です。どちらも<b>社外の文章に貼らない</b>でください</li>
+  </ul>
+  <div class="info">公式 MCP の詳しい使い方は U-KOMI のヘルプ「<a href="https://support.u-komi.com/ja/articles/ukomi-claude-settings-7deaa928" target="_blank" rel="noopener">Claude との連携設定</a>」を見てください。公式 MCP は U-KOMI の<b>スタンダードプラン以上</b>で使え、返信・公開などの操作は<b>プロプラン以上</b>です（U-KOMI のヘルプによる）。</div>
 
   <h2>できること（聞き方の例）</h2>
   <div class="tablewrap">
@@ -209,7 +252,8 @@
     <table>
       <thead><tr><th style="width:32%">やりたいこと</th><th style="width:12%">できる？</th><th>理由・代わりの方法</th></tr></thead>
       <tbody>
-        <tr><td><b>レビューに返信する・返信を直す</b></td><td>✕</td><td>U-KOMI の公開 API にありません。<b>U-KOMI 公式 MCP</b>（設定 → コネクタの別の項目）で行ってください</td></tr>
+        <tr><td><b>レビューに返信する・返信を直す</b></td><td>✕</td><td>U-KOMI の公開 API にありません。<b>公式 MCP</b> で行ってください（上の「公式 MCP との使い分け」）</td></tr>
+        <tr><td><b>キーワード・画像の有無・返信の有無・ピックアップ・注文番号でレビューを探す</b></td><td>✕</td><td>U-KOMI の公開 API に、その条件で絞る口がありません。<b>公式 MCP</b> で探してください</td></tr>
         <tr><td><b>レビューを公開／非公開にする、ラベル・ピックアップを付ける</b></td><td>✕</td><td>同上（公式 MCP で）</td></tr>
         <tr><td><b>レビューを投稿する・削除する</b></td><td>✕</td><td>作っていません（投稿は社員が行うものではないため）。削除は U-KOMI でもできません（非公開にします）</td></tr>
         <tr><td><b>商品を削除する</b></td><td>✕</td><td>U-KOMI の API に商品の削除はありません。管理画面で行ってください</td></tr>
