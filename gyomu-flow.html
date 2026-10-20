@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>電池屋 仕事の流れ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --red: #E60012; --red-deep: #B3000F; --tint: #FDECEE;
+    --paper: #F5F5F5; --card: #FFFFFF;
+    --ink: #3B3B3B; --ink-2: #6E6E6E; --ink-3: #969696; --line: #E6E6E6;
+    --robot: #2a78d6; --robot-tint: #EAF2FC;
+    --human: #1baf7a; --human-tint: #E7F6F0;
+    --font-round: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+    --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.85; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 20px 96px; }
+  a { color: var(--red); }
+
+  header { background: var(--red); border-radius: 24px; padding: 44px 44px 36px; color: #fff; }
+  .brand-pill { display: inline-block; background: #fff; color: var(--red); font-family: var(--font-round); font-weight: 800; font-size: 17px; letter-spacing: .12em; border-radius: 999px; padding: 5px 26px; margin-bottom: 18px; }
+  h1 { font-family: var(--font-round); font-weight: 800; font-size: clamp(32px, 5.5vw, 50px); line-height: 1.25; margin: 0 0 12px; letter-spacing: .03em; color: #fff; text-wrap: balance; }
+  .lede { max-width: 44em; color: rgba(255,255,255,.92); margin: 0; }
+  .lede strong { color: #fff; }
+  .howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 26px; }
+  .howto div { background: #fff; border-radius: 16px; padding: 14px 18px; font-size: 13.5px; color: var(--ink-2); }
+  .howto b { display: block; font-family: var(--font-round); font-weight: 800; font-size: 15px; color: var(--red); margin-bottom: 2px; }
+
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; padding: 20px 4px 4px; }
+  nav.toc a { font-family: var(--font-round); font-weight: 700; font-size: 13px; color: var(--ink-2); text-decoration: none; border: 2px solid var(--line); border-radius: 999px; padding: 5px 16px; background: var(--card); }
+  nav.toc a:hover, nav.toc a:focus-visible { color: var(--red); border-color: var(--red); outline: none; }
+  nav.toc .part { align-self: center; font-size: 11px; color: var(--ink-3); letter-spacing: .1em; margin: 0 4px 0 8px; }
+
+  section { margin-top: 64px; }
+  .sec-eyebrow { display: inline-block; background: var(--red); color: #fff; font-size: 11px; letter-spacing: .18em; font-weight: 700; border-radius: 999px; padding: 3px 14px; }
+  h2 { font-family: var(--font-round); font-weight: 800; font-size: clamp(24px, 3.4vw, 31px); margin: 12px 0 10px; color: var(--ink); letter-spacing: .02em; text-wrap: balance; }
+  .sec-lede { color: var(--ink-2); max-width: 48em; margin: 0 0 24px; }
+  h3 { font-family: var(--font-round); font-size: 18px; font-weight: 800; margin: 36px 0 12px; color: var(--ink); }
+  h4 { font-family: var(--font-round); font-size: 15px; font-weight: 800; margin: 0 0 6px; color: var(--ink); }
+
+  .card { background: var(--card); border-radius: 16px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .note { background: var(--tint); border-radius: 14px; padding: 14px 20px; font-size: 13.5px; }
+  .note b { color: var(--red-deep); }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 14px; overflow: hidden; font-size: 13.5px; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .tbl { overflow-x: auto; border-radius: 14px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1.5px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; color: var(--ink-3); background: #FAFAFA; white-space: nowrap; font-weight: 700; letter-spacing: .04em; }
+  tr:last-child td { border-bottom: none; }
+  td.k { font-weight: 700; white-space: nowrap; }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; background: #F0F0F0; border-radius: 5px; padding: 1px 6px; }
+
+  /* 人／ロボットのバッジ */
+  .who { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-round); font-weight: 800; font-size: 11px; border-radius: 999px; padding: 2px 10px; white-space: nowrap; vertical-align: 2px; }
+  .who.r { background: var(--robot-tint); color: var(--robot); }
+  .who.h { background: var(--human-tint); color: var(--human); }
+  .who.b { background: #FFF3DC; color: #9A6200; }
+
+  /* 商流の図 */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .pillar { background: var(--card); border-radius: 16px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.04); border-top: 4px solid var(--red); }
+  .pillar h4 { font-size: 15px; }
+  .pillar p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .pillar .io { margin-top: 8px; font-size: 12px; color: var(--ink-3); }
+
+  /* 1日のタイムライン */
+  .timeline { display: grid; gap: 6px; }
+  .tl { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: start; background: var(--card); border-radius: 12px; padding: 10px 14px; box-shadow: 0 2px 8px rgba(0,0,0,.03); font-size: 13.5px; }
+  .tl .t { font-family: var(--font-round); font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; }
+  .tl.night { opacity: .85; }
+
+  /* ステップ */
+  .steps { display: grid; gap: 14px; counter-reset: step; }
+  .step { background: var(--card); border-radius: 16px; padding: 20px 22px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); display: grid; grid-template-columns: 56px 1fr; gap: 16px; }
+  .step .n { font-family: var(--font-round); font-weight: 800; font-size: 26px; color: var(--red); line-height: 1; padding-top: 2px; }
+  .step .n::before { counter-increment: step; content: counter(step); }
+  .step h4 { font-size: 17px; margin: 0 0 4px; }
+  .step .sum { color: var(--ink-2); font-size: 14px; margin: 0 0 10px; }
+  .step .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .step .col { background: var(--paper); border-radius: 12px; padding: 12px 14px; font-size: 13px; }
+  .step .col .h { font-family: var(--font-round); font-weight: 800; font-size: 12.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .step .col ul { margin: 0; padding-left: 18px; }
+  .step .col li { margin: 2px 0; }
+  .step .sys { font-size: 12px; color: var(--ink-3); margin-top: 8px; }
+  .step .sys b { color: var(--ink-2); font-weight: 500; }
+
+  /* 例外 */
+  details { background: var(--card); border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.04); margin-bottom: 10px; }
+  summary { cursor: pointer; padding: 14px 20px; font-family: var(--font-round); font-weight: 800; font-size: 15px; list-style: none; display: flex; align-items: center; gap: 10px; }
+  summary::before { content: "▶"; color: var(--red); font-size: 10px; transition: transform .15s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .body { padding: 0 20px 16px; font-size: 13.5px; color: var(--ink-2); }
+  details .body ol, details .body ul { margin: 6px 0; padding-left: 20px; }
+
+  .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .role { background: var(--card); border-radius: 16px; padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.04); border-left: 5px solid var(--human); }
+  .role ul { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+
+  footer { margin-top: 80px; padding-top: 18px; border-top: 1.5px solid var(--line); font-size: 12px; color: var(--ink-3); line-height: 1.9; }
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  @media (max-width: 640px) {
+    header { padding: 32px 24px 28px; border-radius: 20px; }
+    .step { grid-template-columns: 40px 1fr; gap: 10px; padding: 16px 16px 12px; }
+    .tl { grid-template-columns: 60px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand-pill">電池屋</div>
+    <h1>仕事の流れ</h1>
+    <p class="lede">
+      入社した人が、<strong>注文が入ってからお客様に届いてお金になるまで</strong>の全体を1枚でつかむための資料です。
+      前半（共通編）は全員が読み、後半は自分の部署の章を読んでください。担当者は実名でなく役割で書いています。
+    </p>
+    <div class="howto">
+      <div><b>先に全体を見る</b>どのシステムに何が入り、誰が何をするか。細かい手順は後でいい</div>
+      <div><b><span style="color:var(--robot)">ロボット</span>と<span style="color:var(--human)">人</span>を見分ける</b>自動で進む部分と、自分の手が要る部分を色分けしている</div>
+      <div><b>困ったら窓口へ</b>各章の最後に「誰に・どこに聞くか」を書いている。止まったまま悩まない</div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="目次">
+    <span class="part">共通編</span>
+    <a href="#pillars">5つの商流</a><a href="#systems">システムと呼び名</a><a href="#day">1日の流れ</a><a href="#orderno">注文番号の読み方</a><a href="#help">困ったときの窓口</a>
+    <span class="part">EC編</span>
+    <a href="#ec">注文→出荷→お金</a><a href="#ec-ex">例外の対応</a><a href="#ec-roles">役割ごとの担当</a>
+    <span class="part">他の商流</span>
+    <a href="#amazon">Amazon</a><a href="#nyusatsu">入札</a><a href="#eigyo">営業卸</a><a href="#seizo">製造</a><a href="#keiri">お金</a>
+    <span class="part">付録</span>
+    <a href="#glossary">用語集</a>
+  </nav>
+
+  <!-- ===== 共通編 ===== -->
+  <section id="pillars">
+    <div class="sec-eyebrow">共通編 1</div>
+    <h2>会社には5つの商流がある</h2>
+    <p class="sec-lede">売上をつくる流れは5本です。どれも「注文（依頼）が入る → 商品を用意する → 届ける → お金をもらう」の形は同じで、入口と届け方が違います。</p>
+    <div class="pillars">
+      <div class="pillar"><h4>① モールEC・本館</h4><p>楽天・Yahoo!・Amazon・自社サイト（本館）でのネット通販。会社の日次のメインライン。</p><div class="io">入口：ネット注文 ／ 届け方：山梨倉庫・本社から宅配</div></div>
+      <div class="pillar"><h4>② Amazonベンダー</h4><p>Amazonが電池屋から仕入れて売る形。Amazonからの発注（PO）に応える。</p><div class="io">入口：Amazonの発注 ／ 届け方：Amazon倉庫へ納品</div></div>
+      <div class="pillar"><h4>③ 官公庁入札</h4><p>自治体の入札に参加し、落札したら中国の工場から調達して全国へ納品する。月単位の長い流れ。</p><div class="io">入口：入札公告 ／ 届け方：外注業者が納品先へ</div></div>
+      <div class="pillar"><h4>④ 電材卸営業</h4><p>電気工事会社などへの昔ながらの卸売。メール・FAX・電話で注文と見積依頼が届く。</p><div class="io">入口：メール・FAX・電話 ／ 届け方：配達・直送</div></div>
+      <div class="pillar"><h4>⑤ 電工試験キット製造</h4><p>電気工事士の実技試験の練習キットを自社で作り、ECで売る。</p><div class="io">入口：生産計画 ／ 届け方：①のECで販売</div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>読む順番：</b>共通編のあと、自分の商流の章へ。ECが一番長いのは、人数も件数も一番多いからです。部署ごとの担当と工数の一覧は <a href="https://takehiroichikura.github.io/denchiya/gyomu-map.html">全業務マップ</a> にあります。</p>
+  </section>
+
+  <section id="systems">
+    <div class="sec-eyebrow">共通編 2</div>
+    <h2>システムと、社内での呼び名</h2>
+    <p class="sec-lede">社内では正式名でなく通称で呼びます。会話についていくために、まずこの対応だけ覚えてください。</p>
+    <div class="tbl"><table>
+      <tr><th>社内の呼び名</th><th>正式名</th><th>何をするもの</th></tr>
+      <tr><td class="k">オラクル</td><td>Oracle NetSuite</td><td>基幹システム。受注・在庫・発注・請求・入金の中心台帳。「オラクルを見て」はこれ</td></tr>
+      <tr><td class="k">ごくー</td><td>GoQSystem（GoQ）</td><td>受注管理。楽天・Yahoo!などの注文を1か所に集め、お客様への自動メールや入金待ちの管理もここ</td></tr>
+      <tr><td class="k">エアロジ</td><td>AiR Logi</td><td>倉庫管理。山梨倉庫の入荷・在庫・出荷の実体。倉庫ごとに別環境（山梨／柏センコー）</td></tr>
+      <tr><td class="k">本館</td><td>EC-CUBE</td><td>自社サイト。モールを通さず直接注文が入る</td></tr>
+      <tr><td class="k">RMS ／ ストクリ</td><td>楽天RMS ／ Yahoo!ストアクリエイターPro</td><td>各モールの店舗管理画面。問い合わせの返信もここから</td></tr>
+      <tr><td class="k">セラセン ／ ベンダーセントラル</td><td>Amazon Seller Central ／ Vendor Central</td><td>Amazonの出品者用画面 ／ Amazonに卸す側の画面</td></tr>
+      <tr><td class="k">ヤマト・スマートキャット・B2</td><td>SmartCat ／ ヤマトB2クラウド</td><td>送り状の発行。山梨倉庫はSmartCat（ピッキングリストと送り状が一体）、本社・柏はB2クラウド</td></tr>
+      <tr><td class="k">RPA ／ UiPath ／ コダック</td><td>UiPath</td><td>システム間のデータ受け渡しを自動でやるロボット。100本以上が時刻どおりに動く。Chatworkで「コダック」として結果を知らせてくる</td></tr>
+      <tr><td class="k">メールワイズ</td><td>メールワイズ</td><td>お客様メールの共有受信箱。キャンセル依頼などもここに集まる</td></tr>
+      <tr><td class="k">後払い・SBPS</td><td>後払い.com ／ SBペイメントサービス</td><td>決済サービス。後払いの立替、クレジットカードの認証</td></tr>
+    </table></div>
+    <div class="note" style="margin-top:14px">
+      <b>いちばん大事な前提：</b>これらのシステムは<b>直接つながっていません</b>。間のデータは CSV ファイルで受け渡し、それを RPA が時刻どおりに運んでいます。
+      だから「オラクルには入っているのにエアロジにまだ無い」「ごくーには出荷済みが反映されていない」のような時間差が普通に起きます。慌てず「次のRPAはいつ動くか」を見てください（次の章）。
+    </div>
+  </section>
+
+  <section id="day">
+    <div class="sec-eyebrow">共通編 3</div>
+    <h2>1日の流れ（ECの注文はこう進む）</h2>
+    <p class="sec-lede">平日の典型的な1日です。<span class="who r">🤖 自動</span> はRPAが勝手にやる仕事、<span class="who h">👤 人</span> は誰かの手が要る仕事。時刻はおおよそで、変わることがあります。</p>
+    <div class="timeline">
+      <div class="tl night"><span class="t">2:45〜3:30</span><div><span class="who r">🤖 自動</span> 前日に出荷した注文の「出荷済み」をごくー経由で各モールへ反映。本館の売上処理</div></div>
+      <div class="tl night"><span class="t">4:00〜7:20</span><div><span class="who r">🤖 自動</span> 各種チェック（オラクルとごくーのステータスずれ、転記漏れ、金額ずれ、入金の未照合）。異常はChatworkに通知</div></div>
+      <div class="tl"><span class="t">5:30〜</span><div><span class="who r">🤖 自動</span> 注文の取込開始（ごくー→オラクル）。以後19:30まで約10回 ／ 5:40 キャンセル依頼の収集 ／ 5:45 出荷指示（オラクル→エアロジ）／ 5:50〜7:05 送り状の発行</div></div>
+      <div class="tl"><span class="t">6:20〜6:40</span><div><span class="who r">🤖 自動</span> 在庫が足りない商品の発注書を作って印刷。発注点を下回った商品の自動発注</div></div>
+      <div class="tl"><span class="t">7:00</span><div><span class="who h">👤 人</span> <b>業務課（発注担当）</b>が印刷された発注書をFAX／仕入先サイト／メールに振り分けて発注。FAXが最優先 ／ <span class="who r">🤖</span> 山梨倉庫へ入荷指示</div></div>
+      <div class="tl"><span class="t">朝イチ</span><div><span class="who h">👤 人</span> <b>システム課</b>が夜間RPAの結果を確認 ／ <b>EC顧客対応</b>が社内のキャンセル依頼・各モールの問い合わせを確認 ／ <b>業務課</b>がChatworkの入庫実績の連絡から受領チェック（1日3回）</div></div>
+      <div class="tl"><span class="t">8:30</span><div><span class="who r">🤖 自動</span> 失敗したRPAの自動再実行</div></div>
+      <div class="tl"><span class="t">11時台</span><div><span class="who r">🤖 自動</span> 取込→出荷指示→送り状の2回目の波。入荷実績の取込（11:00）、仕入先の納期回答の登録（11:40）</div></div>
+      <div class="tl"><span class="t">13:00</span><div><span class="who h">👤 人</span> <b>業務課</b>がごくーの「発送前入金待ち」を確認し、入金チェックリストと照合</div></div>
+      <div class="tl"><span class="t">14時台</span><div><span class="who r">🤖 自動</span> 3回目の波（取込・出荷指示・送り状・入荷取込）。山梨倉庫はこの間ずっとピッキングと梱包</div></div>
+      <div class="tl"><span class="t">15:00〜16:20</span><div><span class="who r">🤖 自動</span> 午後の発注書作成・印刷（15:00）、4回目の波、Amazonへ出荷通知、ごくーへ出荷予定日の登録</div></div>
+      <div class="tl"><span class="t">終日</span><div><span class="who h">👤 人</span> 問い合わせ対応（納期・キャンセル・領収書）、納期回答FAXの入力、仕入先への納期催促、倉庫からの依頼対応</div></div>
+      <div class="tl night"><span class="t">20:30</span><div><span class="who r">🤖 自動</span> エアロジの出荷実績をオラクルへ転記して売上にする。入荷取込の最終回（20:00）</div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>見かたのコツ：</b>「ごくーで見えるのにオラクルに無い」なら次の取込（約1〜2時間おき）を待つ。「出荷したのにモールが出荷済みにならない」なら翌朝2:45まで待つ。それでも違うときだけ窓口へ。</p>
+  </section>
+
+  <section id="orderno">
+    <div class="sec-eyebrow">共通編 4</div>
+    <h2>注文番号の読み方</h2>
+    <p class="sec-lede">オラクルの注文番号は、末尾の記号でどの商流・どの扱いかが分かります。発注や問い合わせで最初に見るところです。</p>
+    <div class="tbl"><table>
+      <tr><th>番号の形</th><th>意味</th></tr>
+      <tr><td class="k"><code>OR000000</code>（記号なし）</td><td>ネット注文の取り寄せ分（本館・楽天・Yahoo!）</td></tr>
+      <tr><td class="k"><code>OR000000ZX</code> ／ <code>…Z</code></td><td>在庫分。ZX＝システムが作成、Z＝人が手で作成</td></tr>
+      <tr><td class="k"><code>OR000000AMZ</code></td><td>Amazon分</td></tr>
+      <tr><td class="k"><code>OR000000A</code></td><td>営業分（山梨倉庫から出荷）</td></tr>
+      <tr><td class="k"><code>OR000000H</code> ／ <code>25-0000-00</code></td><td>営業分（本社出荷・直送など）</td></tr>
+      <tr><td class="k"><code>OR000000DK</code></td><td>電気工事士キット用</td></tr>
+      <tr><td class="k"><code>OR000000JS</code> ／ <code>…IKD</code></td><td>自社使用分 ／ 撮影用</td></tr>
+    </table></div>
+    <p class="note" style="margin-top:14px">モール側の注文番号は別です。楽天は <code>244970-</code> で始まり、Amazonは <code>503-0000000-0000000</code> の形。オラクルでは「外部注文ID」として持っています。</p>
+  </section>
+
+  <section id="help">
+    <div class="sec-eyebrow">共通編 5</div>
+    <h2>困ったときの窓口</h2>
+    <p class="sec-lede">社内の連絡はChatworkです。グループ名と「何を書く場所か」は名前どおりでないものもあるので、ここで覚えてください。</p>
+    <div class="tbl"><table>
+      <tr><th>こういうとき</th><th>Chatworkのグループ</th><th>補足</th></tr>
+      <tr><td class="k">山梨倉庫に頼みたい（出荷の取消、当日出荷、在庫の現物確認）</td><td>【山梨】連絡・相談グループ</td><td>本社→倉庫の依頼はここ。コダックの出荷書類も流れる</td></tr>
+      <tr><td class="k">RPAが動いたか見たい、取込・転記のログを見たい</td><td>【業務部】連絡・相談グループ</td><td>ほぼコダックの自動投稿。「入庫実績取込」の連絡もここ</td></tr>
+      <tr><td class="k">入金の確認、返金の依頼、請求書の回付</td><td>【経理】入金・返金などのグループ</td><td>入金チェックの日次報告もここ</td></tr>
+      <tr><td class="k">価格改定、掲載停止、不動在庫など店舗運営の相談</td><td>店長グループ</td><td>モール店長どうしの共有</td></tr>
+      <tr><td class="k">定型作業を委託スタッフに頼む（見積・受注登録・FAX納期入力・発注メール）</td><td>業務サポート</td><td>営業課・システム課が依頼を出している</td></tr>
+      <tr><td class="k">山梨からAmazon FBA倉庫へ送ってほしい</td><td>【山梨】FBA出荷依頼・相談グループ</td><td>リストとピッキングリストを添えて依頼</td></tr>
+      <tr><td class="k">打刻の修正、欠勤・遅刻・テレワークの連絡</td><td>【総務部】連絡・相談グループ</td><td>総務が対応</td></tr>
+      <tr><td class="k">備品・梱包資材がほしい</td><td>【備品】購入依頼グループ</td><td>総務の購入担当が手配</td></tr>
+      <tr><td class="k">電話の着信を見たい</td><td>fondesk通知グループ</td><td>電話代行の着信通知。納期確認が最多</td></tr>
+      <tr><td class="k">Claude・MCP・スキルの使い方</td><td>Claude Code 活用グループ</td><td>研修の配信と告知。社内コネクタの導入は denchiya-mcp-donyu スキル</td></tr>
+    </table></div>
+    <p class="note" style="margin-top:14px"><b>システムが止まった・エラーが出た</b>ときは、自分で直そうとせず<b>システム課</b>へ。RPAはシステム課が止めて再実行します。</p>
+  </section>
+
+  <!-- ===== EC編 ===== -->
+  <section id="ec">
+    <div class="sec-eyebrow">EC編 1</div>
+    <h2>注文が入ってから、お金になるまで</h2>
+    <p class="sec-lede">モールと本館の注文が通る道です。8つの段階に分けました。各段階に「自動で起きること」「人がやること」「使うシステム」を書いています。</p>
+
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>注文が入る</h4>
+        <p class="sum">お客様が楽天・Yahoo!・Amazon・本館で注文します。支払い方法は クレジットカード（SBPS）、後払い.com、代引き、銀行振込、コンビニ払い、Amazon Pay など。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>楽天・Yahoo!・Amazon（自己配送分）の注文はごくーに集まる</li><li>本館の注文は本館から直接オラクルへ（ごくーを通らない）</li><li>ごくーがお礼メールを自動送信</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>この段階では基本なし</li><li>楽天で送料が「-9999」（沖縄・離島）の注文はごくーの「OPT」に入るので、<b>EC顧客対応</b>が送料を直す（例外の章）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>各モール → ごくー ／ 本館 → オラクル</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>お金の確認（前払いのものだけ）</h4>
+        <p class="sum">銀行振込・コンビニ払いは、入金が確認できるまで出荷に進みません。カード・後払い・代引きはそのまま次へ。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>未入金の注文はごくーで「発送前入金待ち」に留まる</li><li>5日たつとごくーが入金催促メールを自動送信、15日たつと「保留」へ</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>経理・総務</b>が毎朝、銀行の入金を入金チェックリスト（スプレッドシート）に転記</li><li><b>業務課</b>が13時ごろ「発送前入金待ち」とリストを照合し、入金が確認できた注文の入金日を更新 → 出荷の流れに乗る</li><li>誰の入金かわからないものは「不明入金チェック」で探す（例外の章）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>ごくー、入金チェックリスト、銀行</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>オラクルに取り込む</h4>
+        <p class="sum">ごくーの「オラ移動待ち」にある注文を、RPAがオラクルの注文書（受注）にします。ここからが基幹システムの世界です。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>5:30〜19:30 に約10回、取込が走る（本館は 5:20／12:55／16:30）</li><li>取り込んだ注文にお届け予定日（完了予定日）が自動で入る</li><li>取込漏れがないかの差分チェックも別に走る</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>通常なし。RPAが止まったときだけ<b>システム課</b>が手で取り込む</li><li>「ごくーにあるのにオラクルに無い」は、まず次の取込時刻を待つ</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>ごくー → オラクル（RPA 1_注文取込）</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>在庫を確かめて、足りなければ仕入れる</h4>
+        <p class="sum">在庫があればそのまま出荷へ。無ければ仕入先に発注し、入荷を待ちます。ECの注文の多くは「取り寄せ」なので、この段階が一番長く、一番人の手がかかります。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>6:20・15:00 に、足りない分の発注書を作って印刷。発注点を下回った商品は自動発注</li><li>注文書と発注書の紐付け（10:40）</li><li>仕入先から届いた納期回答の登録（11:40）。FAXの定型分は解析して自動登録</li><li>倉庫に商品が入ると、エアロジの入庫実績をオラクルに取り込む（11:00／14:00／20:00）</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>発注担当（業務課）</b>：朝7時、印刷された発注書をFAX／仕入先サイト／メールに振り分けて発注。仕入先ごとのルール（送料条件・直送可否）は「ネット分発注注意点」にある</li><li><b>納期担当（システム課・業務課）</b>：届いたFAXの納期回答を読んでオラクルに入力。発注から3日たっても回答がない仕入先に催促。1週間以上先になりそうならごくーからお客様に連絡</li><li><b>受領担当（業務課）</b>：入庫の連絡が来たら、オラクルの入荷予定数とエアロジの実績数を照合して受領処理（1日3回）。差異があれば原因を確認</li><li>廃番・手配不可なら、お客様にお断りしてキャンセル（例外の章）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>オラクル（発注書・入荷予定）、FAX・仕入先サイト・メール、エアロジ（入庫実績）</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>出荷の指示を倉庫へ出す</h4>
+        <p class="sum">商品がそろった注文を、RPAが「出荷してよい」状態にして、エアロジ（倉庫）へ送ります。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>5:45／11:15／14:15／15:55 に「全アイテム確保済・ネット倉庫・通常処理」の注文をまとめて配送処理（オラクルの状態が「配送保留」→「請求保留」になる）</li><li>配送方法（宅急便・ネコポス・ゆうパケット）を振り分けてエアロジに出荷指示</li><li>1回に200件ずつ。注文が多い朝は数回に分けて処理される</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>通常なし</li><li>ここで「請求保留」になった注文は<b>もう倉庫で作業中</b>。キャンセルの可否はこの状態で判断する（例外の章）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>オラクル → エアロジ（RPA 2_注文配送）</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>倉庫で出荷する</h4>
+        <p class="sum">山梨倉庫がピッキングして梱包し、送り状を貼って宅配業者に渡します。本社からも小型品（ネコポス）を出荷します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>山梨分はSmartCat（ピッキングリストと送り状が一体の伝票）を発行（5:50／11:20／14:40／16:06）</li><li>本社分・柏センコー分はエアロジの引当からヤマトB2クラウドで送り状を発行</li><li>送り状とピッキングリストはChatworkの山梨グループに自動投稿</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>山梨倉庫</b>：伝票でピッキング → 梱包 → 送り状を貼る → 出荷場所へ。営業後に出荷漏れを確認し、急ぎは宅配業者に持ち込む</li><li><b>業務課（本社出荷）</b>：ネコポスの出荷リストを印刷して梱包、B2クラウドで送り状を作って貼る</li><li>システムの在庫と現物が合わない・破損などは<b>山梨グループ</b>で本社に連絡</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>エアロジ、SmartCat／ヤマトB2クラウド</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>出荷をお客様とモールに知らせる</h4>
+        <p class="sum">送り状の問い合わせ番号が、エアロジ → オラクル → ごくー → 各モールと戻っていき、お客様に発送完了メールが届きます。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>Amazonへ出荷通知（12:50／15:20／16:20／19:00）</li><li>ごくーへ出荷予定日を登録（10:30／12:35／15:40）</li><li>翌朝2:45、ごくー経由でモールの注文を「出荷済み」にし、発送完了メールが自動で飛ぶ</li><li>出荷後、レビュー依頼メールを自動送信</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>通常なし</li><li>「商品が届かない」の問い合わせには、<b>EC顧客対応</b>が問い合わせ番号を伝える</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>エアロジ → オラクル → ごくー → 各モール</div>
+      </div></div>
+
+      <div class="step"><div class="n"></div><div>
+        <h4>売上になり、お金が入る</h4>
+        <p class="sum">出荷実績が売上として計上され、モールからの入金と突き合わせます。ここは経理の仕事です。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>20:30 にエアロジの出荷実績をオラクルへ転記して売上にする</li><li>翌朝、転記漏れ・金額ずれ・決済サービス（SBPS・後払い・Amazon Pay）との不一致をチェックしてChatworkに通知</li><li>楽天・Yahoo!・代引き・後払いの入金照合（月1回）</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>経理</b>：月次で楽天・Yahoo!・本館の入金データと売上をマクロで照合し、オラクルに入金処理</li><li><b>経理・総務</b>：Amazonからの入金の処理と差額の報告</li><li>返金が必要な注文（キャンセル後の返金、過入金）は<b>EC顧客対応</b>が経理グループに依頼し、<b>経理</b>が振り込む</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>エアロジ → オラクル、各モールの入金データ、銀行</div>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="ec-ex">
+    <div class="sec-eyebrow">EC編 2</div>
+    <h2>例外のときどうするか</h2>
+    <p class="sec-lede">毎日起きる「普通でないこと」の対応です。判断の基準だけ押さえ、細かい画面操作は先輩と一緒にやってください。</p>
+
+    <details open><summary>キャンセルしたいと言われた</summary><div class="body">
+      <p><b>基準はひとつ：送り状が発行済みか。</b>発行済み（オラクルで「請求保留」、エアロジに登録済み）なら倉庫で作業中なのでお断りする。未発行ならキャンセルしてよい。</p>
+      <ul>
+        <li><b>お客様都合（未出荷）</b>：エアロジから注文を削除 → オラクルの注文書を「終了」（配送伝票があれば削除）→ ごくーで「キャンセル申請」。本館はモール側の管理画面でもキャンセル</li>
+        <li><b>当社都合（欠品・廃番・長納期）</b>：発注書を「終了」（一部なら数量を0）→ 注文書を「終了」→ ごくーで「ストア都合：欠品」としてキャンセル申請 → ごくーからお客様へ理由に合わせたメール。廃番品は後継品があっても案内しない</li>
+        <li><b>未入金（銀行振込・コンビニ払い）</b>：注文から15日で自動的に「保留」に入るのでキャンセルする。ただし銀行振込はメールワイズで入金予定の連絡が来ていないか必ず確認し、連絡日まで待つ</li>
+      </ul>
+      <p>件数が多い（1日10件以上）ので、迷ったら先輩に。楽天の返信文の型は社内スキル（rakuten-toiawase-henshin）にもあります。</p>
+    </div></details>
+
+    <details><summary>納期を聞かれた</summary><div class="body">
+      <ul>
+        <li><b>注文前</b>：一部メーカーは仕入先サイトで在庫を見て答える。それ以外は「取り寄せ品のため通常5営業日前後、長納期なら別途連絡」</li>
+        <li><b>注文後</b>：オラクルの発注書の入荷予定日が分かれば「○日前後に入荷・出荷予定」。空欄なら仕入先に確認してから回答</li>
+        <li>1週間以上先になりそうなら、こちらからごくーで連絡しておく（問い合わせを減らせる）</li>
+      </ul>
+    </div></details>
+
+    <details><summary>商品が「合うか」聞かれた（適合確認）</summary><div class="body">
+      <p>品番が特定できないものは、メーカーへの確認をお願いする。楽天・Yahoo!の<b>購入前</b>の適合確認は返信せずに完了にする運用（2026-10時点）。購入後の適合相談は先輩に。</p>
+    </div></details>
+
+    <details><summary>領収書・請求書・納品書がほしいと言われた</summary><div class="body">
+      <ul>
+        <li>楽天：出荷後の完了メールで発行方法を案内。Yahoo!：発行方法のページを案内し、迷惑メールフォルダの確認もお願いする</li>
+        <li>見積書・請求書・納品書：ごくーの「帳票を作成」から出して送る</li>
+      </ul>
+    </div></details>
+
+    <details><summary>返品・交換したいと言われた</summary><div class="body">
+      <p>お客様都合の返品・交換は受けない。ただし<b>当店の不備</b>（梱包が足りず破損、掲載内容の誤り、誤出荷、数量不足）がないかを必ず確認してから断る。不備があれば交換・再出荷を山梨に依頼し、返金は経理に依頼する。自社製品（工事士キット・アウプス・オートミスト）は返品交換か返金で対応。</p>
+    </div></details>
+
+    <details><summary>仕入先から「廃番」「欠品」「価格改定」の連絡が来た</summary><div class="body">
+      <ul>
+        <li><b>廃番・手配不可</b>：手配できないのでキャンセル（上の当社都合の手順）。在庫分（ZX）の注文なら明細から削除し、発注点・適正在庫・ロットも消す</li>
+        <li><b>欠品・納期未定</b>：発注書の「仕入先回答」に状況を入れ、該当の注文のお客様へごくーから連絡</li>
+        <li><b>定価改定</b>：商品の「DN_基本価格」を更新。<b>仕入価格改定</b>：発注書の金額と優先仕入先の仕入金額を更新。店長にも共有（店長グループ）</li>
+      </ul>
+    </div></details>
+
+    <details><summary>誰の入金かわからない（不明入金）</summary><div class="body">
+      <p>入金チェックリストの「伝票・締請求番号」が空欄の入金が対象。ごくーの「発送前入金待ち」から、5桁の数字（注文番号）・名前・金額・入金日に近い注文日を手がかりに探す。見つかったらリストに注文番号を入れ、ごくーの入金日に<b>今日</b>の日付を入れる。金額が合わないときは経理に確認してから、不足なら追加の振込を、過入金なら返金をお客様に連絡。見つからなければ備考に「○月○日 調査結果不明」と書いて残す。</p>
+    </div></details>
+
+    <details><summary>楽天の送料が「-9999」になっている（沖縄・離島）</summary><div class="body">
+      <p>ごくーの「OPT」に入る。沖縄はキャンセル、離島は出荷する。ごくーの注文編集で送料を直し（離島の送料は楽天の店舗ページの配送案内にある。目安として3,979円以下は0円でよい）、「注文確認」を押して「楽天処理中」へ移す。</p>
+    </div></details>
+
+    <details><summary>RPAが止まった・エラーの通知が来た</summary><div class="body">
+      <p>自分では直さず<b>システム課</b>へ。システム課はOrchestratorでジョブを止め、原因（たいていはごくーのポップアップ）を取り除いて再実行する。8:30には失敗したジョブを自動で再実行する仕組みもある。それでも動かないときだけ、取込・出荷指示・送り状を手で行う（手順はシステム課が持っている）。</p>
+    </div></details>
+  </section>
+
+  <section id="ec-roles">
+    <div class="sec-eyebrow">EC編 3</div>
+    <h2>役割ごとの「自分がやること」</h2>
+    <p class="sec-lede">同じ流れを、役割別に切り直したものです。自分の役割の欄だけ覚えれば、まず1日が回ります。</p>
+    <div class="roles">
+      <div class="role"><h4>業務課（発注担当）</h4><ul><li>朝7時：発注書をFAX／仕入先サイト／メールに振り分けて発注</li><li>仕入先からの納期・欠品・価格改定の連絡を確認して反映</li><li>発注点の調整、廃番の処理</li><li>山梨倉庫からの数量違い・破損・誤入庫の依頼に対応</li></ul></div>
+      <div class="role"><h4>業務課（受領・出荷担当）</h4><ul><li>1日3回の受領チェック（オラクル×エアロジの照合）</li><li>入荷が遅れている商品・予定日が空白の商品の追跡と、仕入先への確認</li><li>納品書と受領データの突合</li><li>本社からの出荷（ネコポス・依頼品）、返品の受け入れ</li><li>13時の入金待ちの照合、納期・キャンセルの問い合わせ対応</li></ul></div>
+      <div class="role"><h4>EC顧客対応</h4><ul><li>朝：社内のキャンセル依頼、楽天RMS・Yahoo!・メールワイズ・LINEの問い合わせを古い順に</li><li>納期案内、配送状況、領収書、返品交換、誤配送</li><li>後払いNG・振込期限切れ・沖縄離島の注文の取消</li><li>返金が必要なら経理グループへ依頼</li></ul></div>
+      <div class="role"><h4>システム課</h4><ul><li>朝：夜間RPAの結果確認、異常の復旧</li><li>日中：取込・出荷指示・送り状の各回が通ったかの監視</li><li>FAX納期回答の仕分け・スキャン・委託入力・照合、長納期のお客様連絡</li><li>銀行振込の入金伝票の作成</li></ul></div>
+      <div class="role"><h4>モール店長（EC課）</h4><ul><li>前日の注文・売上の確認</li><li>商品ページの作成と更新、納期表示の修正</li><li>価格の調査と調整、価格改定の反映</li><li>不動在庫・中止品の在庫連携の設定</li></ul></div>
+      <div class="role"><h4>山梨倉庫</h4><ul><li>営業前：当日出荷分の準備、伝票の印刷</li><li>ピッキング → 梱包 → 送り状 → 出荷</li><li>入荷の棚入れ、エアロジへの入庫実績の登録</li><li>営業後：出荷漏れの確認、急ぎの持ち込み</li></ul></div>
+      <div class="role"><h4>経理・総務</h4><ul><li>毎朝：銀行入金をリストに転記、オラクルへ入金登録</li><li>月次：モール入金と売上の照合、Amazon入金の処理</li><li>返金の振込</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===== Amazonベンダー・セラー編 ===== -->
+  <section id="amazon">
+    <div class="sec-eyebrow">Amazon編</div>
+    <h2>Amazonには「ベンダー」と「セラー」がある</h2>
+    <p class="sec-lede">Amazonだけ、売り方が2つあります。<b>ベンダー</b>はAmazonが電池屋から仕入れて売る形（電池屋はAmazonからの発注に応える）。<b>セラー</b>は電池屋が出品者として売る形で、Amazonの倉庫から出す<b>FBA</b>も使います。セラーの自己配送分はEC編の流れに乗ります。</p>
+
+    <h3>ベンダー（Amazonからの発注に応える）</h3>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>Amazonから発注（PO）が来る</h4>
+        <p class="sum">ベンダーセントラルのアカウントは5つ。毎日、受注・商品・価格・引当の状況を見に行きます。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>ベンダー担当（経営管理）</b>が毎朝5アカウントを確認し、受注データをダウンロード → 社内の形式に加工 → ベンダーシステムへ反映</li><li>在庫が引き当たらない受注は、倉庫や仕入先にフォロー</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>POの一覧はAmazonベンダーMCP（社内コネクタ）でも照会できる</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>ベンダーセントラル、Excel、オラクル</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>仕入れて、Amazonの倉庫へ納品する</h4>
+        <p class="sum">ベンダー分の発注は午前中にまとめて処理し、商品がそろったらAmazonの指定倉庫へ納品します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>業務課（発注担当）</b>が午前中にベンダーセントラル分の発注を処理（スプレッドシートで管理）。キャンセルが出たら同じシートに入力</li><li>出荷・納品の手配は山梨倉庫と連携</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>ベンダーの売上・返品データをオラクルへ登録するRPAがある（手動起動）</li><li>毎朝7:00、依頼・取消の一覧をコダックがDMで知らせる（2026-10〜）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>ベンダーセントラル、スプレッドシート、オラクル、エアロジ</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>商品を増やす（登録の判断）</h4>
+        <p class="sum">Amazonから届く商品データをもとに、「売って利益が出るか」「危険物に当たらないか」を見て、登録するかを決めます。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>商品データを取得 → <b>Claudeで利益と危険物を確認</b> → 登録するか判断</li><li>未登録の商品は仕入先サイトから情報を取り、登録用Excelに反映 → オラクルに登録 → ベンダーセントラルに登録</li><li>利益と市況に合わせて販売価格を更新</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>仕入先サイトからの情報取得は一部スクレイピングで自動化</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>ベンダーセントラル、Claude、仕入先サイト、オラクル</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>お金</h4>
+        <p class="sum">Amazonからの入金は月に数回まとまって入ります。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>経理・総務</b>がAmazonからの入金を処理し、合計と差額を経理に報告</li><li>週次の全社業績（売上・仕入・手数料・粗利）は<b>経営管理</b>が集計して役員に報告</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>Amazonの請求額と入金額の整合性チェック、Amazon Payの明細ダウンロード</li></ul></div>
+        </div>
+      </div></div>
+    </div>
+
+    <h3>セラー（FBA＝Amazonの倉庫から出す）</h3>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>売る商品を探す</h4>
+        <p class="sum">外部のリサーチツールで需要・競合・価格を集め、出品できるか・利益が出るかを判断します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>Amazonセラー担当（EC課）</b>がリサーチ → 掲載可否と利益を判断 → 管理表に記録 → 候補商品の見積を仕入先に依頼</li><li>商品ページの作成・写真のアップロード・競合の掲載確認は外部委託に指示</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>出品制限・競合価格・手数料の見積はAmazonセラーMCPでも引ける</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>仕入れて、FBA倉庫へ送る</h4>
+        <p class="sum">山梨倉庫からAmazonのFBA倉庫へ納品しておき、注文が入るとAmazonが出荷します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>在庫切れの商品を追加発注。発注残と仕入先の納期連絡を確認</li><li>FBAへの納品を手配し、Chatworkの<b>【山梨】FBA出荷依頼・相談グループ</b>にリストとピッキングリストを添えて依頼 → 山梨が出荷して完了報告</li><li>自己配送の注文は、当日出荷分の引当を毎日確認し、足りなければ倉庫に入荷を指示。配送ラベルとピッキングリストを倉庫に送る</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>FBAの注文取込、FBA在庫とオラクルの同期、FBA向けの発注点発注</li><li>自己配送分はEC編の流れ（取込→出荷指示→出荷通知）に乗る</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>セラーセントラル、在庫管理表、エアロジ、オラクル</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>価格・お客様対応・返品</h4>
+        <p class="sum">Amazonは価格競争が激しく、返品もAmazonのルールで受けます。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>週1回、不動在庫の値下げと競合最安値への追従</li><li>Amazon経由の問い合わせ対応、店舗レビューの確認、Amazonからの商品ページ修正依頼への対応（放置すると掲載停止になる）</li><li>返品：返金処理 → 再販できるかを記録 → 再販品の出荷準備</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>Amazonからの返品・出荷後のレビュー依頼</li></ul></div>
+        </div>
+      </div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>窓口：</b>ベンダーの売上処理の依頼は「オラクル商品整理グループ」（名前と違ってベンダーの依頼に使われている）。FBAの出荷は「【山梨】FBA出荷依頼・相談グループ」。</p>
+  </section>
+
+  <!-- ===== 入札編 ===== -->
+  <section id="nyusatsu">
+    <div class="sec-eyebrow">入札編</div>
+    <h2>公告を見つけてから、納品してお金になるまで</h2>
+    <p class="sec-lede">自治体などの入札に参加し、落札したら中国の工場から調達して全国の納品先へ届ける商流です。1案件が数か月。役所指定の紙の書式・手書き・窓口への持参が今も多く、締切の管理が命です。担当は<b>入札課</b>（案件担当・台帳担当・海外調達担当）と<b>総務</b>（申請手続き・契約書・資金）。</p>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>案件を見つける</h4>
+        <p class="sum">入札情報サイトの公告を集め、参加できそうな案件を拾います。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>入札情報サイトをスクレイピングで取得。外注業者がキーワードで一次精査してスプレッドシートに入れる</li></ul></div>
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>台帳担当</b>が毎日、新しい案件を確認し、入札説明書・仕様書を取ってDropboxに保存。案件台帳に 案件名／4つの締切（参加申請・質問・同等品申請・入札書）／提出方法／参加可否 を登録</li><li><b>案件担当</b>が参加資格・発注規模・過去の落札情報を見て優先度を決める</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>入札情報サイト、スプレッドシート（案件台帳）、Dropbox</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>参加申請・同等品申請・質問</h4>
+        <p class="sum">参加の申請、指定品と違う製品で参加するための「同等品申請」、仕様の不明点の質問を、それぞれの締切までに出します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>案件担当</b>：参加申請書を役所指定の書式で作り、電子・紙・窓口で提出（月60件規模）</li><li><b>案件担当</b>：同等品申請。製品カタログ・出荷証明書を集め、参考品と自社候補の仕様を並べた<b>性能比較表</b>を作って提出 → 結果を確認</li><li><b>海外調達担当</b>：中国工場の資料を翻訳・編集して申請資料をそろえる。試験の手配やサンプルの準備</li><li><b>総務</b>：都道府県ごとに違う申請要件に対応（必要なら行政書士へ）。申請書は県別に保管</li><li>協業会社との参加可否・見積・書類のやりとりは<b>台帳担当</b>が窓口</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>なし（締切の管理は台帳担当が毎日確認）</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>価格を決めて入札する</h4>
+        <p class="sum">過去の落札価格・仕様・数量・原価から応札価格を決め、入札書を期限内に出します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>類似案件の検索 → 原価の積算（工場見積・物流費・関税・為替）→ 落札ラインの推定 → 応札価格の決定（上長・経営層の決裁）</li><li>入札書（必要なら内訳書も）を役所指定の書式で作成・提出</li><li>安く入れたときは「低入札調査」で価格の根拠と履行できることを説明</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>なし。過去落札のDB化は改善候補</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>落札したら契約する</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>総務</b>：契約書の押印 → 袋綴じ → 返送。年度ごとに保管。電子契約は担当者から共有してもらう</li><li><b>海外調達担当</b>：契約保証の手続き</li><li>開札後は、自社と落札者の価格差・落札業者・納入製品を調べて次に活かす</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>中国の工場から調達する</h4>
+        <p class="sum">工場を選び、発注し、生産を追い、検査して船に載せます。中国からの返信は夜に届くので、朝の確認が日課です。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>海外調達担当</b>：候補工場の抽出・打診・見積比較・監査（必要なら現地訪問）</li><li>発注：PI（見積請求書）を取り、前金・残金の送金時期を管理。役所の仕様を中国語に訳して工場に伝える</li><li>生産管理：仕様の適合確認、進み具合の確認、サンプル承認、出荷前検査の指示と結果確認、梱包仕様書、納品先ごとのラベル指示</li><li>輸入・通関：船積みの日程と船便の予約。インボイス・パッキングリスト・B/L・原産地証明・HSコード・関税率の確認と、書類どうしの食い違いの解消。通関業者からの照会に回答</li><li><b>経理</b>：海外送金の内容確認と銀行手続き</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>なし（中国側の進捗確認の自動化は改善候補）</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>メール・チャット・翻訳ツール、Excel、オラクル（案件・原価）</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>全国の納品先へ届ける</h4>
+        <p class="sum">入港した貨物を倉庫に入れ、外注業者が納品先へ運びます。納品先が多いと日程調整が大変です。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>案件担当</b>：サンプルを役所へ持参して量産の可否を確認 → 外注業者に納品先情報を渡して日程案を作成 → 役所に提出 → 調整が必要な納品先と直接調整 → 受け取り不可・業者都合の再調整</li><li><b>海外調達担当</b>：配送の見積と業者選定、入庫数量と外装の確認、近隣倉庫・横持ち・荷役人員の手配、納品時の立会検査</li><li>納品後：受領書の不備確認 → 完了書類を役所へ提出。発注者の訓練への立会・操作説明・取扱説明資料</li><li>不具合が出たら：受付 → 原因確認 → 交換品・補修部品の手配 → 説明 → 報告書</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>請求して、入金を確かめる</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>案件担当</b>：納品完了後、役所の様式で請求書を発行</li><li><b>総務</b>：請求・入金の状況と、中国への先払いの予定を担当者に確認し、借入が必要かを判断（銀行との窓口）</li><li><b>海外調達担当</b>：案件ごとの原価を確定し、粗利と、見積と実績の差を検証</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>営業部・入札部の未入金チェック（RPA、手動起動）</li></ul></div>
+        </div>
+      </div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>よくある例外：</b>仕様変更が出たら規格・原価・納期への影響を再確認する ／ 生産が遅れたら納期・出荷・納品先の調整 ／ 同業他社と接触したら内容を記録する（コンプライアンス）。<b>窓口：</b>入札課の案件担当へ。資金のことは総務へ。</p>
+  </section>
+
+  <!-- ===== 営業卸編 ===== -->
+  <section id="eigyo">
+    <div class="sec-eyebrow">営業卸編</div>
+    <h2>メール・FAX・電話で受ける、昔ながらの卸売</h2>
+    <p class="sec-lede">電気工事会社などのお得意先から、メール・FAX・電話で注文と見積依頼が届きます。オラクルが台帳で、受注登録・見積作成・売上転記などの定型作業は<b>ランサーズ（外部委託スタッフ）</b>に出し、社内は照合と判断を担います。担当は<b>営業課</b>と<b>営業補佐</b>。</p>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>受ける</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li><b>営業課</b>がメール（月130件）とFAX（月90件）を確認し、注文・見積依頼・問い合わせ・仕入先の回答に振り分ける</li><li>電話は fondesk（電話代行）が受け、通知を見て担当者へ回す</li><li>朝9時の朝礼で、当日の発注・見積・納期・配達の予定を共有</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>fondeskの着信はChatworkの「fondesk通知グループ」に流れる</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>見積を出す</h4>
+        <p class="sum">在庫と価格を確かめ、見積書を作って送ります。作成はランサーズ、照合と送付は社内。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>オラクルで在庫を確認 → 無ければメーカー在庫を確認 → オラクルに無い品番や価格未定の品は仕入先に見積を依頼し、必要なら新しい品番を登録</li><li>ランサーズに見積作成を依頼（依頼書・顧客コード・品番・数量をスクショ付きで）→ 作成されたものを依頼書と照合 → 備考・納期を補って送付</li><li>急ぎの依頼は先に処理</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>オラクル、メーカーの在庫サイト、メール・FAX、ランサーズのチャット</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>受注して、仕入れる</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>受注内容を確認 → ランサーズに受注登録を依頼 → 登録内容を注文書と照合（品番がない・顧客コードがわからない等の確認に答える）</li><li>在庫が無い品と直送品を確認 → 発注書を作成して仕入先へ送付。直送（仕入先からお客様へ直接）の切替もランサーズに依頼できる</li><li>キャンセルは、発注・出荷・仕入先の手配状況を見て可否を判断</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>営業分の出荷データはコダックが「【営業部】山梨へ連絡・相談グループ」に配信</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>オラクル（注文番号は <code>OR…A</code>＝山梨出荷、<code>OR…H</code>＝本社出荷・直送）</div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>届ける</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>当日出荷予定の確認と、当日出荷の依頼への対応</li><li>出荷状況の回答、仕入先への納期確認、メール・FAXでの納期回答、納期変更の連絡</li><li>未着：自社出荷分は送り状番号を伝え、メーカー直送分は仕入先に問い合わせ</li><li><b>営業補佐</b>：入荷して納品書が出たら内容を確認 → 車に積み込み → お得意先へ配達（月40時間規模）</li><li>出荷当日にシステムの在庫と現物が合わないときは、差異を確認し、欠品なら再手配してお客様に連絡</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>請求して、入金を確かめる</h4>
+        <p class="sum">前払いのお客様は入金を見てから出荷。掛売のお客様は月末に締め請求書を出します。</p>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>毎朝、昨日出荷分の売上転記（ランサーズ作業）が済んでいるかを確認。受注番号から配送伝票・請求書番号・金額を照合</li><li>銀行振込の前払い：請求書を送り、昼前に入金を確認。未入金なら催促</li><li>月末：締め請求書の作成と送付。納品書の送付、お客様指定の請求書兼納品書や検収伝票にも対応</li><li><b>経理・総務</b>：20日・25日・月末締めの請求書を作り、入金を売掛に消し込む。0円締めの処理</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>転記漏れの指摘がコダックから届く</li></ul></div>
+        </div>
+      </div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>窓口：</b>ランサーズへの依頼は「業務サポート」グループ。入金・返金は「【経理】入金・返金などのグループ」。締め請求書が作れないときの対処は営業課に手順があります。</p>
+  </section>
+
+  <!-- ===== 製造編 ===== -->
+  <section id="seizo">
+    <div class="sec-eyebrow">製造編</div>
+    <h2>電工試験キットを作る</h2>
+    <p class="sec-lede">電気工事士の実技試験の練習キット（候補問題13問ぶん）を自社で作り、ECで売っています。南甲府作業場で電線を加工し、山梨事業所の4人チームが袋詰め・箱詰めします。完成品はエアロジに登録し、EC編の流れで出荷されます。</p>
+    <div class="steps">
+      <div class="step"><div class="n"></div><div>
+        <h4>準備：何を何本作るか決める</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>候補問題13問の配線図から、必要な電線（約15種類）と器具を把握し、電線ごとの合計寸法を確認</li><li>月の作成目標と当日の予定数から、器具・部材の必要数を確認</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>電線を加工する（南甲府）</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>短い電線：自動切断機で指定の寸法・本数に切る → 5種類ずつビニールテープでまとめる</li><li>長い電線：自動巻取機で束取りする → ほどけないようにテープで留める</li><li>加工した電線を所定の場所に置く</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>器具を袋詰めして、箱に詰める（山梨）</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>部品を小分け → 器具を所定の組み合わせで袋詰め</li><li>ケーブルを指定の長さに切断して束ねる</li><li>段ボールを組み立て、袋詰めした器具と束ねたケーブルを箱に詰めて完成品にする</li></ul></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="n"></div><div>
+        <h4>数を記録して、出荷拠点へ運ぶ</h4>
+        <div class="cols">
+          <div class="col"><div class="h"><span class="who h">👤 人</span>やること</div><ul><li>1パレット作るごとに、作成スプレッドシートと<b>エアロジ</b>の両方に制作数を入力（今は二重入力。改善候補）</li><li>出荷拠点の在庫が減ってきたら、必要なパレット数を選んで運ぶ</li><li>月末：部品・袋詰め済みの部材・完成品・段ボールをすべて数えて棚卸</li></ul></div>
+          <div class="col"><div class="h"><span class="who r">🤖 自動</span>起きること</div><ul><li>エアロジに登録した完成品は、ECの注文（<code>OR…DK</code>）で引き当てられて出荷される</li></ul></div>
+        </div>
+        <div class="sys"><b>システム：</b>作成スプレッドシート、エアロジ</div>
+      </div></div>
+    </div>
+    <p class="note" style="margin-top:14px"><b>窓口：</b>山梨スタッフの連絡は「【山梨】スタッフ連絡グループ」。資材は「【備品】購入依頼グループ」。</p>
+  </section>
+
+  <!-- ===== お金の受け皿：経理・総務 ===== -->
+  <section id="keiri">
+    <div class="sec-eyebrow">お金編</div>
+    <h2>すべての商流のお金は経理・総務に集まる</h2>
+    <p class="sec-lede">どの商流も最後は「請求して入金を確かめる」で終わります。その受け皿が経理・総務です。新人が覚えるべきは、自分の商流のお金が<b>どこで誰に渡るか</b>だけです。</p>
+    <div class="grid">
+      <div class="card"><h4>毎日</h4><ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)"><li>銀行の入金を入金チェックリストに転記し、オラクルで売掛に消し込む（総務）</li><li>各銀行の残高を確認（経理）</li><li>経費精算・小口現金・返金依頼の確認（経理）。振込の実行は支払担当</li><li>ごくーの「発送前入金待ち」との照合（業務課・13時）</li></ul></div>
+      <div class="card"><h4>月次</h4><ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)"><li>掛売の締め請求書（20日・25日・月末）と0円締め（総務）</li><li>楽天・Yahoo!・本館の入金と売上の照合、Amazon入金の処理（経理・総務）</li><li>仕入先の請求書と支払（支払担当・経理）</li><li>月次決算：銀行仕訳・売掛買掛の確認・財務諸表の確認 → 会計データをJDLへ移して税理士へ（経理）</li><li>勤怠の締め（15日）と社労士への提出（総務）</li></ul></div>
+      <div class="card"><h4>自分の商流からの渡し方</h4><ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)"><li><b>EC</b>：返金が要るときは「【経理】入金・返金などのグループ」に依頼</li><li><b>Amazon</b>：ベンダーの売上処理はシートに追加して依頼</li><li><b>入札</b>：請求・入金・先払いの予定を総務に伝える（資金繰りの判断に使う）</li><li><b>営業卸</b>：請求書兼納品書や単発の請求書は経理へ回付</li></ul></div>
+    </div>
+  </section>
+
+
+  <!-- ===== 付録 ===== -->
+  <section id="glossary">
+    <div class="sec-eyebrow">付録</div>
+    <h2>用語集</h2>
+    <div class="tbl"><table>
+      <tr><th>用語</th><th>意味</th></tr>
+      <tr><td class="k">注文書 ／ 発注書</td><td>注文書＝お客様からの注文（オラクルの受注）。発注書＝仕入先への注文。別物で、紐付けて管理する</td></tr>
+      <tr><td class="k">オラ移動待ち</td><td>ごくーで「オラクルに取り込んでよい」状態の注文。RPAがここから拾う</td></tr>
+      <tr><td class="k">配送保留 ／ 請求保留</td><td>オラクルの注文の状態。配送保留＝出荷前。請求保留＝出荷指示を出した後（倉庫で作業中）</td></tr>
+      <tr><td class="k">全アイテム確保済</td><td>注文の商品がすべて在庫で確保できた状態。これで出荷指示に進める</td></tr>
+      <tr><td class="k">完了予定日</td><td>お客様へのお届け予定日。取込時にオラクルの注文書に自動で入る</td></tr>
+      <tr><td class="k">発注点発注</td><td>在庫が決めた数（発注点）を下回ったら自動で発注する仕組み</td></tr>
+      <tr><td class="k">受領 ／ 入庫実績</td><td>倉庫に商品が入ったこと（エアロジの入庫実績）を、オラクルの発注書に「受け取った」と記録する作業</td></tr>
+      <tr><td class="k">直送</td><td>仕入先からお客様へ直接送る形。倉庫を通らないので、売上は別に転記する</td></tr>
+      <tr><td class="k">取込漏れ</td><td>注文がオラクルに登録されていない状態。差分チェックで見つけて補う</td></tr>
+      <tr><td class="k">問い合わせ番号</td><td>送り状の追跡番号。出荷後にエアロジ→オラクル→ごくー→モールと戻り、お客様に届く</td></tr>
+      <tr><td class="k">SmartCat</td><td>山梨倉庫で使うヤマトの伝票システム。ピッキングリストと送り状が一体</td></tr>
+      <tr><td class="k">柏センコー</td><td>山梨とは別の倉庫（物流会社センコーの柏拠点）。RPAも別系統で動く</td></tr>
+      <tr><td class="k">FBA</td><td>Amazonの倉庫から出荷する方式。山梨からFBA倉庫へ納品しておく</td></tr>
+      <tr><td class="k">相当品</td><td>指定品番と同等の別商品。ごくーの「相当品」ステータスの注文は営業が電話で確認する</td></tr>
+      <tr><td class="k">不動在庫</td><td>30日以上売れていない在庫。店長が値下げや処分を判断する</td></tr>
+      <tr><td class="k">コダック</td><td>ChatworkでRPAや監視の結果を知らせてくるアカウント名</td></tr>
+    </table></div>
+  </section>
+
+  <footer>
+    出典：全社共有の業務詳細（2026年8月・23名分）、社内の業務フロー資料・手順書（2023〜2026年）、RPAのスケジュール（2026年10月時点）。手順の細部は変わるので、画面と食い違ったら現行の運用を優先し、システム課へ知らせてください。<br>
+    関連：<a href="https://takehiroichikura.github.io/denchiya/gyomu-map.html">電池屋 全業務マップ</a>（部署別の担当と工数）／ 作成：システム課
+  </footer>
+</div>
+
+</body>
+</html>
