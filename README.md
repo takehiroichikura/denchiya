@@ -37,7 +37,7 @@ MCP は招待コードがないと使えません。コードのもらい方と�
 |---|---|
 | [mcp-shikumi.html](./mcp-shikumi.html) | 電池屋MCPのしくみ（一般社員向け・技術の説明） |
 | [gyomu-map.html](./gyomu-map.html) | 電池屋 全業務マップ |
-| [gyomu-flow.html](./gyomu-flow.html) | 仕事の流れ（新人・中途向け）。注文が入ってからお金になるまでを、共通編＋商流別（EC・Amazon・入札・営業卸・製造・お金）の段階ごとに「自動で起きること／人がやること」で説明 |
+| [gyomu-flow.html](./gyomu-flow.html) | 仕事の流れ（新人・中途向け） |
 | [skill-map.html](./skill-map.html) | スキル化候補マップ |
 
 ### 入口
