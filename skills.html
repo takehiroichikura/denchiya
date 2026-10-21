@@ -155,7 +155,7 @@
     <table>
       <thead><tr><th style="width:22%">スキル</th><th style="width:34%">何をしてくれるか</th><th style="width:30%">こう呼ぶ</th><th>使うコネクタ</th></tr></thead>
       <tbody>
-        <tr><td><b>業務の流れを知る</b><br><code>ec-gyomu-flow</code></td><td>受注→出荷→請求の流れ、GoQ・NetSuite・エアロジ・RPA がそれぞれ何をしているか、どのジョブが何を動かすか。新人説明や引き継ぎに</td><td class="ex"><q>受注から出荷までの流れを教えて</q> <q>1_注文取込 のジョブは何をする？</q> <q>在庫連携の仕組みは？</q></td><td>—</td></tr>
+        <tr><td><b>業務の流れを知る</b><br><code>denchiya-gyomu</code></td><td>全部署の業務マニュアル。受注→出荷→お金の流れ、キャンセル・入金・問い合わせの手順、部署ごとの作業（EC・Amazon・営業卸・入札・製造・経理総務）、GoQ・NetSuite・エアロジ・RPA の役割と各ジョブの中身。新人説明や引き継ぎに</td><td class="ex"><q>受注から出荷までの流れを教えて</q> <q>キャンセルの手順は？</q> <q>1_注文取込 のジョブは何をする？</q> <q>入札の流れを教えて</q></td><td>—</td></tr>
         <tr><td><b>ネット分の発注</b><br><code>net-hatchu-chuiten</code></td><td>仕入先ごとの発注方法（FAX・ネット・メール）・送料条件・直送可否・発注画面の入力レベル。注文番号の見分け方（OR＝取り寄せ、ZX/Z＝在庫、AMZ、A/H＝営業分）。廃番・手配不可のときの処理</td><td class="ex"><q>ミツワ電機への発注方法は？</q> <q>OR939479A ってどういう注文？</q> <q>直送できる仕入先？</q></td><td>NetSuite</td></tr>
         <tr><td><b>納期管理</b><br><code>nouki-kanri</code></td><td>FAX で届いた納期回答を画像・PDF から読み取って NetSuite 取込用の CSV にする。保存検索から「今日催促すべき発注書」を除外ルール込みで抽出する</td><td class="ex"><q>このFAXの納期を入力したい</q> <q>催促リストを出して</q> <q>入荷予定日が空白の発注を整理して</q></td><td>NetSuite</td></tr>
         <tr><td><b>入金チェック</b><br><code>nyukin-shogo</code></td><td>振込名義と金額から「どの注文・請求の入金か」の候補を出す。台帳の D列を埋める下書き。合算や振込手数料込みの照合も。<b>記入と登録は人が行います</b></td><td class="ex"><q>これどの注文？（台帳の行を貼る）</q> <q>202609 の未記入行をまとめて</q> <q>〇〇商事から入金あった？</q></td><td>本館受注・NetSuite・Yahoo</td></tr>
